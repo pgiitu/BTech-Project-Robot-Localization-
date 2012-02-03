@@ -45,6 +45,7 @@ public:
 			const boost::numeric::ublas::vector< T > &b );
 
 
+	bool CheckInside(Point& pt,Polygon& polygon);
 	//Functions to calculate shortest path and edge visibility.
 	bool IsInsidePolygon(Point& p1, Point& p2, Polygon& polygon);
 	graph_t PrepareVisibilityGraph(Polygon& map);

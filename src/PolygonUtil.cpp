@@ -12,11 +12,16 @@
 #include <math.h>
 #include <stack>
 
+#include <boost/config.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_io.hpp>
+#include <boost/graph/dijkstra_shortest_paths.hpp>
+#include <boost/graph/graph_traits.hpp>
+#include <boost/graph/adjacency_list.hpp>
 
 #define E 0.00001
-using namespace boost::numeric::ublas;
+using namespace boost;
+//using namespace boost::numeric::ublas;
 //using namespace std;
 Point fixedPoint;
 
@@ -46,9 +51,10 @@ bool PolygonUtil::IsReflex(Polygon &polygon,Point &point){
 	Point right = Right(polygon, point);
 	Point left  = Left(polygon, point);
 
-	vector<double> R(2);
-	vector<double> L(2);
-	vector<double> P(2);
+
+	boost::numeric::ublas::vector<double> R(2);
+	boost::numeric::ublas::vector<double> L(2);
+	boost::numeric::ublas::vector<double> P(2);
 
 	R(0) = right.cartesian(0);
 	R(1) = right.cartesian(1);
@@ -214,9 +220,9 @@ bool PolygonUtil::IsPointOnSegment(Point source, Point target, Point check)
 	Segment edge(source,target);
 	if(check!=target && (CGAL::squared_distance(source,check)<CGAL::squared_distance(source,target)))
 	{
-		vector<double> R(2);
-		vector<double> L(2);
-		vector<double> P(2);
+		boost::numeric::ublas::vector<double> R(2);
+		boost::numeric::ublas::vector<double> L(2);
+		boost::numeric::ublas::vector<double> P(2);
 
 		R(0) = source.cartesian(0);
 		R(1) = source.cartesian(1);
@@ -414,7 +420,43 @@ T PolygonUtil::scalar_cross_product( const boost::numeric::ublas::vector< T > &a
 
 bool PolygonUtil::IsInsidePolygon(Point& p1, Point& p2, Polygon& polygon){
 
-	return false;
+	Segment halfedge(p1,p2);
+
+	Point intPoint;
+	Segment intSegment;
+
+	for (EdgeIterator ei = polygon.edges_begin(); ei != polygon.edges_end(); ++ei)
+	{
+		Object obj=CGAL::intersection(halfedge,*ei);
+		if(CGAL::assign(intPoint,obj))
+		{
+			if(! (Equals(intPoint, p1) || Equals(intPoint,p2))  )
+			{
+				return false;
+			}
+		}
+	}
+
+	Point midPt((p1.cartesian(0)+p2.cartesian(0))/2, (p1.cartesian(1)+p2.cartesian(1))/2);
+	return (CheckInside(midPt, polygon));
+}
+
+
+bool PolygonUtil::CheckInside(Point& pt,Polygon& polygon)
+{
+	bool flag = false;
+	Point *pgn_begin = polygon.vertices_begin().base();
+	Point *pgn_end = polygon.vertices_end().base();
+
+	switch(CGAL::bounded_side_2(pgn_begin, pgn_end,pt, K())) {
+	case CGAL::ON_BOUNDED_SIDE :
+		flag = true;
+		break;
+	case CGAL::ON_BOUNDARY:
+		flag = true;
+		break;
+	}
+	return flag;
 }
 
 
@@ -433,7 +475,6 @@ graph_t PolygonUtil::PrepareVisibilityGraph(Polygon& map){
 
 	for(int i = 0; i < n; i++){
 		for(int j = i+1; j < n; j++){
-			if(i == j)continue;
 
 			if(IsInsidePolygon(vertex[i], vertex[j], map)){
 				tuple<int, int> t(i,j);
@@ -443,12 +484,47 @@ graph_t PolygonUtil::PrepareVisibilityGraph(Polygon& map){
 	}
 
 	std::list<tuple<int, int> >::iterator it;
-	for(it = edgeList.begin(); it != edgeList.end(); it++){
+	std::cout<<"Edge list is \n";
 
+	int numEdges = edgeList.size();
+
+	Edge edge_array[numEdges];
+	int weights[numEdges];
+
+	i = 0;
+	for(it = edgeList.begin(); it != edgeList.end(); it++, i++){
+		int i = get<0>(*it);
+		int j = get<1>(*it);
+		edge_array[i] = Edge(i,j);
+		weights[i]    = CGAL::squared_distance(vertex[i],vertex[j]);
+		std::cout << "wt of edge ..("<<i<<","<<j <<") is "<<weights[i] <<"\n";//////
 	}
 
+	graph_t g(edge_array, edge_array + numEdges, weights, n);
+	property_map<graph_t, edge_weight_t>::type weightmap = get(edge_weight, g);
 
-	graph_t graph(edgeList.size());
+	std::vector<vertex_descriptor> p(num_vertices(g));
+	std::vector<int> d(num_vertices(g));
+	vertex_descriptor s = boost::vertex(0, g);
 
-	return graph;
+	char name[] = "ABCDEFGH";
+//	name[0]= '0';
+//	for(int i = 1; i < n; i++){
+//		name[i] = name[i-1]++;
+//		std::cout<<name[i]<<",";
+//	}
+	std::cout<<"--------\n";
+
+	boost::dijkstra_shortest_paths(g, s, predecessor_map(&p[0]).distance_map(&d[0]));
+
+//	std::cout << "distances and parents:" << std::endl;
+//	graph_traits < graph_t >::vertex_iterator vi, vend;
+//	for (tie(vi, vend) = vertices(g); vi != vend; ++vi) {
+//		std::cout << "distance("  << ") = " << d[*vi] << ", ";
+//		std::cout << "parent(" << name[*vi] << ") = " << name[p[*vi]] << std::
+//				endl;
+//	}
+//	std::cout << std::endl;
+
+	return g;
 }

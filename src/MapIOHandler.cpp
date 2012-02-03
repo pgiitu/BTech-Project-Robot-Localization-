@@ -23,7 +23,7 @@ MapIOHandler::~MapIOHandler() {
 Polygon MapIOHandler::GetMapPolygon(){
 
 	//	Point points[] = { Point(0,0), Point(5.1,0), Point(1,1), Point(0.5,6)};
-	//	Point points[]={Point(-1,-1),Point(-1,-2),Point(1,-2),Point(0,0),Point(1,0),Point(0,1),Point(-1,0),Point(0,-1)};
+		Point points[]={Point(-1,-1),Point(-1,-2),Point(1,-2),Point(0,0),Point(1,0),Point(0,1),Point(-1,0),Point(0,-1)};
 	//	Point points[]={Point(1.0,-2.0),Point(1.0,0.0),Point(0.0,1.0),Point(-1.0,0.0),Point(0.0,0.0),Point(0.0,-2.0)};
 /*
 	Point points[]={Point(0,-1),Point(10,-1),Point(10,3),Point(11,3),Point(11,4),
@@ -36,8 +36,8 @@ Polygon MapIOHandler::GetMapPolygon(){
 
 	//	Point points[]={Point(-1,-1),Point(1,-1)};
 
-		Point points[]={Point(0,0),Point(4,0),Point(4,4),Point(0,4)};
-		Polygon pgn(points, points+4);
+//		Point points[]={Point(0,0),Point(4,0),Point(4,4),Point(0,4)};
+		Polygon pgn(points, points+8);
 
 		return pgn;
 }

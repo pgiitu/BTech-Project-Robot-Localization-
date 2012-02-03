@@ -40,9 +40,9 @@ Point center(1,1);
 void display()
 {
 
-	Majoritymap mmap(no_of_hypothesis,points,center,mapP);
-	mmap.GenerateMajorityMap();
-	mmap.PrintMajorityMap();
+//	Majoritymap mmap(no_of_hypothesis,points,center,mapP);
+//	mmap.GenerateMajorityMap();
+//	mmap.PrintMajorityMap();
 
 /*
 	HypothesisGenerator g = HypothesisGenerator(mapP, visP, robotPos);
@@ -66,6 +66,8 @@ void display()
 
 
 int main(int argc, char ** argv) {
+
+	  graph_t g = pUtil.PrepareVisibilityGraph(mapP);
 
 	  glutInit( &argc, argv );
 	  glutInitDisplayMode( GLUT_RGB | GLUT_SINGLE );

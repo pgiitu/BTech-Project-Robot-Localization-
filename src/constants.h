@@ -35,6 +35,7 @@
 
 using namespace boost;
 
+
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef K::Point_2 Point;
 typedef CGAL::Polygon_2<K> Polygon;
@@ -56,10 +57,16 @@ typedef Traits_2::X_monotone_curve_2 Segment_2;
 typedef CGAL::Arrangement_2<Traits_2> Arrangement;
 
 
+
 typedef adjacency_list < listS, vecS, undirectedS,
     no_property, property < edge_weight_t, int > > graph_t;
+typedef graph_traits < graph_t >::vertex_descriptor vertex_descriptor;
+typedef graph_traits < graph_t >::edge_descriptor edge_descriptor;
+typedef std::pair<int, int> Edge;
 
 
 //typedef std::list<Point> list;
+
+
 
 #endif /* CONSTANTS_H_ */
