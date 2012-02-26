@@ -2,6 +2,9 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage{color}
+\usepackage{subfigure}
+\usepackage{graphicx}
 
 %opening
 \title{Robot Localization Simulator}
@@ -14,24 +17,160 @@
 \begin{abstract}
 In this project we explore the various algorithms for the Robot Localization Problem and build a simulator to visualize the results on
 various 2D maps.
-Robot localization is an important problem in robotics. Stated simply the robot localization problem is as follows. A robot is 
+Robot localization is an important problem in robotics. Stated simply, the robot localization problem is as follows. A robot is 
 placed at an unknown point inside a simple polygon $ P $. The robot has a map of 
 $ P$ and can compute visibility polygon from its current location. The robot must determine its correct 
-location inside the polygon $P $ at a minimum cost of travel distance. We implement a ${O(\log^3 n)} $ factor approximation algorithm 
-as given by \cite{key1}
+location inside the polygon $P $ at a minimum cost of travel distance. We implement an ${O(\log^3 n)} $ factor approximation algorithm 
+as given by \cite{key1}. CGAL \cite{key2} has been used for the various computational geometry algorithms.
 
 \end{abstract}
 
 \newpage
 
 \section{Computing Visibility Polygons}
+Visibility polygon is an indispensable component is the hypothesis generation step of the algorithm. Since CGAL had no inbuilt support
+ for computing visibility polygons we implemented the following two routines for our purposes.
+\begin{itemize}
+ \item Visibility Polygon of a point inside a polygon
+ \item Visibility Polygon of an edge of the polygon.
+\end{itemize}
+
 \subsection{Visibility Polygon of a Point Inside a Polygon}
+
+The following is the C++ function in the file PolygonUtil.cpp. We pass the map polygon and the point $P$, whose visibility polygon is to be
+ computed. The function returns the visibility polygon of $P$ as another Polygon type.
+In $setVisiblePoints$ we collect all those points which are directly visible from $P$. Note that
+ all these points will form a part of the visibility polygon of $P$ since they are directly visible from $P$. 
+Besides these some additional spurious vertices will also be introduced. Each spurious vertex which is a part of the visibility polygon
+ can be obtained by extending the line joining the point $P$ to some reflex vertex. We do this in the if block and collect all the 
+spurious vertices also. Finally we sort all the vertices obtained in an order so that they form the visibility polygon of $P$.
+
+
+
+%Java2TeX style definitions
+%You can modify them to fit your needs
+\newcommand{\jttstylea}{\color[rgb]{1.00,1.00,1.00}} %Background
+\newcommand{\jttstyleb}{\color[rgb]{.501,.501,.501}} %Line numbers
+\newcommand{\jttstylec}{\color[rgb]{.247,.498,.372}} %Multi-line comments
+\newcommand{\jttstyled}{\color[rgb]{.247,.498,.372}} %Single-line comments
+\newcommand{\jttstylee}{\color[rgb]{.498,.000,.333}} %Keywords
+\newcommand{\jttstylef}{\color[rgb]{.164,.000,1.00}} %Strings
+\newcommand{\jttstyleg}{\color[rgb]{.600,.000,.000}} %Character constants
+\newcommand{\jttstyleh}{\color[rgb]{.600,.000,.000}} %Numeric constants
+\newcommand{\jttstylei}{\color[rgb]{.000,.000,.000}} %Parenthesis
+\newcommand{\jttstylej}{\color[rgb]{.498,.000,.333}} %Primitive Types
+\newcommand{\jttstylek}{\color[rgb]{.000,.000,.000}} %Others
+\newcommand{\jttstylel}{\color[rgb]{.498,.623,.749}} %Javadoc keywords
+\newcommand{\jttstylem}{\color[rgb]{.498,.498,.623}} %Javadoc HTML tags
+\newcommand{\jttstylen}{\color[rgb]{.247,.247,.749}} %Javadoc links
+\newcommand{\jttstyleo}{\color[rgb]{.247,.372,.749}} %Javadoc others
+\newcommand{\jttstylep}{\color[rgb]{1.00,.380,.000}} %Undefined
+\newcommand{\jttstyleq}{\color[rgb]{.392,.392,.392}} %Annotation
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Java Sourcecode to TeX automatically converted code
+%  Java2Html Converter 5.0 [2006-02-26]by Markus Gebhard  markus@jave.de
+%     Further information: http://www.java2html.de
+{
+\noindent \ttfamily
+\jttstylea \\
+\jttstylea \\
+\jttstylea \\
+\jttstylek Polygon~PolygonUtil::CalcVisibilityPolygon\jttstylei (\jttstylek Polygon\&~map,~Point\&~point\jttstylei )\\
+\jttstylei \{\\
+\jttstylea ~~\jttstylek Polygon~setVisiblePoints~=~VisiblePointSet\jttstylei (\jttstylek map,point\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylek Polygon~setVisiblePointsCopy~=~clonePolygon\jttstylei (\jttstylek setVisiblePoints\jttstylei )\jttstylek ;\\
+\jttstylea \\
+\jttstylea ~~\jttstylek VertexIterator~viCopy~=~setVisiblePointsCopy.vertices\verb#_#begin\jttstylei ()\jttstylek ;\\
+\jttstylea \\
+\jttstylea ~~\jttstylee for~\jttstylei (\jttstylek VertexIterator~vi~=~setVisiblePoints.vertices\verb#_#begin\jttstylei ()\jttstylek ;\\
+\jttstylea ~~~~~~~~~~~~~~~~~~\jttstylek vi~!=~setVisiblePoints.vertices\verb#_#end\jttstylei ()\jttstylek ;~++vi\jttstylei )\\
+\jttstylea ~~\jttstylei \{\\
+\jttstylea ~~~~\jttstylee if\jttstylei (\jttstylek IsReflex\jttstylei (\jttstylek map,\verb#*#vi\jttstylei ))\\
+\jttstylea ~~~~\jttstylei \{\\
+\jttstylea ~~~~~~\jttstylek Ray~rayToCorner\jttstylei (\jttstylek point,\verb#*#vi\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylek std::list\verb#<#Point\verb#>#~intPointList;\\
+\jttstylea ~~~~~~\jttstylek std::list\verb#<#Point\verb#>#::iterator~it;\\
+\jttstylea \\
+\jttstylea ~~~~~~\jttstylek Point~p1=\verb#*#vi;\\
+\jttstylea ~~~~~~\jttstylek Point~p2;\\
+\jttstylea ~~~~~~\jttstylek FindCandidateIntrPoints\jttstylei (\jttstylek map,rayToCorner,intPointList\jttstylei )\jttstylek ;\\
+\jttstylea \\
+\jttstylea ~~~~~~\jttstylee if\jttstylei (\jttstylek intPointList.size\jttstylei ()~\jttstylek \verb#>#~\jttstyleh 0\jttstylei )\{\\
+\jttstylea ~~~~~~~~\jttstyled //Sort~the~points~in~intersectionPolygon~according~to~distance\\
+\jttstylea ~~~~~~~~\jttstylek intPointList.sort\jttstylei (\jttstylek CompareDistance\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~~~\jttstylek intPointList.unique\jttstylei ()\jttstylek ;\\
+\jttstylea ~~~~~~~~\jttstylek Point~spuriousVertex~=~\verb#*#intPointList.begin\jttstylei ()\jttstylek ;\\
+\jttstylea \\
+\jttstylea ~~~~~~~~\jttstylek p2=spuriousVertex;\\
+\jttstylea \\
+\jttstylea ~~~~~~~~\jttstylek insertBefore\jttstylei (\jttstylek setVisiblePointsCopy,~viCopy,~spuriousVertex\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylei \}\\
+\jttstylea ~~~~\jttstylei \}\\
+\jttstylea \\
+\jttstylea ~~~~\jttstylek viCopy++;\\
+\jttstylea ~~\jttstylei \}\\
+\jttstylea \\
+\jttstylea ~~\jttstylek setVisiblePointsCopy=SortPolygon\jttstylei (\jttstylek setVisiblePointsCopy,map\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylee return~\jttstylek setVisiblePointsCopy;\\
+\jttstylei \}\\
+\jttstylea \\
+\jttstylea \jttstylea 
+\\
+
+}
+
+
+\subsection{Visibility Polygon of an edge of the polygon}
+The algorithm for the visibility polygon of an edge has been taken from \cite{key3}.
+Let $E$ be the set of edges of the polygon. To find the visibility polygon of an edge $AB$, we compute, for each of 
+ the remaining edges of the polygon the portion of it which is weakly visible from the edge $AB$. Once we obtain these portions we join
+ all of them to obtain the visibility polygon of the edge $AB$.
+  Implementation of this algorithm requires computing shortest path between vertices of the polygon, the construction of which we 
+describe in the next section. For now assume that we have at our disposal a routine which gives the shortest path between two vertices 
+of the polygon as a list of Point type.
+
+The main steps of computing the visible portion of an edge $CD$ from another edge $AB$ of the polygon can be enumerated as follows.
+
+\begin{enumerate}
+\item
+Compute the shortest path $P_{AC}$, from A to C and the shortest path $P_{BD}$, from B to D. Call this pair 1.
+\item
+Similarly compute the shortest path  $P_{AD}$, from A to D and the shortest path  $P_{BC}$,  from B to C. Call this pair 2.
+\item
+Find out which of these pairs is outward convex. An outward convex pair implies an hourglass shape is formed by the two paths.
+\item
+If none of the pairs is outward convex this means that no portion of edge $CD$ is visible from any point on edge $AB$ and we can 
+completely ignore such an edge.
+\item
+If one of the pairs is outward convex then without loss of generality, let pair 1 be the outward convex pair. Now compute the shortest 
+paths  $P_{AD}$ and  $P_{BC}$.
+\item
+Let $X$ be the point where path $P_{AD}$ and $P_{AC}$ split and let  $Y$ be the point where path $P_{BD}$ and $P_{BC}$ split. Let $Y$ be
+the next point on the path  $P_{AD}$ and $Z$ be the next point on the path   $P_{BC}$.
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/Cusp.png}}
+\caption{\label{fig:Visibility Polygon of Edge}Visibility Polygon of Edge, Illustration taken from:\cite{key3}}
+\end{center}
+\end{figure}
+
+
+\end{enumerate}
+
+
 
 \newpage
 
 \begin{thebibliography}{1}
-\bibitem{key1} \emph{A near-tight approximation algorithm for the robot localization problem},
- Koenig, Sven and Mudgal, Apurva and Tovey, Craig A, Proceedings of the Symposium on Discrete Algorithms SODA, 2006.
+\bibitem{key1} \emph{A Near-Tight approximation algorithm for the robot localization problem},
+ Koenig, Sven and Mudgal, Proceedings of the Symposium on Discrete Algorithms SODA, 2006.
+
+\bibitem{key2} $<$\url{http://www.cgal.org/}$>$
+
+\bibitem{key3} \emph{Linear time algorithms for visibility and shortest path problems inside simple polygons}, Guibas, 
+Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan
 \end{thebibliography}
 
 
