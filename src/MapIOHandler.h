@@ -11,11 +11,20 @@
 
 class MapIOHandler {
 public:
+
+	Polygon map;
+	Polygon vPolygon;
+	Point robotPos;
+
 	MapIOHandler();
+	MapIOHandler(char *);
 	virtual ~MapIOHandler();
+
 
 	Polygon GetMapPolygon();
 	Polygon GetVisibilityPolygon();
+	Polygon ReturnPolygonFromFile(char *name);
+	Point GetRobotPosition();
 
 };
 

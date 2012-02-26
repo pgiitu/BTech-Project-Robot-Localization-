@@ -35,27 +35,16 @@ void Majoritymap::PrintMajorityMap()
 	}
 }
 
-void Majoritymap::GenerateMajorityMap()
-{
-	/*
-	 * Generating the translated polygons according to the center
-	 */
-//	TranslatePolygons(Point T[],Polygon )
 
-	for(int i=0;i<noOfHypothesis;i++)
-	{
-		Vector T((hypothesis[i].cartesian(0)-center.cartesian(0)),(hypothesis[i].cartesian(1)-center.cartesian(1)));
-		Transformation translate(CGAL::TRANSLATION, T);
-		Polygon p=GetTranslatePolygon(translate, map);
-		listTanslatedPolygons.push_back(p);
-	}
+
+void Majoritymap::GenerateOverlay(list<Polygon> polygonList)
+{
 
 	list<Polygon>::iterator pi;
-	for(pi=listTanslatedPolygons.begin();pi!=listTanslatedPolygons.end();++pi)
+	for(pi=polygonList.begin();pi!=polygonList.end();++pi)
 	{
 		for (EdgeIterator ei = pi->edges_begin(); ei != pi->edges_end(); ++ei)
 		{
-			//Segment_2 s(ei->start(),ei->end());
 			Point s=ei->start();
 			Point d=ei->end();
 			Point_2 source(s.cartesian(0),s.cartesian(1));
@@ -63,25 +52,44 @@ void Majoritymap::GenerateMajorityMap()
 			Segment_2 seg(source, destination);
 			CGAL::insert (mmapArrangement,seg);
 		}
-		/*		CGAL::insert(mmapArrangement,pi->edges_begin(),pi->edges_end());*/
 	}
 
-	/*
-	 * now mmapArrangement contains all the faces required by us
-	 */
+
 
 	Arrangement::Face_const_iterator fit;
-	std::cout << mmapArrangement.number_of_faces() << " faces:" << std::endl;
+
 	for (fit = mmapArrangement.faces_begin(); fit != mmapArrangement.faces_end(); ++fit)
 	{
 		  if (!fit->is_unbounded())
 		  {
 			Polygon p=ConvertFaceToPolygon(fit->outer_ccb());
+			Faces f(p);
+			listMmapFaces.push_back(f); //constructing the overlay Arrangement by adding the faces as polygons to it
+		  }
+
+	}
+}
+
+
+void Majoritymap::partMajority()
+{
+
+	listMmapFaces.clear();
+
+	Arrangement::Face_const_iterator fit;
+
+	for (fit = mmapArrangement.faces_begin(); fit != mmapArrangement.faces_end(); ++fit)
+	{
+		  if (!fit->is_unbounded())
+		  {
+			Polygon p=ConvertFaceToPolygon(fit->outer_ccb());
+
 			bool liesIn[noOfHypothesis];
 
 			list<Polygon>::iterator pi;
 			int i=0;
 			int agreedByHypothesis=0;
+
 			for(pi=listTanslatedPolygons.begin();pi!=listTanslatedPolygons.end();++pi)
 			{
 				if(IsContainedIn((*pi),p))  //return true if p lies in pi
@@ -94,17 +102,13 @@ void Majoritymap::GenerateMajorityMap()
 					liesIn[i++]=false;
 				}
 			}
-			cout<<"lies in array is  ";
-			for(i=0;i<noOfHypothesis;i++)
-			{
-				cout<<liesIn[i]<<"   ";
-			}
-			cout<<endl;
+
 			bool isPartMmap=CheckPartOfMajorityMap(agreedByHypothesis,noOfHypothesis);
-	//		cout<<"Is part of "<<isPartMmap<<endl;
+
 			Faces f(noOfHypothesis,p,liesIn,isPartMmap);
 			listMmapFaces.push_back(f); //constructing the majority map by adding the faces as polygons to it
 		  }
+
 		  else
 		  {
 			  //   std::cout << "Unbounded face. " << std::endl;
@@ -112,6 +116,41 @@ void Majoritymap::GenerateMajorityMap()
 		  }
 
 		}
+}
+
+
+void Majoritymap::GenerateMajorityMap()
+{
+	/*
+	 * Generating the translated polygons according to the center
+	 */
+	for(int i=0;i<noOfHypothesis;i++)
+	{
+		Vector T((center.cartesian(0)-hypothesis[i].cartesian(0)),(center.cartesian(1)-hypothesis[i].cartesian(1)));
+		Transformation translate(CGAL::TRANSLATION, T);
+		Polygon p=GetTranslatePolygon(translate, map);
+		listTanslatedPolygons.push_back(p);
+	}
+
+		list<Polygon>::iterator pi;
+		for(pi=listTanslatedPolygons.begin();pi!=listTanslatedPolygons.end();++pi)
+		{
+			for (EdgeIterator ei = pi->edges_begin(); ei != pi->edges_end(); ++ei)
+			{
+				Point s=ei->start();
+				Point d=ei->end();
+				Point_2 source(s.cartesian(0),s.cartesian(1));
+				Point_2 destination(d.cartesian(0),d.cartesian(1));
+				Segment_2 seg(source, destination);
+				CGAL::insert (mmapArrangement,seg);
+			}
+		}
+
+	/*
+	 * now mmapArrangement contains all the faces required by us
+	 */
+
+		partMajority();
 	}
 
 bool Majoritymap::CheckPartOfMajorityMap(int agree, int noOfHypothesis)
@@ -176,51 +215,96 @@ Polygon Majoritymap::GetTranslatePolygon(Transformation& translate, Polygon& pol
 }
 
 
-/*
-void Majoritymap::print_face (Arrangement::Face_const_handle f)
-{
-  // Print the outer boundary.
-  if (f->is_unbounded())
-  {
-    std::cout << "Unbounded face. " << std::endl;
-  }
-  else
-  {
-    std::cout << "Outer boundary: "<<std::endl;
-    print_ccb (f->outer_ccb());
-  }
+Polygon Majoritymap::OverlayContaningOrigin(Point &center){
 
-  // Print the boundary of each of the holes.
-  Arrangement::Hole_const_iterator hi;
-  int index = 1;
-  for (hi = f->holes_begin(); hi != f->holes_end(); ++hi, ++index)
-  {
-    std::cout << "    Hole #" << index << ":";
-    print_ccb (*hi);
-  }
+	Polygon p;
+	list<Faces>::iterator f;
 
-  // Print the isolated vertices.
-  Arrangement::Isolated_vertex_const_iterator iv;
-  for (iv = f->isolated_vertices_begin(), index = 1;iv != f->isolated_vertices_end(); ++iv, ++index)
-  {
-    std::cout << "    Isolated vertex #" << index << ": "
-              << "(" << iv->point() << ")" << std::endl;
-  }
+	for(f=listMmapFaces.begin(); f!=listMmapFaces.end(); ++f)
+	{
+		if(pUtil.CheckInside(center,f->face))
+				{
+					return (f->face);
+				}
 
+	}
+	return p;
 }
 
-void Majoritymap::print_ccb (Arrangement::Ccb_halfedge_const_circulator circ)
-{
-  Arrangement::Ccb_halfedge_const_circulator curr = circ;
-  do {
-//	  std::cout << "(" << curr->source()->point() << ")";
-	  std::cout << "(" << curr->source().cartesian(0) << ")";
-//	  Arrangement_2::Halfedge_const_handle he = curr->handle();
-//	  std::cout << "   [" << he->curve() << "]   "
-//               	<< "(" << he->target()->point() << ")";
-  } while (++curr != circ);
-  std::cout << std::endl;
+list<Polygon> Majoritymap::findRegionContaningOrigin(){
+
+	list<Polygon> traversablePolygons;
+	list<Faces>::iterator f;
+
+	for(f=listMmapFaces.begin(); f!=listMmapFaces.end(); ++f)
+	{
+		if(f->partOfMajorityMap){
+			traversablePolygons.push_back(f->face);
+		}
+	}
+
+	int i = 0;
+	list<Polygon>::iterator it;
+
+	Polygon traverablePolygonArr[traversablePolygons.size()];
+	for(it = traversablePolygons.begin(); it != traversablePolygons.end(); ++it){
+		traverablePolygonArr[i++] = *it;
+	}
+
+	int centerIndex = -1;
+
+	for(i = 0; i < traversablePolygons.size(); i++){
+		if(pUtil.CheckInside(center, traverablePolygonArr[i])){
+			centerIndex = i;
+			break;
+		}
+	}
+
+	using namespace boost;
+	typedef adjacency_list < vecS, vecS, undirectedS > Graph;
+	typedef graph_traits < Graph >::vertex_descriptor Vertex;
+	const int N = traversablePolygons.size();
+	Graph G(N);
+
+	for(i = 0; i < traversablePolygons.size(); i++){
+		for(int j = i+1; j < traversablePolygons.size(); j++){
+			if(areAdjacent(traverablePolygonArr[i], traverablePolygonArr[j])){
+				add_edge(i,j,G);
+			}
+		}
+	}
+
+	 std::vector<int> component(num_vertices(G));
+	 int num = connected_components
+			 (G,
+			  make_iterator_property_map(component.begin(),
+			  get(vertex_index, G),
+			  component[0]));
+
+	 int centersComponent = component[centerIndex];
+	 list<Polygon> originRegion;
+	 for(i=0; i < traversablePolygons.size(); i++){
+		 if(component[i] == centersComponent){
+			 originRegion.push_back(traverablePolygonArr[i]);
+		 }
+	 }
+
+	 return originRegion;
 }
 
-*/
+/**
+ * To be MODIFIED
+ */
+bool Majoritymap::areAdjacent(Polygon& poly1, Polygon& poly2){
+
+	for (EdgeIterator ei = poly1.edges_begin(); ei != poly1.edges_end(); ++ei)
+	{
+		for (EdgeIterator f=poly2.edges_begin();f!=poly2.edges_end();++f)
+		{
+			if (CGAL::do_intersect(*ei,*f))
+				return true;
+		}
+	}
+	return false;
+}
 

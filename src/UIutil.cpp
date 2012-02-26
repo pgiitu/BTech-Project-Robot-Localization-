@@ -33,10 +33,62 @@ void init(void)
 		initialize viewing values */
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluOrtho2D(-15,15.0,-15.0,15.0);
+		gluOrtho2D(-20,20.0,-20.0,20.0);
 		//glOrtho(0.0, 500.0, 0.0, 0.0, 500.0, 0.0);
 		glClearColor(0,0,0,0);
 		glClear(GL_COLOR_BUFFER_BIT);
+}
+
+GLuint createlistHypothesis(std::list<Point> p)
+{
+	GLuint id = glGenLists(1);  // create a display list
+    if(!id) return id;          // failed to create a list, return 0
+
+    glNewList(id, GL_COMPILE);
+
+    std::list<Point>::iterator it;
+	glBegin(GL_POINTS);
+	glVertex2f(8,5);
+	glVertex2f(5,5);
+	glVertex2f(2,5);
+	//std::cout<<"Hello";
+/*
+	GLfloat x,y;
+	for(it=p.begin();it!=p.end();++it)
+	{
+		x=(*it).cartesian(0);
+		y=(*it).cartesian(1);
+		std::cout<<x<<"   "<<y<<std::endl;
+		glVertex2f(x,y);
+	}
+*/
+	glEnd();
+	glEndList();
+	return id;
+
+}
+GLuint createDisplayListmmap(Majoritymap mmap)
+{
+	GLuint id = glGenLists(1);  // create a display list
+    if(!id) return id;          // failed to create a list, return 0
+    glNewList(id, GL_COMPILE);
+	std::list<Faces>::iterator fit;
+	for(fit=mmap.listMmapFaces.begin();fit!=mmap.listMmapFaces.end();++fit)
+	{
+		GLuint j=tessellate1((*fit).face,0);
+		if((*fit).partOfMajorityMap)
+		{
+			glColor3f(0,1,0);
+		}
+		else
+		{
+			glColor3f(1,0,0);
+		}
+		glCallList(j);
+	}
+
+	glEndList();
+	return id;
 }
 
 GLuint tessellate1(Polygon& polygon,int translate)
@@ -66,8 +118,7 @@ GLuint tessellate1(Polygon& polygon,int translate)
     gluTessCallback(tess, GLU_TESS_ERROR, (GLvoid (*) ()) &errorCallback);
 
     glNewList(id, GL_COMPILE);
-	glColor3f(100,100,100);
-
+//	glColor3f(100,100,100);
 	gluTessBeginPolygon(tess, NULL);                   // with NULL data
 	   gluTessBeginContour(tess);
 	   	   for(int j=0;j<size;j++)

@@ -14,6 +14,7 @@ HypothesisGenerator::HypothesisGenerator(Polygon& mapP, Polygon& visP, Point& ro
 	this->visP = visP;
 	this->pUtil= PolygonUtil();
 	this->robotPos = robotPos;
+
 }
 
 HypothesisGenerator::HypothesisGenerator(Polygon& mapP, Polygon& visP,Point& robotPos, PolygonUtil& pUtil){
@@ -40,6 +41,7 @@ Segment HypothesisGenerator::GetNextEdge(EdgeIterator& ei, Polygon& polygon){
 
 list<Point> HypothesisGenerator::GenHypothesis(){
 	list<Point> hyps;
+
 	EdgeIterator mapIter = mapP.edges_begin();
 	EdgeIterator visIter = visP.edges_begin();
 
@@ -48,7 +50,6 @@ list<Point> HypothesisGenerator::GenHypothesis(){
 
 	Segment mapEdge = *(mapIter);
 	Segment visEdge = *(visIter);
-
 
 	for(int i = 0; i < mapP.size(); i++){
 
@@ -161,7 +162,7 @@ bool HypothesisGenerator::TwoVertexOnEdge(Segment& edge){
 
 
 bool HypothesisGenerator::IsMatch(Segment mapEdge, Segment visEdge){
-	return (length(mapEdge) == length(visEdge) && orient(mapEdge) == orient(mapEdge) );
+	return (length(mapEdge) == length(visEdge) && orient(mapEdge) == orient(visEdge) );
 }
 
 
@@ -197,5 +198,5 @@ bool cmp_segments::operator()(Segment s1, Segment s2){
 	Point p21 = s2.point(0);
 	Point p22 = s2.point(1);
 
-	return ( (p11.cartesian(0) == p21.cartesian(0)) && (p11.cartesian(1) == p21.cartesian(1)));
+	return ( (p11.cartesian(0)-p21.cartesian(0)) && (p11.cartesian(1) == p21.cartesian(1)));
 }

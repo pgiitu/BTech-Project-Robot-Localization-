@@ -11,7 +11,10 @@ Faces::Faces() {
 	// TODO Auto-generated constructor stub
 
 }
-
+Faces::Faces(Polygon p)
+{
+	face=p;
+}
 Faces::Faces(int n, Polygon p, bool *A,bool partMmap)
 {
 	containedIn=new bool[n];
@@ -27,7 +30,7 @@ Faces::Faces(int n, Polygon p, bool *A,bool partMmap)
 
 Faces::~Faces() {
 	// TODO Auto-generated destructor stub
-	std::cout << "Destructor being called \n\n\n\n\n\n";
+//	std::cout << "Destructor being called \n\n\n\n\n\n";
 //	delete [] containedIn;
 //	containedIn=0;
 }

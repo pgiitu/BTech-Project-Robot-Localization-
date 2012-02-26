@@ -17,6 +17,7 @@ public:
 	bool partOfMajorityMap;
 	Faces();
 	Faces(int n,Polygon p, bool *A,bool partMmap);
+	Faces(Polygon p);
 	void PrintDescription();
 	virtual ~Faces();
 };

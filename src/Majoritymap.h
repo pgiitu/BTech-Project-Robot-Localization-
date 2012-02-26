@@ -28,6 +28,8 @@ public:
 	list<Polygon> listTanslatedPolygons;
 	Arrangement mmapArrangement;
 
+	PolygonUtil pUtil; //For using polygon util functions.
+
 	//HypothesisGenerator hGenerator;
 
 	Majoritymap();
@@ -40,8 +42,15 @@ public:
 	bool IsContainedIn(Polygon outer,Polygon inner);
 	bool CheckPartOfMajorityMap(int agree, int noOfHypothesis);
 
+	list<Polygon> findRegionContaningOrigin();
+	bool areAdjacent(Polygon& poly1, Polygon& poly2);
+
+	Polygon OverlayContaningOrigin(Point &center);
+
 //	void print_face (Arrangement::Face_const_handle f);
 //	void print_ccb (Arrangement::Ccb_halfedge_const_circulator circ);
+	void GenerateOverlay(list<Polygon> polygonList);
+	void partMajority();
 	virtual ~Majoritymap();
 };
 

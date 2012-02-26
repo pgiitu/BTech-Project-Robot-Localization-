@@ -11,6 +11,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include "Majoritymap.h"
 #include "constants.h"
 
 void init(void);
@@ -18,6 +19,8 @@ void errorCallback(GLenum errorCode);
 void endCallback(void);
 void beginCallback(GLenum which);
 GLuint tessellate1(Polygon& polygon,int translate);
+GLuint createlistHypothesis(std::list<Point> p);
+GLuint createDisplayListmmap(Majoritymap mmap);
 
 
 
