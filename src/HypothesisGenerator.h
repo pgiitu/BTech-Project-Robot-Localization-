@@ -39,6 +39,7 @@ private:
 
 public:
 
+	HypothesisGenerator();
 	HypothesisGenerator(Polygon& mapP, Polygon& visP, Point& robotPos);
 	HypothesisGenerator(Polygon& mapP, Polygon& visP, Point& robotPos, PolygonUtil& pUtil);
 

@@ -34,6 +34,9 @@ public:
 
 	Majoritymap();
 	Majoritymap(int n, Point H[],Point c,Polygon P);
+	Majoritymap(int n,std::list<Polygon> PolygonList);
+
+
 	void PrintMajorityMap();
 	void GenerateMajorityMap();
 	Polygon GetTranslatePolygon(Transformation& translate, Polygon& polygon);

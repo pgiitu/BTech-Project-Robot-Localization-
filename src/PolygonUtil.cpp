@@ -26,6 +26,8 @@ using namespace boost;
 Point fixedPoint;
 
 bool CompareDistance(Point p1,Point p2);
+bool CompareDistance1(Point p1,Point p2);
+
 void printList(std::list<int> list1);
 
 PolygonUtil::PolygonUtil() {
@@ -137,8 +139,11 @@ void PolygonUtil::FindCandidateIntrPoints(Polygon &map,Ray &rayToCorner,std::lis
 
 		if(CGAL::assign(intPoint,obj))
 		{
-			if(intPoint != vertexPolygon && !IsVertexOfPolygon(map, intPoint))
+//			Segment s(rayToCorner.point(0),intPoint);
+			if((intPoint != vertexPolygon) && (!IsVertexOfPolygon(map, intPoint))
+					&& (IsInsidePolygon1(vertexPolygon,intPoint,map)))
 			{
+
 				intersectionPolygon.push_back(intPoint);
 			}
 		}
@@ -166,13 +171,20 @@ Polygon PolygonUtil::clonePolygon(Polygon& polygon){
 
 Polygon PolygonUtil::CalcVisibilityPolygon(Polygon& map, Point& point)
 {
+	/*
+	 * changes have been done, It may harm the functionality of visibility Polygon  of a Point
+	 */
+	using namespace std;
 	Polygon setVisiblePoints = VisiblePointSet(map,point);
-	Polygon setVisiblePointsCopy = clonePolygon(setVisiblePoints);
+//	cout<<"Set Of Visible Points\n";
+//	DisplayPolygon(setVisiblePoints);
 
-	VertexIterator viCopy = setVisiblePointsCopy.vertices_begin();
+	list<Point> listVisiblePoints;
+	fixedPoint=point;
 
 	for (VertexIterator vi = setVisiblePoints.vertices_begin(); vi != setVisiblePoints.vertices_end(); ++vi)
 	{
+		listVisiblePoints.push_back(*vi);
 		if(IsReflex(map,*vi))
 		{
 			Ray rayToCorner(point,*vi);
@@ -185,18 +197,25 @@ Polygon PolygonUtil::CalcVisibilityPolygon(Polygon& map, Point& point)
 
 			if(intPointList.size() > 0){
 				//Sort the points in intersectionPolygon according to distance
-				intPointList.sort(CompareDistance);
+				intPointList.sort(CompareDistance1);
 				intPointList.unique();
 				Point spuriousVertex = *intPointList.begin();
-
 				p2=spuriousVertex;
-
-				insertBefore(setVisiblePointsCopy, viCopy, spuriousVertex);
+				listVisiblePoints.push_back(spuriousVertex);
 			}
 		}
 
-		viCopy++;
 	}
+
+	listVisiblePoints=UniqueList(listVisiblePoints);
+	list<Point>::iterator it;
+	Polygon setVisiblePointsCopy;
+	for(it=listVisiblePoints.begin();it!=listVisiblePoints.end();++it)
+	{
+//		cout<<"Visibility Polygon Point"<<*it<<"\n";
+		setVisiblePointsCopy.push_back(*it);
+	}
+
 
 	setVisiblePointsCopy=SortPolygon(setVisiblePointsCopy,map);
 	return setVisiblePointsCopy;
@@ -217,7 +236,7 @@ bool CompareDistance1(Point p1,Point p2)
 bool PolygonUtil::IsPointOnSegment(Point source, Point target, Point check)
 {
 	Segment edge(source,target);
-	if(check!=target && (CGAL::squared_distance(source,check)<=CGAL::squared_distance(source,target))
+	if((CGAL::squared_distance(source,check)<=CGAL::squared_distance(source,target))
 			&& (CGAL::squared_distance(target,check)<=CGAL::squared_distance(source,target)))
 	{
 		boost::numeric::ublas::vector<double> R(2);
@@ -256,21 +275,39 @@ std::list<Point> PolygonUtil::UniqueList(std::list<Point> pointList)
 		pointSet.insert(*it);
 	}
 	std::set<Point>::iterator sit;
+
+	std::list<Point> pointListCopy;
 	pointList.clear();
 	for(sit=pointSet.begin();sit!=pointSet.end();++sit)
 	{
-		pointList.push_back(*sit);
+		pointListCopy.push_back(*sit);
 	}
-	return pointList;
+	return pointListCopy;
 }
 
+/*
+ *
+ */
+bool PolygonUtil::isPointInList(std::list<Point> pointList,Point p)
+{
+	std::list<Point>::iterator it;
+	for(it=pointList.begin();it!=pointList.end();++it)
+	{
+		if(Equals(*it,p))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
 
 /**
  *
  */
 Polygon PolygonUtil::SortPolygon(Polygon& polygon,Polygon& mapP)
 {
-	Polygon visibilyPolygon;
+	std::list<Point> visibilyPolygonSet;
 
 	for(EdgeIterator ei = mapP.edges_begin(); ei != mapP.edges_end(); ++ei)
 	{
@@ -291,12 +328,23 @@ Polygon PolygonUtil::SortPolygon(Polygon& polygon,Polygon& mapP)
 		}
 
 		fixedPoint=source;
+		UniqueList(PointList);
 		PointList.sort(CompareDistance1);
 
 		for(it=PointList.begin();it!=PointList.end();++it)
 		{
-			visibilyPolygon.push_back(*it);
+			if(!isPointInList(visibilyPolygonSet,*it))
+				visibilyPolygonSet.push_back(*it);
 		}
+
+	}
+
+	visibilyPolygonSet.unique();
+	Polygon visibilyPolygon;
+	std::list<Point>::iterator sit;
+	for(sit=visibilyPolygonSet.begin();sit!=visibilyPolygonSet.end();++sit)
+	{
+		visibilyPolygon.push_back(*sit);
 	}
 	return visibilyPolygon;
 }
@@ -314,14 +362,24 @@ void PolygonUtil::insertBefore(Polygon& polygon, VertexIterator& vi, Point& spur
 Polygon PolygonUtil::VisiblePointSet(Polygon& polygon, Point& point)
 {
 	Polygon result = Polygon();
-
 	for (VertexIterator vi = polygon.vertices_begin(); vi != polygon.vertices_end(); ++vi)
 	{
 
 		Segment halfedge(point,*vi);
 		Point intPoint;
+		Point p(6.5,0);
+/*
+		if(Equals(*vi, p))
+			std::cout<<IsInsidePolygon(point,*vi,polygon)<<"\n\n";
+*/
 
-		int flag=0;  //to check if corner point or not
+
+		if(IsInsidePolygon1(point,*vi,polygon))
+		{
+
+			result.push_back(*vi);
+		}
+	/*	int flag=0;  //to check if corner point or not
 		for (EdgeIterator ei = polygon.edges_begin(); ei != polygon.edges_end(); ++ei)
 		{
 
@@ -340,7 +398,7 @@ Polygon PolygonUtil::VisiblePointSet(Polygon& polygon, Point& point)
 		{
 			result.push_back(*vi);
 		}
-	}
+*/	}
 	return result;
 }
 
@@ -374,12 +432,14 @@ void PolygonUtil::DisplayPolygon(Polygon& polygon)
 		std::cout << "vertex " << n++ << " = " << *vi << "\n";
 	}
 
+
 	std::cout<<"\n\nThe edges of the polygon are ...\n";
 	n=0;
 	for (EdgeIterator ei = polygon.edges_begin(); ei != polygon.edges_end(); ++ei)
 		std::cout << "edge " << n++ << " = " << *ei << "\n";
 
 	std::cout<<"\n\n";
+
 }
 
 
@@ -388,12 +448,18 @@ void PolygonUtil::DisplayPolygon(Polygon& polygon)
 bool CompareDistance(Point p1,Point p2)
 {
 	//	Point startingPoint(0.5,-1.8);
-	Point robotPos(0.1,-1.8);  //point from where we are calculating the visibility polygon
+	Point robotPos(6,0);  //point from where we are calculating the visibility polygon
 
 	if(CGAL::squared_distance(robotPos,p1)<CGAL::squared_distance(robotPos,p2))
 		return true;
 	else
 		return false;
+}
+
+bool PolygonUtil::EqualsValue(double v1, double v2)
+{
+	return  (fabs(v1 - v2)<E) ;
+
 }
 
 
@@ -432,21 +498,66 @@ bool PolygonUtil::IsInsidePolygon(Point& p1, Point& p2, Polygon& polygon){
 	Point intPoint;
 	Segment intSegment;
 
+	Point p(6.5,0);
 	for (EdgeIterator ei = polygon.edges_begin(); ei != polygon.edges_end(); ++ei)
 	{
 		Object obj=CGAL::intersection(halfedge,*ei);
 		if(CGAL::assign(intPoint,obj))
 		{
-			if(! (Equals(intPoint, p1) || Equals(intPoint,p2))  )
+			if(! (Equals(intPoint, p1) || Equals(intPoint,p2)))
 			{
+				if(Equals(p2,p))
+					cout<<(*ei)<<" Point On Segment  "<<IsPointOnSegment(p1,p2,intPoint)<<intPoint<<"    Return false\n";
 				return false;
 			}
 		}
 	}
 
 	Point midPt((p1.cartesian(0)+p2.cartesian(0))/2, (p1.cartesian(1)+p2.cartesian(1))/2);
+	if(Equals(p2,p))
+		cout<<p1<<"  "<<p2<<"  "<<CheckInside(midPt,polygon)<<"\n\n";
 	return (CheckInside(midPt, polygon));
 }
+
+/*
+ * By checking the mid points
+ */
+bool PolygonUtil::IsInsidePolygon1(Point& p1, Point& p2, Polygon& polygon)
+{
+	std::list<Point> listOfPoints;
+	Segment halfedge(p1,p2);
+
+	Point intPoint;
+	Segment intSegment;
+
+	for (EdgeIterator ei = polygon.edges_begin(); ei != polygon.edges_end(); ++ei)
+	{
+		Object obj=CGAL::intersection(halfedge,*ei);
+		if(CGAL::assign(intPoint,obj))
+		{
+			listOfPoints.push_back(intPoint);
+		}
+	}
+
+	listOfPoints=UniqueList(listOfPoints);
+	fixedPoint=p1;
+	listOfPoints.sort(CompareDistance1);
+
+	std::list<Point>::iterator pit;
+	Point firstPoint=listOfPoints.front();
+	listOfPoints.pop_front();
+
+	for(pit=listOfPoints.begin();pit!=listOfPoints.end();++pit)
+	{
+		Point midPoint((firstPoint.cartesian(0)+(*pit).cartesian(0))/2,(firstPoint.cartesian(1)+(*pit).cartesian(1))/2);
+		if(!CheckInside(midPoint,polygon))
+			return false;
+		firstPoint=*pit;
+	}
+
+	return true;
+}
+
 
 
 bool PolygonUtil::CheckInside(Point& pt,Polygon& polygon)
@@ -492,33 +603,37 @@ Polygon PolygonUtil::CalcWindowEdge(Polygon& map, Segment seg)
 		Polygon visPolygon= CalcVisibilityPolygonEdge(map,seg,g,vertex);
 	    return visPolygon;
 }
-std::list<Polygon> PolygonUtil::CalcAllVisibilityPolygon(Polygon& map,Polygon &P1,Polygon &P2)
+std::list<Polygon> PolygonUtil::CalcAllVisibilityPolygon(Polygon& Fij,Polygon &P1,Polygon &P2)
 {
 	using namespace std;
 	list<Polygon> polygonList;
 /*
  * Maps the polygon
  */
-	int n = map.size();
+	int n = Fij.size();
 	Point vertex[n];
 	int i = 0;
 
-	for(VertexIterator vi = map.vertices_begin(); vi !=map.vertices_end(); ++vi){
+	for(VertexIterator vi = Fij.vertices_begin(); vi !=Fij.vertices_end(); ++vi){
 		vertex[i] = *vi;
 		i++;
 	}
 
 	//visibility Graph
-	graph_t g=PrepareVisibilityGraph(map,vertex);
+	graph_t g=PrepareVisibilityGraph(Fij,vertex);
 
 	//Segment whose visibility polygon needs to be drawn
 
-	for(EdgeIterator ei=map.edges_begin();ei!=map.edges_end();++ei)
+	for(EdgeIterator ei=Fij.edges_begin();ei!=Fij.edges_end();++ei)
 	{
 		Segment seg(ei->source(),ei->target());
 		if(ClassifyEdges(seg,P1,P2)==2)
 		{
-			Polygon visPolygon= CalcVisibilityPolygonEdge(map,seg,g,vertex);
+
+//			cout<<"Segment is "<<seg<<endl;
+			Polygon visPolygon= CalcVisibilityPolygonEdge(Fij,seg,g,vertex);
+//			cout<<"Polygon is";
+//			DisplayPolygon(visPolygon);
 			polygonList.push_back(visPolygon);
 		}
 
@@ -586,7 +701,6 @@ bool PolygonUtil::isPathConvex(Point vertex[],std::list<int> pathList,boost::num
 
 	//Take Care Of Angles
 	bool flag=0;
-    int zDirection=-1;
 
     int first=pathList.front();
     pathList.pop_front();
@@ -596,7 +710,7 @@ bool PolygonUtil::isPathConvex(Point vertex[],std::list<int> pathList,boost::num
     edgeVector(0)=vertex[second].cartesian(0)-vertex[first].cartesian(0);
     edgeVector(1)=vertex[second].cartesian(1)-vertex[first].cartesian(1);
 
-    std::cout<<"Segment Vector  "<<seg(0)<<"  "<<seg(1)<<endl;
+//    std::cout<<"Segment Vector  "<<seg(0)<<"  "<<seg(1)<<endl;
     double crossProd=scalar_cross_product(seg,edgeVector);
     double dotProd=dot_product(seg,edgeVector);
 
@@ -608,7 +722,7 @@ bool PolygonUtil::isPathConvex(Point vertex[],std::list<int> pathList,boost::num
     	initialAngle=2*M_PI-initialAngle;
     }
 
-    std::cout<<"Initial angle"<<initialAngle;
+//    std::cout<<"Initial angle"<<initialAngle;
     std::list<int>::iterator it;
     pathList.pop_front();
     for(it=pathList.begin();it!=pathList.end();++it)
@@ -631,11 +745,11 @@ bool PolygonUtil::isPathConvex(Point vertex[],std::list<int> pathList,boost::num
         if (crossProd<0)
             	angle=2*M_PI-angle;
 
-        std::cout<<"Angle " <<angle<<" Flag  "<<flag;
+//        std::cout<<"Angle " <<angle<<" Flag  "<<flag;
  //       cout<<"Angle  "<<angle<<" Flag "<<flag<<endl;
         if(flag and angle> initialAngle and fabs(initialAngle-angle)>E)
         {
-        	std::cout<<"Correct \n";
+//        	std::cout<<"Correct \n";
         	return false;
         }
         if(!flag and angle <initialAngle and fabs(initialAngle-angle)>E)
@@ -749,7 +863,7 @@ Polygon PolygonUtil::CalcVisibilityPolygonEdge(Polygon& map, Segment& seg, graph
 	using namespace std;
 	Polygon setVisiblePoints;
 
-	std::list<Point> visibilityPolygonList;
+	std::set<Point> set;
 
 	Point segSource(seg.source());
 	Point segTarget(seg.target());
@@ -777,15 +891,15 @@ Polygon PolygonUtil::CalcVisibilityPolygonEdge(Polygon& map, Segment& seg, graph
 		Segment edge((*ei).source(),(*ei).target());
 		if(edge==seg)
 		{
-			visibilityPolygonList.push_back((*ei).source());
-			visibilityPolygonList.push_back((*ei).target());
+
+			set.insert((*ei).source());
+			set.insert((*ei).target());
 		}
 
 		else
 		{
 			Point edgeSource(edge.source());
 			Point edgeTarget(edge.target());
-			
 			int edgeSourceIndex=findIndex(vertex,map.size(),edgeSource);
 			int edgeTargetIndex=findIndex(vertex,map.size(),edgeTarget);
 
@@ -803,33 +917,32 @@ Polygon PolygonUtil::CalcVisibilityPolygonEdge(Polygon& map, Segment& seg, graph
 			int cusp1,adjacentCusp1,cusp2,adjacentCusp2;
 			bool flag=false;
 
-			cout<<"Edge Source   "<<edgeSource <<" Edge Target  "<<edgeTarget<<endl;
-			cout<<"source to source "<<endl;
+//			cout<<"Edge Source   "<<edgeSource <<" Edge Target  "<<edgeTarget<<endl;
+//			cout<<"source to source "<<endl;
 			bool convex1=isPathConvex(vertex,segSourceToedgeSourceList,sourceTarget);
-			cout<< " Path Convex  "<<convex1;
+//			cout<< " Path Convex  "<<convex1;
 
-			printList(segSourceToedgeSourceList);
+//			printList(segSourceToedgeSourceList);
 
 
-			cout<<"target to target "<<endl;
+//			cout<<"target to target "<<endl;
 			bool convex2=isPathConvex(vertex,segTargetToedgeTargetList,targetSource);
-			cout<<" Path convex  "<<convex2<<endl;
-			printList(segTargetToedgeTargetList);
-
-			cout<<"Source to target "<<endl;
+//			cout<<" Path convex  "<<convex2<<endl;
+//			printList(segTargetToedgeTargetList);
+//
+//			cout<<"Source to target "<<endl;
 			bool convex3=isPathConvex(vertex,segSourceToedgeTargetList,sourceTarget);
-			cout<< " Path Convex  "<<convex3<<endl;
-			printList(segSourceToedgeTargetList);
+//			cout<< " Path Convex  "<<convex3<<endl;
+//			printList(segSourceToedgeTargetList);
 
 
-			cout<<"Target to source "<<endl;
+//			cout<<"Target to source "<<endl;
 			bool convex4=isPathConvex(vertex,segTargetToedgeSourceList,targetSource);
-			cout<<" Path Convex  "<<convex4<<endl;
-			printList(segTargetToedgeSourceList);
+//			cout<<" Path Convex  "<<convex4<<endl;
+//			printList(segTargetToedgeSourceList);
 
 			if(convex1  && convex2	&& !isPathIntersect(vertex,segSourceToedgeSourceList,segTargetToedgeTargetList) )
 			{
-				cout<<"Ashwani \n";
 				cusp1=findCommonAncestor(segSourceToedgeSourceList,segSourceToedgeTargetList);
 
 				flag=true;
@@ -864,17 +977,16 @@ Polygon PolygonUtil::CalcVisibilityPolygonEdge(Polygon& map, Segment& seg, graph
 					{
 						adjacentCusp2=cusp2;
 					}
-				cout<<"1Cusp "<<cusp1<<endl;
-				cout<<"1AdjacentCusp "<<adjacentCusp1<<endl;
-				cout<<"2Cusp "<<cusp2<<endl;
-				cout<<"2AdjacentCusp "<<adjacentCusp2<<endl;
+//				cout<<"1Cusp "<<cusp1<<endl;
+//				cout<<"1AdjacentCusp "<<adjacentCusp1<<endl;
+//				cout<<"2Cusp "<<cusp2<<endl;
+//				cout<<"2AdjacentCusp "<<adjacentCusp2<<endl;
 			}
 
 
 
 			else if(convex3 && convex4 && !isPathIntersect(vertex,segSourceToedgeTargetList,segTargetToedgeSourceList))
 			{
-				cout<<"Garg"<<endl;
 				cusp1=findCommonAncestor(segSourceToedgeSourceList,segSourceToedgeTargetList);
 				flag=true;
 				std::list<int>::iterator it;
@@ -906,12 +1018,10 @@ Polygon PolygonUtil::CalcVisibilityPolygonEdge(Polygon& map, Segment& seg, graph
 				else
 					adjacentCusp2=cusp2;
 
-				cout<<"Cusp1   "<<cusp1<<"  adjacent cusp1  "<<adjacentCusp1<<endl;
-				cout<<"Cusp2   "<<cusp2<<"  adjacent cusp2  "<<adjacentCusp2<<endl;
+//				cout<<"Cusp1   "<<cusp1<<"  adjacent cusp1  "<<adjacentCusp1<<endl;
+//				cout<<"Cusp2   "<<cusp2<<"  adjacent cusp2  "<<adjacentCusp2<<endl;
 
 			}
-
-
 
 
 			if(flag)
@@ -938,16 +1048,17 @@ Polygon PolygonUtil::CalcVisibilityPolygonEdge(Polygon& map, Segment& seg, graph
 					Point insertPoint(x,y);
 					//if(!Equals(insertPoint,edgeSource))
 					//{
-						cout<<"Inserted Point "<<insertPoint<<endl;
+//						cout<<"Inserted Point "<<insertPoint<<endl;
 
-						visibilityPolygonList.push_back(insertPoint);
+						set.insert(insertPoint);
 					//}
 				}
 				else if(CGAL::assign(intSeg,obj1))
 				{
 					//cout<<" Inserted Point "<<intSeg.target();
-					visibilityPolygonList.push_back(intSeg.target());
-					visibilityPolygonList.push_back(intSeg.source());
+					set.insert(intSeg.target());
+					set.insert(intSeg.source());
+
 				}
 
 				if(CGAL::assign(intPoint,obj2))
@@ -961,37 +1072,27 @@ Polygon PolygonUtil::CalcVisibilityPolygonEdge(Polygon& map, Segment& seg, graph
 						y=0;
 
 					Point insertPoint(x,y);
-
-				//	if(!Equals(insertPoint,edgeSource))
-				//	{
-						cout<<"Inserted Point "<<insertPoint<<endl;
-						visibilityPolygonList.push_back(insertPoint);
-				//	}
+//						cout<<"Inserted Point "<<insertPoint<<endl;
+						set.insert(insertPoint);
 				}
 				else if(CGAL::assign(intSeg,obj2))
 				{
-					//cout<<" Inserted Point "<<intSeg.target();
-					visibilityPolygonList.push_back(intSeg.target());
-					visibilityPolygonList.push_back(intSeg.source());
+					set.insert(intSeg.target());
+					set.insert(intSeg.source());
 				}
-
 			}
-
 		}
 	}
 
-	visibilityPolygonList=UniqueList(visibilityPolygonList);
-	std::list<Point>::iterator listIt;
-
-	for(listIt=visibilityPolygonList.begin();listIt!=visibilityPolygonList.end();++listIt)
+	std::set<Point>::iterator setIt;
+	Polygon setVisible;
+	for(setIt=set.begin();setIt!=set.end();++setIt)
 	{
-		setVisiblePoints.push_back(*listIt);
+		setVisible.push_back(*setIt);
 	}
 
-	setVisiblePoints=SortPolygon(setVisiblePoints,map);
-
-	return setVisiblePoints;
-
+	setVisible=SortPolygon(setVisible,map);
+	return setVisible;
 }
 
 
@@ -1002,7 +1103,9 @@ graph_t PolygonUtil::PrepareVisibilityGraph(Polygon& map, Point vertex[]){
 
 	for(int i = 0; i < n; i++){
 		for(int j = i+1; j < n; j++){
-
+/*
+ * The function IsinsidePolygon may have been changed
+ */
 			if(IsInsidePolygon(vertex[i], vertex[j], map)){
 				tuple<int, int> t(i,j);
 				edgeList.push_back(t);
@@ -1049,7 +1152,10 @@ int PolygonUtil::ClassifyEdges(Segment edge, Polygon& P1,Polygon& P2)
 			Point target=ei->target();
 			if(IsPointOnSegment(source,target,edge.source()) &&
 				IsPointOnSegment(source,target,edge.target()))
+			{
 				result=result+1;
+				break;
+			}
 	}
 	/*
 	 *Iterate over all the edges of P2 and see if edge is subset of any
@@ -1062,12 +1168,16 @@ int PolygonUtil::ClassifyEdges(Segment edge, Polygon& P1,Polygon& P2)
 			Point target=ei->target();
 			if(IsPointOnSegment(source,target,edge.source()) &&
 				IsPointOnSegment(source,target,edge.target()))
+			{
 				result=result+1;
+				break;
+			}
 	}
 
 	return result;
 
 }
+
 Polygon PolygonUtil::CalcGPolygon(Point& center,Polygon& FPolygon,std::list<Polygon> polygonList)
 {
 	using namespace std;
@@ -1075,6 +1185,9 @@ Polygon PolygonUtil::CalcGPolygon(Point& center,Polygon& FPolygon,std::list<Poly
 
 	list<Polygon> visibilityPolygonList;
 
+	/*
+	 * only two polygons are there
+	 */
     Polygon P1=polygonList.front();
     Polygon P2=polygonList.back();
 
@@ -1099,6 +1212,8 @@ Polygon PolygonUtil::CalcGPolygon(Point& center,Polygon& FPolygon,std::list<Poly
 	overlay.GenerateOverlay(visibilityPolygonList);
 
 	GPolygon=overlay.OverlayContaningOrigin(center);
+//	DisplayPolygon(GPolygon);
+
 	/*
 	 * In this overlay arrangement find the region containing origin
 	 * return that polygon
@@ -1107,4 +1222,105 @@ Polygon PolygonUtil::CalcGPolygon(Point& center,Polygon& FPolygon,std::list<Poly
 
 	return GPolygon;
 
+}
+
+VertexIterator GetNextVertex(VertexIterator &vi,Polygon &P)
+{
+	if (vi == (P.vertices_end()-1)){
+		vi = P.vertices_begin();
+	}
+	else{
+		vi++;
+	}
+	return vi;
+}
+
+
+Polygon PolygonUtil::RemoveCollinearPoints(Polygon P)
+{
+	Polygon polygon;
+	EdgeIterator ei=P.edges_begin();
+//	polygon.push_back((*ei).point(0));
+	Segment firstSegment((*ei).point(0),(*ei).point(1));
+	double firstSlope=GetSlope(firstSegment);
+	ei++;
+	for(;ei!=P.edges_end();++ei)
+	{
+		Segment nextSegment((*ei).point(0),(*ei).point(1));
+		double nextSlope=GetSlope(nextSegment);
+		if(!EqualsValue(firstSlope,nextSlope))
+		{
+			polygon.push_back(nextSegment.point(0));
+			firstSlope=nextSlope;
+		}
+	}
+
+	ei=P.edges_begin();
+	Segment frontSegment((*ei).point(0),(*ei).point(1));
+	firstSlope=GetSlope(frontSegment);
+	EdgeIterator lei=P.edges_end()-1;
+	Segment endSegment((*lei).point(0),(*lei).point(1));
+	double lastSlope=GetSlope(endSegment);
+	if(!EqualsValue(firstSlope,lastSlope))
+		polygon.push_back(frontSegment.point(0));
+
+
+	return polygon;
+}
+
+
+double PolygonUtil::GetSlope(Segment& edge){
+	Point p2 = edge.point(1);
+	Point p1 = edge.point(0);
+	if(edge.is_vertical())
+		return INFINITY;
+	else
+		return ( p2.cartesian(1) - p1.cartesian(1))/(p2.cartesian(0) - p1.cartesian(0));
+}
+
+
+bool PolygonUtil::doPolygonsMatch(Polygon &P1copy,Polygon &P2copy)
+{
+	Polygon P1=RemoveCollinearPoints(P1copy);
+	Polygon P2=RemoveCollinearPoints(P2copy);
+
+
+	cout<<"Polygon P1 \n";
+	DisplayPolygon(P1);
+	cout<<"Polygon P2 \n";
+	DisplayPolygon(P2);
+
+
+	if(P1.size()!=P2.size())
+		return false;
+
+	VertexIterator v1,v2;
+	v1=P1.vertices_begin();
+
+	for(v2=P2.vertices_begin();v2!=P2.vertices_end();++v2)
+		{
+			if(Equals(*v1,*v2))
+			{
+				break;
+			}
+		}
+
+//	VertexIterator v1copy=GetNextVertex(v1,P1);
+//	VertexIterator v2copy=GetNextVertex(v2,P2);
+	int n=P1.size();
+	int i=0;
+	while(i<n)
+	{
+		if(!Equals(*v1,*v2))
+		{
+			std::cout<<"False returned  "<<*v1<<"     "<<*v2<<"\n";
+			DisplayPolygon(P2);
+			return false;
+		}
+
+		GetNextVertex(v1,P1);
+		GetNextVertex(v2,P2);
+		i++;
+	}
+	return true;
 }

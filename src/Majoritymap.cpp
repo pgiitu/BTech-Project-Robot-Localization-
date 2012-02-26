@@ -9,7 +9,7 @@
 
 Majoritymap::Majoritymap() {
 	// TODO Auto-generated constructor stub
-
+ noOfHypothesis=0;
 }
 
 Majoritymap::Majoritymap(int n, Point H[],Point c,Polygon P)
@@ -19,6 +19,13 @@ Majoritymap::Majoritymap(int n, Point H[],Point c,Polygon P)
 	map=P;
 	hypothesis=H;
 }
+
+Majoritymap::Majoritymap(int n,std::list<Polygon> PolygonList )
+{
+	noOfHypothesis=n;
+	listTanslatedPolygons=PolygonList;
+}
+
 
 Majoritymap::~Majoritymap() {
 	// TODO Auto-generated destructor stub
@@ -41,6 +48,7 @@ void Majoritymap::GenerateOverlay(list<Polygon> polygonList)
 {
 
 	list<Polygon>::iterator pi;
+
 	for(pi=polygonList.begin();pi!=polygonList.end();++pi)
 	{
 		for (EdgeIterator ei = pi->edges_begin(); ei != pi->edges_end(); ++ei)
@@ -53,7 +61,6 @@ void Majoritymap::GenerateOverlay(list<Polygon> polygonList)
 			CGAL::insert (mmapArrangement,seg);
 		}
 	}
-
 
 
 	Arrangement::Face_const_iterator fit;
@@ -75,7 +82,6 @@ void Majoritymap::partMajority()
 {
 
 	listMmapFaces.clear();
-
 	Arrangement::Face_const_iterator fit;
 
 	for (fit = mmapArrangement.faces_begin(); fit != mmapArrangement.faces_end(); ++fit)

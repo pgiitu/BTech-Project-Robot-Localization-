@@ -33,7 +33,7 @@ MapIOHandler::MapIOHandler(char * filename)
 	{
 		int n;
 		fscanf(file,"%d",&n);
-		cout <<"the n is "<<n;
+//		cout <<"the n is "<<n;
 		Point points[n];
 		float x,y;
 		for(int i=0;i<n;i++)
@@ -159,7 +159,7 @@ Polygon MapIOHandler::ReturnPolygonFromFile(char *name)
 	{
 		int n;
 		fscanf(file,"%d",&n);
-		cout <<"the n is "<<n;
+//		cout <<"the n is "<<n;
 		Point points[n];
 		float x,y;
 		for(int i=0;i<n;i++)

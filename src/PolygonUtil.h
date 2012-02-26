@@ -55,9 +55,15 @@ public:
 	int findIndex(Point vertex[],int size,Point point);
 	Polygon CalcGPolygon(Point& center,Polygon& FPolygon,std::list<Polygon> polygonList);
 	int ClassifyEdges(Segment edge, Polygon& P1,Polygon& P2);
+	bool EqualsValue(double v1, double v2);
+	bool doPolygonsMatch(Polygon &P1,Polygon &P2);
+	double GetSlope(Segment& edge);
+	Polygon RemoveCollinearPoints(Polygon P);
+
 
 	//Functions to calculate shortest path and edge visibility.
 	bool IsInsidePolygon(Point& p1, Point& p2, Polygon& polygon);
+	bool IsInsidePolygon1(Point& p1, Point& p2, Polygon& polygon);
 	graph_t PrepareVisibilityGraph(Polygon& map, Point vertex[]);
 
 	bool isPathIntersect(Point vertex[],std::list<int> path1,std::list<int> path2);
@@ -69,6 +75,8 @@ public:
 	bool isPathConvex(Point vertex[],std::list<int> pathList,boost::numeric::ublas::vector<double> edge);
 	int findCommonAncestor(std::list<int> path1,std::list<int> path2);
 	std::list<Point> UniqueList(std::list<Point> pointList);
+
+	bool isPointInList(std::list<Point> pointList,Point p);
 
 };
 
