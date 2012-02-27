@@ -52,7 +52,6 @@ bool PolygonUtil::IsReflex(Polygon &polygon,Point &point){
 	Point right = Right(polygon, point);
 	Point left  = Left(polygon, point);
 
-
 	boost::numeric::ublas::vector<double> R(2);
 	boost::numeric::ublas::vector<double> L(2);
 	boost::numeric::ublas::vector<double> P(2);
@@ -70,7 +69,6 @@ bool PolygonUtil::IsReflex(Polygon &polygon,Point &point){
 	L = L - P;
 
 	double prod = scalar_cross_product(R, L);
-
 	return ( prod > 0)?false:true;
 }
 
@@ -139,6 +137,7 @@ void PolygonUtil::FindCandidateIntrPoints(Polygon &map,Ray &rayToCorner,std::lis
 
 		if(CGAL::assign(intPoint,obj))
 		{
+
 //			Segment s(rayToCorner.point(0),intPoint);
 			if((intPoint != vertexPolygon) && (!IsVertexOfPolygon(map, intPoint))
 					&& (IsInsidePolygon1(vertexPolygon,intPoint,map)))
@@ -432,6 +431,7 @@ void PolygonUtil::DisplayPolygon(Polygon& polygon)
 		std::cout << "vertex " << n++ << " = " << *vi << "\n";
 	}
 
+/*
 
 	std::cout<<"\n\nThe edges of the polygon are ...\n";
 	n=0;
@@ -439,6 +439,7 @@ void PolygonUtil::DisplayPolygon(Polygon& polygon)
 		std::cout << "edge " << n++ << " = " << *ei << "\n";
 
 	std::cout<<"\n\n";
+*/
 
 }
 
@@ -538,23 +539,25 @@ bool PolygonUtil::IsInsidePolygon1(Point& p1, Point& p2, Polygon& polygon)
 			listOfPoints.push_back(intPoint);
 		}
 	}
-
-	listOfPoints=UniqueList(listOfPoints);
-	fixedPoint=p1;
-	listOfPoints.sort(CompareDistance1);
-
-	std::list<Point>::iterator pit;
-	Point firstPoint=listOfPoints.front();
-	listOfPoints.pop_front();
-
-	for(pit=listOfPoints.begin();pit!=listOfPoints.end();++pit)
+	if(listOfPoints.size()>0)
 	{
-		Point midPoint((firstPoint.cartesian(0)+(*pit).cartesian(0))/2,(firstPoint.cartesian(1)+(*pit).cartesian(1))/2);
-		if(!CheckInside(midPoint,polygon))
-			return false;
-		firstPoint=*pit;
-	}
+		listOfPoints=UniqueList(listOfPoints);
+		fixedPoint=p1;
+		listOfPoints.sort(CompareDistance1);
 
+		std::list<Point>::iterator pit;
+
+		Point firstPoint=listOfPoints.front();
+		listOfPoints.pop_front();
+
+		for(pit=listOfPoints.begin();pit!=listOfPoints.end();++pit)
+		{
+			Point midPoint((firstPoint.cartesian(0)+(*pit).cartesian(0))/2,(firstPoint.cartesian(1)+(*pit).cartesian(1))/2);
+			if(!CheckInside(midPoint,polygon))
+				return false;
+			firstPoint=*pit;
+		}
+	}
 	return true;
 }
 
@@ -1285,10 +1288,12 @@ bool PolygonUtil::doPolygonsMatch(Polygon &P1copy,Polygon &P2copy)
 	Polygon P2=RemoveCollinearPoints(P2copy);
 
 
+/*
 	cout<<"Polygon P1 \n";
 	DisplayPolygon(P1);
 	cout<<"Polygon P2 \n";
 	DisplayPolygon(P2);
+*/
 
 
 	if(P1.size()!=P2.size())
@@ -1313,8 +1318,10 @@ bool PolygonUtil::doPolygonsMatch(Polygon &P1copy,Polygon &P2copy)
 	{
 		if(!Equals(*v1,*v2))
 		{
+/*
 			std::cout<<"False returned  "<<*v1<<"     "<<*v2<<"\n";
 			DisplayPolygon(P2);
+*/
 			return false;
 		}
 

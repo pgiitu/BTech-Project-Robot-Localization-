@@ -23,7 +23,7 @@ using namespace std;
  string sh1,sh2;
  GLUI_String shyp1,shyp2;
  GLUI_Panel *FijPanel;
-
+ bool flagForKi=false;
 
 
  /*
@@ -54,13 +54,13 @@ Majoritymap mmap;
 // initialising the polygons
 //----------------------------------------------------------------------------------------------
 
-MapIOHandler handle 	= MapIOHandler("Scenario4.txt");
+MapIOHandler handle 	= MapIOHandler("Scenario3.txt");
 PolygonUtil pUtil		= PolygonUtil();
 Polygon mapP			= handle.GetMapPolygon();
 Polygon visP            =handle.GetVisibilityPolygon();
 Point robotPos			= handle.GetRobotPosition();
-Segment seg(Point(7.5,-5),Point(8,-5));
-Point point(5.5,-5);
+Segment seg(Point(4,0),Point(4,4));
+Point point(-0.5,0);
 Polygon VPEdge;
 HypothesisGenerator g;
 list<Point> hyps;  //list of hypothesis
@@ -306,35 +306,79 @@ void CalculateFijs()
     	Kijs.push_back(Ki);
     	//Ki.PrintMajorityMap();
     }
+/*
+
+	cout<<"Length of all two faces is :- "<<all_two_faces.size()<<"   size of first list  "<<all_two_faces.front().size()<<"\n";
+	cout<<"Length of all Fij is :- "<<Fijs.size()<<"\n";
+	cout<<"Length of all Gij is :- "<<Gijs.size()<<"\n\n";
+	cout<<"Length of all Kis is :- "<<Kijs.size()<<"\n\n";
+*/
+
+ /*
+ * Displaying all the pair of hypothesis
+ */
+/*
+    list<list<list<Polygon> > >::iterator pit3;
+	list<list<Polygon> >::iterator pit2;
+	list<Polygon> ::iterator pit1;
+	int n=1;
+
+	for(pit3=all_two_faces.begin();pit3!=all_two_faces.end();++pit3)
+	{
+		cout<<"For Hypothesis No:- "<<n++<<endl;
+		for(pit2=(*pit3).begin();pit2!=(*pit3).end();++pit2)
+		{
+			cout<<"Size of list of two polygons :- "<<(*pit2).size()<<endl;
+			cout<<"A pair of polygons\n";
+			for(pit1=(*pit2).begin();pit1!=(*pit2).end();++pit1)
+			{
+				pUtil.DisplayPolygon(*pit1);
+			}
+		}
+	}
+*/
+
+
+/*
+	list<list<Polygon> >::iterator fit2=Fijs.begin();
+	list<Polygon>::iterator fit1=(*fit2).begin();
+	for(fit2=Fijs.begin();fit2!=Fijs.end();++fit2)
+	{
+		for(fit1=(*fit2).begin();fit1!=(*fit2).end();++fit1)
+		{
+			pUtil.DisplayPolygon(*fit1);
+		}
+	}
+
+*/
+
+
 
 }
 
 void Display_Fij()
 {
+
+if(!flagForKi)
+{
 	list<list<list<Polygon> > >::iterator pit3=all_two_faces.begin();
-	cout<<"Length of all two faces is :- "<<all_two_faces.size()<<"\n";
-	cout<<"Length of all Fij is :- "<<Fijs.size()<<"\n";
-	cout<<"Length of all Gij is :- "<<Gijs.size()<<"\n\n";
 	list<list<Polygon> >::iterator pit2=(*pit3).begin();
 	list<Polygon> ::iterator pit1;
 	glColor3f(1,0,0);
-//	cout<<"Finally5555\n";
-	for(pit1=(*pit2).begin();pit1!=(*pit2).end();++pit1)
-	{
-//		cout<<"Finally\n";
-//		pUtil.DisplayPolygon(*pit1);
-		GLuint i=tessellate1((*pit1),0);
-		glCallList(i);
-	}
-	(*pit2).pop_front();
 
+		for(pit1=(*pit2).begin();pit1!=(*pit2).end();++pit1)
+		{
+			GLuint i=tessellate1((*pit1),0);
+			glCallList(i);
+		}
+		cout<<"size of two faces  "<<all_two_faces.front().size()<<endl;
 
 	glColor3f(0,1,0);
 	list<list<Polygon> >::iterator fit2=Fijs.begin();
 	list<Polygon>::iterator fit1=(*fit2).begin();
 	GLuint i=tessellate1((*fit1),0);
 	glCallList(i);
-	(*fit2).pop_front();
+
 
 	glColor3f(0,0,1);
 	list<list<Polygon> >::iterator git2=Gijs.begin();
@@ -342,7 +386,48 @@ void Display_Fij()
 	i=tessellate1((*git1),0);
 	glCallList(i);
 	pUtil.DisplayPolygon(*git1);
-	(*git2).pop_front();
+
+	if(all_two_faces.front().size()==1 && Fijs.front().size()==1 && Gijs.front().size()==1)
+	{
+		all_two_faces.pop_front();
+		Fijs.pop_front();
+		Gijs.pop_front();
+		flagForKi=true;
+
+//		all_two_faces.front().pop_front();
+	}
+	else
+	{
+//		cout<<"size = 0\n\n";
+		all_two_faces.front().pop_front();
+		Fijs.front().pop_front();
+		Gijs.front().pop_front();
+		flagForKi=false;
+	}
+}
+else
+{
+	glColor3f(0,0,1);
+	list<Majoritymap>::iterator kit1=Kijs.begin();
+
+	std::list<Faces>::iterator fit;
+	for(fit=(*kit1).listMmapFaces.begin();fit!=(*kit1).listMmapFaces.end();++fit)
+	{
+		GLuint j=tessellate1((*fit).face,0);
+		if((*fit).partOfMajorityMap)
+		{
+			glColor3f(0,1,0);
+		}
+		else
+		{
+			glColor3f(0,0,0);
+		}
+		glCallList(j);
+	}
+	Kijs.pop_front();
+	flagForKi=false;
+
+}
 
 	cout<<"GIJ Drawn\n";
 }
@@ -454,128 +539,6 @@ string convert_point_string(Point p)
 
 int main(int argc, char ** argv)
 {
-
-/*
-	Polygon p;
-	cout<<"\nSize is :- "<<p.size()<<"\n";
-
-	HypothesisGenerator g = HypothesisGenerator(mapP, visP, robotPos);
-	list<Point> hyps = g.GenHypothesis();
-
-    no_of_hypothesis=hyps.size();
-
-    std::cout<<"Number Of Hypothesis"<<hyps.size();
-
-
-	list<Point>::iterator it;
-	int i=0;
-	Point hypothesisArray[no_of_hypothesis];
-	for(it = hyps.begin(); it != hyps.end(); it++)
-	{
-		hypothesisArray[i++]=*it;
-		cout << "\nHypothesis  "<<*it << "\n";
-	}
-
-	Majoritymap mmap1(no_of_hypothesis,hypothesisArray,robotPos,mapP);
-	mmap1.GenerateMajorityMap();
-	mmap=mmap1;
-	mmap.findRegionContaningOrigin();
-
-//	pUtil.DisplayPolygon(mapP);
-
-	VPEdge=pUtil.CalcWindowEdge(mapP,seg);
-    pUtil.DisplayPolygon(VPEdge);
-*/
-
-
- // Calculating the Fij's and Gij's
-/*
-	CalcFaceContainingOrigin();
-	Point hypothesisArray[no_of_hypothesis];
-	list<Point>::iterator it;
-    int i=0;
-
-    for(it = hyps.begin(); it != hyps.end(); it++)
-	{
-		hypothesisArray[i++]=*it;
-	}
-
-    list<Polygon> KPolygonList;  //For storing the Kij's
-    for(i=0;i<no_of_hypothesis;i++)
-    {
-    	Point center=hypothesisArray[i];
-    	list<Polygon> GPolygonList;  //for storing the gij's
-
-    	for(int j=0;j<no_of_hypothesis;j++)
-    	{
-    		Majoritymap overlayArrangement;
-    		list<Polygon> TwoPolygons;
-    		Vector t(robotPos.cartesian(0)-center.cartesian(0),robotPos.cartesian(1)-center.cartesian(1));
-    		Transformation trans(CGAL::TRANSLATION,t);
-    		TwoPolygons.push_back(overlayArrangement.GetTranslatePolygon(trans,mapP));
-    		if(i!=j )
-    		{
-    			Vector t1(robotPos.cartesian(0)-hypothesisArray[j].cartesian(0),robotPos.cartesian(1)-hypothesisArray[j].cartesian(1));
-        		Transformation trans1(CGAL::TRANSLATION,t1);
-        		TwoPolygons.push_back(overlayArrangement.GetTranslatePolygon(trans1,mapP));
-        		overlayArrangement.GenerateOverlay(TwoPolygons);
-        		Polygon Fij=overlayArrangement.OverlayContaningOrigin(robotPos);
-
-        		cout<<"For Hypothesis "<<i<< "  " <<hypothesisArray[i]<<"  hypothesis  "<<j<<"  "<<hypothesisArray[j]<<endl;
-        		pUtil.DisplayPolygon(Fij);
-
-        		Polygon Gij=pUtil.CalcGPolygon(robotPos,Fij,TwoPolygons);
-        		GPolygonList.push_back(Gij);
-    		}
-    	}
-
-    	 // Using GPOLYGONLIST we need to construct Ki
-    	 // Insert Ki in KPOLYGONLIST
-
-
-    	cout<<"Hypothesis  "<<hypothesisArray[i]<<endl;
-    	list<Polygon>::iterator pit;
-    	for(pit=GPolygonList.begin();pit!=GPolygonList.end();++pit)
-    	{
-    		pUtil.DisplayPolygon(*pit);
-    	}
-
-    	Majoritymap Ki(GPolygonList.size(),GPolygonList);
-    	Ki.GenerateOverlay(GPolygonList);
-    	Ki.partMajority();
-
-    	//Ki.PrintMajorityMap();
-    }
-*/
-
-
-
-	/*
-	 *
-	 *  VISIBILITY POLYGON OF A POINT IT REQUIRES POINT UPGRADATION
-	 *  AT TWO POINTS.
-	 *
-	 *  THERE IS AN ERROR IN HYPOTHESIS GENERATION IN ISMATCH FUNCTION
-	 *
-	 *
-	 */
-
-
-/*
-   std::set<Point> s;
-   s.insert(Point(2,1));
-   s.insert(Point(2,1));
-   s.insert(Point(2,1));
-   s.insert(Point(4,4));
-   s.insert(Point(21,11));
-   s.insert(Point(22,11));
-
-   std::set<Point>::iterator itt;
-   for(itt=s.begin();itt!=s.end();++itt)
-   {
-	   cout<<*itt<<endl;
-   }
-*/
 
       GLUI_Panel *HGererationPanel;
 	  GLUI_EditText *hyp1,*hyp2;

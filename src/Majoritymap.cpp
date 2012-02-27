@@ -197,13 +197,18 @@ Polygon Majoritymap::ConvertFaceToPolygon(Arrangement::Ccb_halfedge_const_circul
  */
 bool Majoritymap::IsContainedIn(Polygon outer,Polygon inner)
 {
-	for(VertexIterator vi = inner.vertices_begin(); vi !=inner.vertices_end(); ++vi)
+
+	for(EdgeIterator ei = inner.edges_begin(); ei !=inner.edges_end(); ++ei)
 	{
-		if(outer.has_on_unbounded_side(*vi))
+
+		Point first=(*ei).point(0);
+		Point second=(*ei).point(1);
+		if(!pUtil.IsInsidePolygon1(first,second,outer))
 		{
 			return false;
 		}
 	}
+
 	return true;
 }
 

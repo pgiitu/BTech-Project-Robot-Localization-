@@ -58,17 +58,18 @@ list<Point> HypothesisGenerator::GenHypothesis(){
 	Segment mapEdge = *(mapIter);
 	Segment visEdge = *(visIter);
 
-	for(int i = 0; i < mapP.size(); i++){
-
+	for(int i = 0; i < mapP.size(); i++)
+	{
 		visIter = visP.edges_begin();
 		visIterCpy = visP.edges_begin();
-
-		for(int j = 0; j < visP.size(); j++){
+		for(int j = 0; j < visP.size(); j++)
+		{
 			if(IsMatch(mapEdge, visEdge))
 			{
-
+/*
 				cout<<"Visibility Polygon Edge "<<visEdge<<"\n";
 				cout<<"Map Polygon Edge "<<mapEdge<<"\n";
+*/
 				Vector T(visEdge.point(0), mapEdge.point(0));
 				Vector invT(mapEdge.point(0), visEdge.point(0));
 
@@ -86,16 +87,13 @@ list<Point> HypothesisGenerator::GenHypothesis(){
 	//			pUtil.DisplayPolygon(visibilityPolygon);
 				if(pUtil.doPolygonsMatch(visibilityPolygon,visP))
 				{
-					cout<<"match\n";
+/*					cout<<"match\n";*/
 					if(!IsInList(hyps,robotPos)){
 						hyps.push_back(robotPos);
 					}
 				}
 
-
-
 /*
-
 				if(IsComplMatch( visIterCpy)){
 
 					Point newHyp(robotPos.cartesian(0), robotPos.cartesian(1));
@@ -112,8 +110,6 @@ list<Point> HypothesisGenerator::GenHypothesis(){
 					visIterCpy = visIter;
 				}
 */
-
-
 				TranslatePolygon(invTranslate, visP);
 				robotPos = invTranslate(robotPos);
 			}
@@ -137,9 +133,10 @@ bool HypothesisGenerator::IsInList(list<Point> hyps, Point p){
 }
 
 
-void HypothesisGenerator::TranslatePolygon(Transformation& translate, Polygon& polygon){
-
-	for(VertexIterator vi = polygon.vertices_begin(); vi !=polygon.vertices_end(); ++vi){
+void HypothesisGenerator::TranslatePolygon(Transformation& translate, Polygon& polygon)
+{
+	for(VertexIterator vi = polygon.vertices_begin(); vi !=polygon.vertices_end(); ++vi)
+	{
 		*vi = translate(*vi);
 	}
 }
@@ -151,19 +148,20 @@ bool HypothesisGenerator::IsComplMatch( EdgeIterator& visIter){
 	int i = 0;
 
 	while(i < visP.size()){
-
 		Point p1 = visEdge.point(0);
 		Point p2 = visEdge.point(1);
 
 		if( !(mapP.has_on_boundary(p1) && mapP.has_on_boundary(p2)) ){
+/*
 			cout<<"Edge which didn't match "<< visEdge<<"\n";
 			cout<<"On Boundary P1 "<<mapP.has_on_boundary(p1)<<"\n";
 			cout<<"On Boundary P2 "<<mapP.has_on_boundary(p2)<<"\n";
+*/
 			return false;
 		}
 
 		if( !TwoVertexOnEdge(visEdge)){
-			cout<<"Edge which didn't match Condition2  "<< visEdge<<"\n";
+/*			cout<<"Edge which didn't match Condition2  "<< visEdge<<"\n";*/
 			return false;
 		}
 
@@ -173,7 +171,6 @@ bool HypothesisGenerator::IsComplMatch( EdgeIterator& visIter){
 
 	return true;
 }
-
 
 
 /**
