@@ -66,10 +66,6 @@ list<Point> HypothesisGenerator::GenHypothesis(){
 		{
 			if(IsMatch(mapEdge, visEdge))
 			{
-/*
-				cout<<"Visibility Polygon Edge "<<visEdge<<"\n";
-				cout<<"Map Polygon Edge "<<mapEdge<<"\n";
-*/
 				Vector T(visEdge.point(0), mapEdge.point(0));
 				Vector invT(mapEdge.point(0), visEdge.point(0));
 
@@ -77,42 +73,22 @@ list<Point> HypothesisGenerator::GenHypothesis(){
 				Transformation invTranslate(CGAL::TRANSLATION, invT);
 
 				TranslatePolygon(translate, visP);
-		//		cout<<"Before Translation Robot Pos "<<robotPos<<"\n";
 
 				robotPos = translate(robotPos);
 
-				Polygon visibilityPolygon=pUtil.CalcVisibilityPolygon(mapP,robotPos);
-
-	//			cout<<"After Translation Robot Pos "<<robotPos<<"\n";
-	//			pUtil.DisplayPolygon(visibilityPolygon);
-				if(pUtil.doPolygonsMatch(visibilityPolygon,visP))
+				if(!IsInList(hyps,robotPos))
 				{
-/*					cout<<"match\n";*/
-					if(!IsInList(hyps,robotPos)){
-						hyps.push_back(robotPos);
+					Polygon visibilityPolygon=pUtil.CalcVisibilityPolygon(mapP,robotPos);
+					if(pUtil.doPolygonsMatch(visibilityPolygon,visP))
+					{
+							hyps.push_back(robotPos);
 					}
 				}
 
-/*
-				if(IsComplMatch( visIterCpy)){
-
-					Point newHyp(robotPos.cartesian(0), robotPos.cartesian(1));
-
-					 // could not understand
-
-					cout<<" Hypothesis Found Before Translation "<<newHyp<<"Robot Pos"<<robotPos<<"\n";
-					cout<<" Hypothesis Found "<<newHyp<<"\n";
-
-					if(!IsInList(hyps,newHyp)){
-						hyps.push_back(newHyp);
-					}
-					mapIterCpy = mapIter;
-					visIterCpy = visIter;
-				}
-*/
 				TranslatePolygon(invTranslate, visP);
 				robotPos = invTranslate(robotPos);
 			}
+
 			visEdge = GetNextEdge(visIter, visP);
 			GetNextEdge(visIterCpy, visP);
 		}

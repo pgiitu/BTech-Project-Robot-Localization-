@@ -17,7 +17,7 @@ public:
 	Point robotPos;
 
 	MapIOHandler();
-	MapIOHandler(char *);
+	MapIOHandler(const char *);
 	virtual ~MapIOHandler();
 
 

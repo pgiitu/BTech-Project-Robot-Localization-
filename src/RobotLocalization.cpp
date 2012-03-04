@@ -12,19 +12,31 @@
 #include "HypothesisGenerator.h"
 #include "Majoritymap.h"
 #include "UIutil.h"
+#include <stdlib.h>
+#include <stdio.h>
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <hash_map>
 
-#define WIDTH 640
-#define HEIGHT 480
+
+#define WIDTH 840
+#define HEIGHT 680
 
 using namespace std;
 
  string sh1,sh2;
- GLUI_String shyp1,shyp2;
+ string shyp1,shyp2; //live variable
+ int mapID=1;
+ float fxcoordinate,fycoordinate;
  GLUI_Panel *FijPanel;
  bool flagForKi=false;
 
+ float zoomfactor=1.0;
+ Camera camera;
+
+ GLUI_Spinner *edgeSpinner;
+ GLUI_Listbox *mapList;
 
  /*
   * for Fij's
@@ -35,6 +47,8 @@ using namespace std;
  list<list<list<Polygon> > > all_two_faces;
 
 
+map<int,Segment> EdgeMap;
+map<int,string> mapMap;  //mapping from integer to map for changing the map in the gui
 
 
 /*
@@ -45,30 +59,21 @@ using namespace std;
  */
 
 int phase=0;
-int listIDMap;
-int listIDVPolygon;
-int listHypothesis;
-int listmmap;
 Majoritymap mmap;
-
+list<Polygon> polygonList; //for facecontaining origin
 // initialising the polygons
 //----------------------------------------------------------------------------------------------
 
-MapIOHandler handle 	= MapIOHandler("Scenario3.txt");
 PolygonUtil pUtil		= PolygonUtil();
-Polygon mapP			= handle.GetMapPolygon();
-Polygon visP            =handle.GetVisibilityPolygon();
-Point robotPos			= handle.GetRobotPosition();
-Segment seg(Point(4,0),Point(4,4));
-Point point(-0.5,0);
-Polygon VPEdge;
+Polygon mapP;
+Polygon visP;
+Point robotPos;
+Segment seg;
 HypothesisGenerator g;
 list<Point> hyps;  //list of hypothesis
 int no_of_hypothesis;
 
 
-//For Majority Map and Face Containing Origin
-list<Polygon> polygonList;
 //-----------------------------------------------------------------------------------------------
 
 void DisplayMajorityMap();
@@ -76,46 +81,97 @@ void DisplayFaceContainingOrigin();
 void DisplayVisibilityPolygonEdge();
 void DisplayLocalMap();
 void DisplayMajorityMap();
+void MapIntegerToEdge();
+void LoadNewMap();
+void DisplayMap();
+void ShowMap(int id);
 
-
-
-void DisplayMap()
+void LoadNewMap()
 {
-	listIDMap=tessellate1(mapP,0);
-	listIDVPolygon=tessellate1(visP,0);
+
+	string s=mapMap[mapID];
+	MapIOHandler handle 	= MapIOHandler(s.c_str());
+	mapP	  		        = handle.GetMapPolygon();
+	visP                    = handle.GetVisibilityPolygon();
+	robotPos			    = handle.GetRobotPosition();
+	MapIntegerToEdge();
+	seg=EdgeMap[1];
+
+	hyps.clear();
+	mmap.noOfHypothesis=0;
+	polygonList.clear();
+	Kijs.clear();
+	Gijs.clear();
+	Fijs.clear();
+	all_two_faces.clear();
+	  edgeSpinner->set_int_limits(1,mapP.size(),GLUI_LIMIT_CLAMP);
+
+
+	//	DisplayMap();
+	int listIDMap=tessellate1(mapP,0);
+	int listIDVPolygon=tessellate1(visP,0);
 	glColor3f(1,0,0);
 	glCallList(listIDMap);
 	glColor3f(0,1,0);
 	glCallList(listIDVPolygon);
 }
 
+void special(int key, int, int) {
+  switch (key) {
+    case GLUT_KEY_LEFT:  camera.moveLeft(); break;
+    case GLUT_KEY_RIGHT: camera.moveRight(); break;
+    case GLUT_KEY_UP:    camera.moveUp(); break;
+    case GLUT_KEY_DOWN:  camera.moveDown(); break;
+  }
+    glutPostRedisplay();
+
+}
+
+void MapIntegerToEdge()
+{
+	int i=1;
+	for(EdgeIterator ei=mapP.edges_begin();ei!=mapP.edges_end();++ei)
+	{
+		Point source=ei->source();
+		Point des=ei->target();
+		Segment s(source,des);
+		EdgeMap[i++]=s;
+	}
+}
+
+
+void DisplayMap()
+{
+	int listIDMap=tessellate1(mapP,0);
+	int listIDVPolygon=tessellate1(visP,0);
+	glColor3f(1,0,0);
+	glCallList(listIDMap);
+	glColor3f(0,1,0);
+	glCallList(listIDVPolygon);
+}
+
+
+
 void DisplayLocalMap()
 {
 	glColor3f(0,1,0);
-	listIDVPolygon=tessellate1(visP,0);
+	int listIDVPolygon=tessellate1(visP,0);
 	glCallList(listIDVPolygon);
 }
 
 void CalcHypothesis()
 {
-//	if(!hyps.size())
-//	{
-	list<Point>::iterator it;
+	if(hyps.size()==0)
+	{
 		g = HypothesisGenerator(mapP, visP, robotPos);
 		hyps = g.GenHypothesis();
-		cout<<"list length "<<hyps.size()<<endl;
-		for(it = hyps.begin(); it != hyps.end(); it++)
-		{
-			cout << "\nHypothesis  "<<*it << "\n";
-		}
-
-//	}
+	}
 }
 
 void DisplayHypothesis()
 {
 	CalcHypothesis();
-	listIDMap=tessellate1(mapP,0);
+	int listIDMap=tessellate1(mapP,0);
 	glColor3f(1,0,0);
 	glCallList(listIDMap);
 	glPointSize(10);
@@ -127,48 +183,77 @@ void DisplayHypothesis()
 		glVertex2f((*it).cartesian(0),(*it).cartesian(1));
 	}
 	glEnd();
+
+cout<<"Hypothesis done\n";
 }
 
 void CalcMajorityMap()
 {
 		CalcHypothesis();
-		list<Point>::iterator it;
-		int i=0;
-		no_of_hypothesis=hyps.size();
-		Point hypothesisArray[no_of_hypothesis];
-		for(it = hyps.begin(); it != hyps.end(); it++)
+		if(mmap.noOfHypothesis==0)
 		{
-			hypothesisArray[i++]=*it;
-//			cout << "\nHypothesis  "<<*it << "\n";
-		}
+			list<Point>::iterator it;
+			int i=0;
+			no_of_hypothesis=hyps.size();
+			Point hypothesisArray[no_of_hypothesis];
+			for(it = hyps.begin(); it != hyps.end(); it++)
+			{
+				hypothesisArray[i++]=*it;
+			}
 
-		Majoritymap mmap1(no_of_hypothesis,hypothesisArray,robotPos,mapP);
-		mmap1.GenerateMajorityMap();
-		mmap=mmap1;
+			Majoritymap mmap1(no_of_hypothesis,hypothesisArray,robotPos,mapP);
+			mmap1.GenerateMajorityMap();
+			mmap=mmap1;
+			cout<<"Majority Map done\n";
+		}
 }
 
 void DisplayMajorityMap()
 {
 	CalcMajorityMap();
+
 	std::list<Faces>::iterator fit;
+
 	for(fit=mmap.listMmapFaces.begin();fit!=mmap.listMmapFaces.end();++fit)
 	{
-		GLuint j=tessellate1((*fit).face,0);
 		if((*fit).partOfMajorityMap)
 		{
 			glColor3f(0,1,0);
+
 		}
 		else
 		{
 			glColor3f(0,0,0);
+			cout<<"Not majrity.....................................................................\n";
 		}
+
+		GLuint j=tessellate1((*fit).face,0);
 		glCallList(j);
 	}
+
+/*
+	std::list<Polygon>::iterator pit;
+	for(pit=mmap.listTanslatedPolygons.begin();pit!=mmap.listTanslatedPolygons.end();++pit)
+	{
+		float rand1=(rand()%255);
+		float rand2=(rand()%255);
+		float rand3=(rand()%255);
+
+		glColor3f(0,1,0);
+		GLuint j=tessellate1((*pit),0);
+		glCallList(j);
+	}
+*/
+
 }
+
 void CalcFaceContainingOrigin()
 {
 	CalcMajorityMap();
-	polygonList=mmap.findRegionContaningOrigin();
+	if(polygonList.size()==0)
+	{
+		polygonList=mmap.findRegionContaningOrigin();
+	}
 }
 void DisplayFaceContainingOrigin()
 {
@@ -182,19 +267,19 @@ void DisplayFaceContainingOrigin()
 	}
 }
 
-void CalcVisibilityPolygonEdge()
+Polygon CalcVisibilityPolygonEdge()
 {
-	if(!VPEdge.size())
-	{
-		VPEdge=pUtil.CalcWindowEdge(mapP,seg);
-//		pUtil.DisplayPolygon(VPEdge);
-	}
+//	if(!VPEdge.size())
+//	{
+		Polygon VPEdge=pUtil.CalcWindowEdge(mapP,seg);
+		return VPEdge;
+		//	}
 }
 void DisplayVisibilityPolygonEdge()
 {
-		CalcVisibilityPolygonEdge();
+		Polygon VPEdge=CalcVisibilityPolygonEdge();
 		glColor3f(0,0,0);
-		listIDMap=tessellate1(mapP,0);
+		int listIDMap=tessellate1(mapP,0);
 		glCallList(listIDMap);
 		glColor3f(0,1,0);
 		GLuint i=tessellate1(VPEdge,0);
@@ -211,23 +296,24 @@ void DisplayVisibilityPolygonEdge()
 		glEnd();
 }
 
-void DisplayVisibilityPolygonPoint()
+void DisplayVisibilityPolygonPoint(Point point)
 {
-	Polygon p1=pUtil.CalcVisibilityPolygon(mapP,point);
-	cout<<"Visibility Polygon of Point \n";
-	pUtil.DisplayPolygon(p1);
-	p1=pUtil.RemoveCollinearPoints(p1);
-	cout<<" removed Visibility Polygon of Point \n";
-	pUtil.DisplayPolygon(p1);
+
 	glColor3f(0,0,0);
-	listIDMap=tessellate1(mapP,0);
+	int listIDMap=tessellate1(mapP,0);
 	glCallList(listIDMap);
-	glColor3f(0,1,0);
-	GLuint i=tessellate1(p1,0);
-	glCallList(i);
-	glBegin(GL_POINTS);
-	glPointSize(4);
+	if(pUtil.CheckInside(point,mapP))
+	{
+		Polygon p1=pUtil.CalcVisibilityPolygon(mapP,point);
+//		pUtil.DisplayPolygon(p1);
+
+		glColor3f(0,1,0);
+		GLuint i=tessellate1(p1,0);
+		glCallList(i);
+	}
+	glPointSize(5);
 	glColor3f(0,0,1);
+	glBegin(GL_POINTS);
 	glVertex2f(point.cartesian(0),point.cartesian(1));
 //	glVertex2f(10,10);
 	glEnd();
@@ -238,6 +324,9 @@ void DisplayVisibilityPolygonPoint()
 void CalculateFijs()
 {
 	CalcFaceContainingOrigin();
+
+if(Kijs.size()<=0 && Gijs.size()<=0 && Fijs.size()<=0 && all_two_faces.size()<=0)
+{
 	Point hypothesisArray[no_of_hypothesis];
 	list<Point>::iterator it;
     int i=0;
@@ -285,6 +374,7 @@ void CalculateFijs()
     		}
     	}
 
+    	cout<<"Fij , Gij Calculated for Hypothesis No:- "<<(i+1)<<"  Done\n";
     	Gijs.push_back(GPolygonList);
     	Fijs.push_back(FPolygonList);
     	all_two_faces.push_back(two_faces);
@@ -305,8 +395,11 @@ void CalculateFijs()
 
     	Kijs.push_back(Ki);
     	//Ki.PrintMajorityMap();
+
+    	cout<<"Ki for hypothesis No:- "<<(i+1)<<"  Done\n\n";
     }
-/*
+}
+  /*
 
 	cout<<"Length of all two faces is :- "<<all_two_faces.size()<<"   size of first list  "<<all_two_faces.front().size()<<"\n";
 	cout<<"Length of all Fij is :- "<<Fijs.size()<<"\n";
@@ -356,6 +449,21 @@ void CalculateFijs()
 
 }
 
+void Display_polygon_as_line(Polygon P)
+{
+	EdgeIterator ei=P.edges_begin();
+	glColor3f(0,0,0);
+	glBegin(GL_LINE_LOOP);
+	Point s=ei->source();
+	glVertex3f(s.cartesian(0),s.cartesian(1),0);
+	for(ei=P.edges_begin();ei!=P.edges_end();++ei)
+	{
+		Point d=ei->target();
+		glVertex3f(d.cartesian(0),d.cartesian(1),0);
+	}
+	glEnd();
+}
+
 void Display_Fij()
 {
 
@@ -370,6 +478,8 @@ if(!flagForKi)
 		{
 			GLuint i=tessellate1((*pit1),0);
 			glCallList(i);
+			Display_polygon_as_line(*pit1);
+			glColor3f(1,0,0);
 		}
 		cout<<"size of two faces  "<<all_two_faces.front().size()<<endl;
 
@@ -385,7 +495,7 @@ if(!flagForKi)
 	list<Polygon>::iterator git1=(*git2).begin();
 	i=tessellate1((*git1),0);
 	glCallList(i);
-	pUtil.DisplayPolygon(*git1);
+//	pUtil.DisplayPolygon(*git1);
 
 	if(all_two_faces.front().size()==1 && Fijs.front().size()==1 && Gijs.front().size()==1)
 	{
@@ -436,11 +546,22 @@ else
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+/*
+	gluLookAt(0, 0, -100,
+	            0.0, 0.0,0.0 ,
+	            0.0, 1.0, 0.0);
+*/
+	glLoadIdentity();
+	gluPerspective(120/zoomfactor,1,0.1,16);
+	gluLookAt(0,0,15,0,0,0,0,1,0);
 
-	std::list<Point>::iterator it;
-	std::list<Faces>::iterator fit;
+	int edge_no;
+	Point point;
 	switch(phase)
 	{
+		case 0:
+			LoadNewMap();
+			break;
 		case 1:
 			DisplayMap();
 			break;
@@ -457,32 +578,36 @@ void display()
 			DisplayFaceContainingOrigin();
 			break;
 		case 6:
+			edge_no=edgeSpinner->get_int_val();
+			cout<<"Edge No is :-  "<<edge_no<<"\n";
+			seg=EdgeMap[edge_no];
 			DisplayVisibilityPolygonEdge();
 			break;
 		case 7:
-			DisplayVisibilityPolygonPoint();
+			point=Point(atof(shyp1.c_str()),atof(shyp2.c_str()));
+			DisplayVisibilityPolygonPoint(point);
 			break;
 		case 8:
 			CalculateFijs();
 			break;
 		case 10:
-//			cout<<"Fisiisisissssssssssssssssss\n";
 			Display_Fij();
 			break;
 		default:
 			break;
 	}
-
 	glFlush();
-
 }
-
 
 
 void ShowMap(int ID)
 {
 	switch(ID)
 	{
+		case 0:
+			phase=ID;
+			glutPostRedisplay();
+			break;
 		case 1:
 			phase=ID;  //ID=1
 			glutPostRedisplay();
@@ -540,23 +665,45 @@ string convert_point_string(Point p)
 int main(int argc, char ** argv)
 {
 
-      GLUI_Panel *HGererationPanel;
-	  GLUI_EditText *hyp1,*hyp2;
-
+	GLUI *glui;
+	 GLUI_Panel *VisibilityPanel;
+	  GLUI_Panel *HGererationPanel;
+	  GLUI_EditText *hyp1,*hyp2,*Xcoordinate,*Ycoordinate;
       glutInit( &argc, argv );
 	  glutInitDisplayMode( GLUT_RGB | GLUT_SINGLE );
 	  glutInitWindowSize (WIDTH, HEIGHT);
-	  glutInitWindowPosition (50, 100);
-	  int windowId=glutCreateWindow ("Visibility Polygon");
+	  glutInitWindowPosition (0, 0);
+	  int windowId=glutCreateWindow ("Robot Localization");
 
 	  init();
 	  glutDisplayFunc( display );
+//	  glutSpecialFunc(special);
 
 	  GLUI_Master.set_glutIdleFunc (NULL);
 	  /** Now create a GLUI user interface window and add controls **/
 
-	  GLUI *glui = GLUI_Master.create_glui( "GLUI", 0 );
+	  glui = GLUI_Master.create_glui( "GLUI", 0 ,840, 0);
+
 	  glui->set_main_gfx_window( windowId );
+	  mapList=glui->add_listbox("Choose Map  ",&mapID);
+	  mapList->add_item(1,"Scenario1.txt");
+	  mapMap[1]="Scenario1.txt";
+	  mapList->add_item(2,"Scenario2.txt");
+	  mapMap[2]="Scenario2.txt";
+	  mapList->add_item(3,"Scenario3.txt");
+	  mapMap[3]="Scenario3.txt";
+	  mapList->add_item(4,"Office.txt");
+	  mapMap[4]="Office.txt";
+	  mapList->add_item(5,"Office_anti.txt");
+	  mapMap[5]="Office_anti.txt";
+
+	  glui->add_button("Choose Map",0,ShowMap);
+
+
+	  GLUI_Spinner *zoomSpinner=glui->add_spinner("Perspective View",GLUI_SPINNER_FLOAT,&zoomfactor);
+	  zoomSpinner->set_float_limits(0.1,1.5);
+	  zoomSpinner->set_speed(0.4);
+
 	  glui->add_button("Show Map",1,ShowMap);
 	  glui->add_button("Show Visibility Map",2,ShowMap);
 	  HGererationPanel=glui->add_panel("Hypothesis Generation");
@@ -565,9 +712,23 @@ int main(int argc, char ** argv)
 	  glui->add_button("Show Majority Map",4,ShowMap);
 	  glui->add_button("Face Containing Origin",5,ShowMap);
 	  glui->add_separator();
-	  glui->add_button("Visibility Polygon of edge",6,ShowMap);
-	  glui->add_separator();
-	  glui->add_button("Visibility Polygon of point",7,ShowMap);
+
+	  VisibilityPanel=glui->add_panel("Visibility Algorithms");
+
+//	  edgeSpinner=glui->add_spinner_to_panel(VisibilityPanel,"Edge No.",GLUI_SPINNER_INT);
+//	  edgeSpinner->set_int_limits(1,mapP.size(),GLUI_LIMIT_CLAMP);
+
+//	  glui->add_button_to_panel(VisibilityPanel,"Visibility Polygon of edge",6,ShowMap);
+
+	  glui->add_separator_to_panel(VisibilityPanel);
+
+	  edgeSpinner=glui->add_spinner_to_panel(VisibilityPanel,"Edge No.",GLUI_SPINNER_INT);
+
+	  glui->add_button_to_panel(VisibilityPanel,"Visibility Polygon of edge",6,ShowMap);
+
+	  Xcoordinate=glui->add_edittext_to_panel(VisibilityPanel,"X",shyp1,GLUI_EDITTEXT_STRING);
+	  Ycoordinate=glui->add_edittext_to_panel(VisibilityPanel,"Y",shyp2,GLUI_EDITTEXT_STRING);
+	  glui->add_button_to_panel(VisibilityPanel,"Visibility Polygon of point",7,ShowMap);
 
 	  glui->add_button("Calculate Fij's",8,ShowMap);
 	  FijPanel=glui->add_panel("Calculating Fij's and Gij's");
@@ -579,6 +740,7 @@ int main(int argc, char ** argv)
 	  //	  hyp1->text=(string)Point(1,2);
 //	  glui->add_statictext("COlor Represents this");
 	  glutMainLoop();
+
 
       return 0;
 }

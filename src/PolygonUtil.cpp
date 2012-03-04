@@ -174,9 +174,14 @@ Polygon PolygonUtil::CalcVisibilityPolygon(Polygon& map, Point& point)
 	 * changes have been done, It may harm the functionality of visibility Polygon  of a Point
 	 */
 	using namespace std;
+	/*if(!CheckInside(point,map))
+	{
+		Polygon pl;
+		return pl;
+	}*/
 	Polygon setVisiblePoints = VisiblePointSet(map,point);
-//	cout<<"Set Of Visible Points\n";
-//	DisplayPolygon(setVisiblePoints);
+	cout<<"Set Of Visible Points\n";
+	DisplayPolygon(setVisiblePoints);
 
 	list<Point> listVisiblePoints;
 	fixedPoint=point;
@@ -521,7 +526,9 @@ bool PolygonUtil::IsInsidePolygon(Point& p1, Point& p2, Polygon& polygon){
 }
 
 /*
- * By checking the mid points
+ * CRITICAL PRIORITY
+ * there is some error in this function which need to be solved.
+ *
  */
 bool PolygonUtil::IsInsidePolygon1(Point& p1, Point& p2, Polygon& polygon)
 {
@@ -530,7 +537,7 @@ bool PolygonUtil::IsInsidePolygon1(Point& p1, Point& p2, Polygon& polygon)
 
 	Point intPoint;
 	Segment intSegment;
-
+	int flag=0;
 	for (EdgeIterator ei = polygon.edges_begin(); ei != polygon.edges_end(); ++ei)
 	{
 		Object obj=CGAL::intersection(halfedge,*ei);
@@ -538,7 +545,13 @@ bool PolygonUtil::IsInsidePolygon1(Point& p1, Point& p2, Polygon& polygon)
 		{
 			listOfPoints.push_back(intPoint);
 		}
+		else if(CGAL::assign(intSegment,obj))
+		{
+			flag=1;
+		}
+
 	}
+
 	if(listOfPoints.size()>0)
 	{
 		listOfPoints=UniqueList(listOfPoints);
@@ -553,11 +566,16 @@ bool PolygonUtil::IsInsidePolygon1(Point& p1, Point& p2, Polygon& polygon)
 		for(pit=listOfPoints.begin();pit!=listOfPoints.end();++pit)
 		{
 			Point midPoint((firstPoint.cartesian(0)+(*pit).cartesian(0))/2,(firstPoint.cartesian(1)+(*pit).cartesian(1))/2);
-			if(!CheckInside(midPoint,polygon))
+			/*
+			 * Added IsVertexOfPolygon recently for office case Point(0.8,4) and mid point (1 -1)
+			 */
+			if(!CheckInside(midPoint,polygon)&& !IsVertexOfPolygon(polygon,midPoint))
 				return false;
 			firstPoint=*pit;
 		}
 	}
+	else if (!flag)
+		return false;
 	return true;
 }
 

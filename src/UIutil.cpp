@@ -32,8 +32,11 @@ void init(void)
 		/*
 		initialize viewing values */
 		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		gluOrtho2D(-15,15,-15.0,15.0);
+//		glLoadIdentity();
+//		gluOrtho2D(-25,25,-30.0,30.0);
+//		glFrustum(-10,10,-10,10,-10,10);
+//		gluPerspective(120,1,0.1,16);
+//		gluLookAt(0,0,15,0,0,0,0,1,0);
 		//glOrtho(0.0, 500.0, 0.0, 0.0, 500.0, 0.0);
 		glClearColor(1,1,1,1);
 		glClear(GL_COLOR_BUFFER_BIT);

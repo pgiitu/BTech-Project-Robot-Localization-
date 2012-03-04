@@ -16,7 +16,7 @@ MapIOHandler::~MapIOHandler() {
 	// TODO Auto-generated destructor stub
 }
 
-MapIOHandler::MapIOHandler(char * filename)
+MapIOHandler::MapIOHandler(const char * filename)
 {
 	FILE *file = fopen(filename,"r");
 

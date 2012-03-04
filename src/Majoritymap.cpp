@@ -96,19 +96,25 @@ void Majoritymap::partMajority()
 			int i=0;
 			int agreedByHypothesis=0;
 
+//			cout<<"For the face:- "<<endl;
+//			pUtil.DisplayPolygon(p);
 			for(pi=listTanslatedPolygons.begin();pi!=listTanslatedPolygons.end();++pi)
 			{
+//				cout<<"For Pi:- \n";
+//				pUtil.DisplayPolygon(*pi);
 				if(IsContainedIn((*pi),p))  //return true if p lies in pi
 				{
 					liesIn[i++]=true;
+					//cout<<"True\n\n";
 					agreedByHypothesis++;
 				}
 				else
 				{
 					liesIn[i++]=false;
+				//	cout<<"False\n\n";
 				}
 			}
-
+			//cout<<"Agreed by hypothesis  "<<agreedByHypothesis<<endl;
 			bool isPartMmap=CheckPartOfMajorityMap(agreedByHypothesis,noOfHypothesis);
 
 			Faces f(noOfHypothesis,p,liesIn,isPartMmap);
@@ -161,6 +167,7 @@ void Majoritymap::GenerateMajorityMap()
 
 bool Majoritymap::CheckPartOfMajorityMap(int agree, int noOfHypothesis)
 {
+//	cout<<"agreed :- "<<agree<<"  No fo Hypothesis:- "<<noOfHypothesis<<endl;
 	if(noOfHypothesis%2==0)
 	{
 		if(agree>= noOfHypothesis/2)
@@ -197,6 +204,14 @@ Polygon Majoritymap::ConvertFaceToPolygon(Arrangement::Ccb_halfedge_const_circul
  */
 bool Majoritymap::IsContainedIn(Polygon outer,Polygon inner)
 {
+	/*for(VertexIterator vi=inner.vertices_begin();vi!=inner.vertices_end();++vi)
+	{
+		if(!pUtil.CheckInside(*vi,outer))
+		{
+			return false;
+		}
+
+	}*/
 
 	for(EdgeIterator ei = inner.edges_begin(); ei !=inner.edges_end(); ++ei)
 	{
