@@ -59,6 +59,29 @@ spurious vertices also. Finally we sort all the vertices obtained in an order so
 
 
 
+{\bf Algorithm}
+
+\begin{enumerate}
+ \item 
+Collect all the vertices of the polygon which are visible from the point $P$.
+\item
+Iterate over the list of visible vertices and for each reflex vertex, compute the spurious vertex introduced in the visibility polygon.
+\item
+Finally sort all the vertices in an order so that they form a simple polygon.
+\end{enumerate}
+
+{\bf Screenshots}
+
+The point $P$ is shown in blue and the visibility polygon is shown in green.
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.30}{\includegraphics{Images/VisibilityPolygonBird.png}}
+\caption{\label{fig:Visibility Polygon of Point}Visibility Polygon of Point}
+\end{center}
+\end{figure}
+
+
 
 
 %Java2TeX style definitions
@@ -81,66 +104,6 @@ spurious vertices also. Finally we sort all the vertices obtained in an order so
 \newcommand{\jttstylep}{\color[rgb]{1.00,.380,.000}} %Undefined
 \newcommand{\jttstyleq}{\color[rgb]{.392,.392,.392}} %Annotation
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  Java Sourcecode to TeX automatically converted code
-%  Java2Html Converter 5.0 [2006-02-26]by Markus Gebhard  markus@jave.de
-%     Further information: http://www.java2html.de
-{
-\noindent \ttfamily
-\jttstylea \\
-\jttstylea \\
-\jttstylea \\
-\jttstylek Polygon~PolygonUtil::CalcVisibilityPolygon\jttstylei (\jttstylek Polygon\&~map,~Point\&~point\jttstylei )\\
-\jttstylei \{\\
-\jttstylea ~~\jttstylek using~namespace~std;\\
-\jttstylea ~~\jttstylek Polygon~setVisiblePoints~=~VisiblePointSet\jttstylei (\jttstylek map,point\jttstylei )\jttstylek ;\\
-\jttstylea \\
-\jttstylea ~~\jttstylek list\verb#<#Point\verb#>#~listVisiblePoints;\\
-\jttstylea ~~\jttstylek fixedPoint=point;\\
-\jttstylea \\
-\jttstylea ~~\jttstylee for~\jttstylei (\jttstylek VertexIterator~vi~=~setVisiblePoints.vertices\verb#_#begin\jttstylei ()\jttstylek ;\\
-\jttstylea ~~~~~~~~~~~~\jttstylek vi~!=~setVisiblePoints.vertices\verb#_#end\jttstylei ()\jttstylek ;~++vi\jttstylei )\\
-\jttstylea ~~\jttstylei \{\\
-\jttstylea ~~~~\jttstylek listVisiblePoints.push\verb#_#back\jttstylei (\jttstylek \verb#*#vi\jttstylei )\jttstylek ;\\
-\jttstylea ~~~~\jttstylee if\jttstylei (\jttstylek IsReflex\jttstylei (\jttstylek map,\verb#*#vi\jttstylei ))\\
-\jttstylea ~~~~\jttstylei \{\\
-\jttstylea ~~~~~~\jttstylek Ray~rayToCorner\jttstylei (\jttstylek point,\verb#*#vi\jttstylei )\jttstylek ;\\
-\jttstylea ~~~~~~\jttstylek std::list\verb#<#Point\verb#>#~intPointList;\\
-\jttstylea ~~~~~~\jttstylek std::list\verb#<#Point\verb#>#::iterator~it;\\
-\jttstylea \\
-\jttstylea ~~~~~~\jttstylek Point~p1=\verb#*#vi;\\
-\jttstylea ~~~~~~\jttstylek Point~p2;\\
-\jttstylea ~~~~~~\jttstylek FindCandidateIntrPoints\jttstylei (\jttstylek map,rayToCorner,intPointList\jttstylei )\jttstylek ;\\
-\jttstylea \\
-\jttstylea ~~~~~~\jttstylee if\jttstylei (\jttstylek intPointList.size\jttstylei ()~\jttstylek \verb#>#~\jttstyleh 0\jttstylei )\{\\
-\jttstylea ~~~~~~~~\jttstyled //Sort~the~points~in~intersectionPolygon~according~to~distance\\
-\jttstylea ~~~~~~~~\jttstylek intPointList.sort\jttstylei (\jttstylek CompareDistance1\jttstylei )\jttstylek ;\\
-\jttstylea ~~~~~~~~\jttstylek intPointList.unique\jttstylei ()\jttstylek ;\\
-\jttstylea ~~~~~~~~\jttstylek Point~spuriousVertex~=~\verb#*#intPointList.begin\jttstylei ()\jttstylek ;\\
-\jttstylea ~~~~~~~~\jttstylek p2=spuriousVertex;\\
-\jttstylea ~~~~~~~~\jttstylek listVisiblePoints.push\verb#_#back\jttstylei (\jttstylek spuriousVertex\jttstylei )\jttstylek ;\\
-\jttstylea ~~~~~~\jttstylei \}\\
-\jttstylea ~~~~\jttstylei \}\\
-\jttstylea \\
-\jttstylea ~~\jttstylei \}\\
-\jttstylea \\
-\jttstylea ~~\jttstylek listVisiblePoints=UniqueList\jttstylei (\jttstylek listVisiblePoints\jttstylei )\jttstylek ;\\
-\jttstylea ~~\jttstylek list\verb#<#Point\verb#>#::iterator~it;\\
-\jttstylea ~~\jttstylek Polygon~setVisiblePointsCopy;\\
-\jttstylea ~~\jttstylee for\jttstylei (\jttstylek it=listVisiblePoints.begin\jttstylei ()\jttstylek ;it!=listVisiblePoints.end\jttstylei ()\jttstylek ;++it\jttstylei )\\
-\jttstylea ~~\jttstylei \{\\
-\jttstylea ~~~~\jttstylek setVisiblePointsCopy.push\verb#_#back\jttstylei (\jttstylek \verb#*#it\jttstylei )\jttstylek ;\\
-\jttstylea ~~\jttstylei \}\\
-\jttstylea \\
-\jttstylea \\
-\jttstylea ~~\jttstylek setVisiblePointsCopy=SortPolygon\jttstylei (\jttstylek setVisiblePointsCopy,map\jttstylei )\jttstylek ;\\
-\jttstylea ~~\jttstylee return~\jttstylek setVisiblePointsCopy;\\
-\jttstylei \}\\
-\jttstylea \jttstylea 
-\\
-
-}
-
 
 
 
@@ -154,6 +117,10 @@ describe in the next section. For now assume that we have at our disposal a rout
 of the polygon as a list of Point type.
 
 The main steps of computing the visible portion of an edge $CD$ from another edge $AB$ of the polygon can be enumerated as follows.
+
+{\bf Algorithm}
+
+
 
 \begin{enumerate}
 \item
@@ -187,6 +154,19 @@ portion of $CD$ visible from $AB$. We repeat this on other side to get the other
 
  $CalcVisibilityPolygonEdge()$ calculates the visibility polygon of an edge in PolygonUtil.cpp
 
+{\bf Note:}
+This routine computes the visibility polygon of the edge excluding its endpoints. To obtain the visibility polygon of the edge where
+endpoints are inclusive one could compute the visibility polygon of point at the two endpoints and take a union with the visibility
+polygon returned by this routine.
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/VisibilityLine1.png}}
+\caption{\label{fig:Visibility Polygon of Edge}Visibility Polygon of Edge}
+\end{center}
+\end{figure}
+
+
 
 \subsection{Shortest Path Calculation}
 For the calculation of shortest path between any two vertices of the polygon the following property was exploited.
@@ -195,10 +175,20 @@ For the calculation of shortest path between any two vertices of the polygon the
  \item It is possible to move from one vertex to the another only if they are visible to each other.
 \end{itemize}
 
+\begin{definition}
+{\bf Visibility Graph}The visibility graph of a polygon can be formed as follows. Draw a vertex corresponding to each vertex in the 
+polygon. Draw an edge between two vertices if the line joining the corresponding vertices in the polygon lies completely inside the 
+polygon.
+\end{definition}
+
+
 Utilizing these properties we construct a visibility graph for the polygon and use the normal dijikstra's single source shortest path
  algorithm on the visibility graph obtained. The following two functions do the above mentioned tasks.
 
+
+
 \begin{itemize}
+
 
 \item
 %Java2TeX style definitions
@@ -234,6 +224,20 @@ Utilizing these properties we construct a visibility graph for the polygon and u
 
 \end{itemize}
 
+{\bf Screenshots}
+
+The edge is shown in blue and its visibility polygon is shown in green.
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/VisibilityLine2.png}}
+\caption{\label{fig:Visibility Polygon of Edge}Visibility Polygon of Edge}
+\end{center}
+\end{figure}
+
+
+
+
 
 \newpage
 \section{Hypothesis Generation}
@@ -263,11 +267,112 @@ visibility polygon, which is also an edge of the original polygon, is completely
  The visibility polygon of a point $P$ has atleast one edge which completely overlaps with an edge of the original polygon.
 \end{theorem}
 {\bf Proof} Let the visibility polygon be $V$ .Let the visibility polygon have $n$ non-spurious edges and $r$ spurious edges.
+Each of the spurious edge is due to a reflex vertex, so the polygon would have $r$ reflex vertices at least.
+ According to the theorem, one of the $n$ edges must overlap completely with an edge of the polygon.
+We prove it by contradiction. Assume to the contrary that all of the $n$ edges are partially visible from $P$. Thus each of the $n$
+edges must be occluded by a reflex vertex $v$ not lying on the edge. And since a reflex vertex cannot occlude multiple edges, therefore
+ a total of $n$ reflex vertices will be required to occlude the $n$ edges.
+So such a polygon, if it exists, should have $n+r$ reflex vertices, but it is not possible to construct a closed polygon with all
+ vertices as reflex vertex.
+Hence our original assumption was wrong.
 
+{\bf Algorithm}
+
+\begin{itemize}
+ \item Iterate over the edges of the polygon and the edges of the map. and find an edge in the map which has the same length and
+ orientation as an edge in the polygon.
+
+ \item
+ For each such edge, find whether a complete match exists or not.
+
+\end{itemize}
+
+{\bf Screenshots}
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.30}{\includegraphics{Images/Hypothesis_office.png}}
+\caption{\label{fig:Hypothesis Generation}Hypothesis Generation}
+\end{center}
+\end{figure}
 
 
 
 \newpage
+
+\section{Computing the Majority Rule Map}
+
+\subsection{Majority Rule Map Type}
+
+The Majority Rule Map is represented as a class. The following code demonstrates the values stored along with a majority rule map and the 
+functions applicable on it.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Java Sourcecode to TeX automatically converted code
+%  Java2Html Converter 5.0 [2006-02-26]by Markus Gebhard  markus@jave.de
+%     Further information: http://www.java2html.de
+{
+\noindent \ttfamily
+\jttstylea \\
+\jttstylea \\
+\jttstylea \\
+\jttstylea \\
+\jttstylee class~\jttstylek Majoritymap~\jttstylei \{\\
+\jttstylee public\jttstylek :\\
+\jttstylea \\
+\jttstylea ~~\jttstylek list\verb#<#Faces\verb#>#~listMmapFaces;\\
+\jttstylea ~~\jttstylek Polygon~map;\\
+\jttstylea ~~\jttstylej int~\jttstylek noOfHypothesis;\\
+\jttstylea ~~\jttstylek Point~\verb#*#hypothesis;\\
+\jttstylea ~~\jttstylek Point~center;\\
+\jttstylea ~~\jttstylek list\verb#<#Polygon\verb#>#~listTanslatedPolygons;\\
+\jttstylea ~~\jttstylek Arrangement~mmapArrangement;\\
+\jttstylea \\
+\jttstylea ~~\jttstylek PolygonUtil~pUtil;~\jttstyled //For~using~polygon~util~functions.\\
+\jttstylea \\
+\jttstylea ~~\jttstylek Majoritymap\jttstylei ()\jttstylek ;\\
+\jttstylea ~~\jttstylek Majoritymap\jttstylei (\jttstylej int~\jttstylek n,~Point~H\jttstylei []\jttstylek ,Point~c,Polygon~P\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylek Majoritymap\jttstylei (\jttstylej int~\jttstylek n,std::list\verb#<#Polygon\verb#>#~PolygonList\jttstylei )\jttstylek ;\\
+\jttstylea \\
+\jttstylea \\
+\jttstylea ~~\jttstylej void~\jttstylek PrintMajorityMap\jttstylei ()\jttstylek ;\\
+\jttstylea ~~\jttstylej void~\jttstylek GenerateMajorityMap\jttstylei ()\jttstylek ;\\
+\jttstylea ~~\jttstylek Polygon~GetTranslatePolygon\jttstylei (\jttstylek Transformation\&~translate,~Polygon\&~polygon\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylek Polygon~ConvertFaceToPolygon\jttstylei (\jttstylek Arrangement::Ccb\verb#_#halfedge\verb#_#const\verb#_#circulator~circ\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylek bool~IsContainedIn\jttstylei (\jttstylek Polygon~outer,Polygon~inner\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylek bool~CheckPartOfMajorityMap\jttstylei (\jttstylej int~\jttstylek agree,~\jttstylej int~\jttstylek noOfHypothesis\jttstylei )\jttstylek ;\\
+\jttstylea \\
+\jttstylea ~~\jttstylek list\verb#<#Polygon\verb#>#~findRegionContaningOrigin\jttstylei ()\jttstylek ;\\
+\jttstylea ~~\jttstylek bool~areAdjacent\jttstylei (\jttstylek Polygon\&~poly1,~Polygon\&~poly2\jttstylei )\jttstylek ;\\
+\jttstylea \\
+\jttstylea ~~\jttstylek Polygon~OverlayContaningOrigin\jttstylei (\jttstylek Point~\&center\jttstylei )\jttstylek ;\\
+\jttstylea \\
+\jttstylea ~~\jttstylej void~\jttstylek GenerateOverlay\jttstylei (\jttstylek list\verb#<#Polygon\verb#>#~polygonList\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylej void~\jttstylek partMajority\jttstylei ()\jttstylek ;\\
+\jttstylea ~~\jttstylek virtual~\verb#~#Majoritymap\jttstylei ()\jttstylek ;\\
+\jttstylei \}\jttstylek ;\\
+\jttstylea \\
+\jttstylea \\
+\jttstylea \\
+\jttstylea \jttstylea 
+\\
+
+}
+
+
+
+\subsection{Algorithm}
+\begin{itemize}
+\item
+The overlay arrangement can be easily constructed using CGAL's inbuilt Arrangement class.
+\end{itemize}
+
+
+\newpage
+
 \begin{thebibliography}{1}
 \bibitem{key1} \emph{A Near-Tight approximation algorithm for the robot localization problem},
  Koenig, Sven and Mudgal, Proceedings of the Symposium on Discrete Algorithms SODA, 2006.
@@ -277,6 +382,10 @@ visibility polygon, which is also an edge of the original polygon, is completely
 \bibitem{key3} \emph{Linear time algorithms for visibility and shortest path problems inside simple polygons}, Guibas, 
 Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan
 \end{thebibliography}
+
+
+
+
 
 
 

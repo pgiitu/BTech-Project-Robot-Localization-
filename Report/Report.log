@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.19)  6 MAR 2012 12:51
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.19)  7 MAR 2012 09:23
 entering extended mode
  %&-line parsing enabled.
 **Report.tex
@@ -266,7 +266,14 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 \Gin@req@width=\dimen118
 )
 \c@theorem=\count112
- (./Report.aux)
+ (./Report.aux
+
+LaTeX Warning: Label `fig:Visibility Polygon of Edge' multiply defined.
+
+
+LaTeX Warning: Label `fig:Visibility Polygon of Edge' multiply defined.
+
+)
 \openout1 = `Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
@@ -283,8 +290,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
 LaTeX Font Info:    ... okay on input line 25.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
 LaTeX Font Info:    ... okay on input line 25.
-
-(/usr/share/texmf-texlive/tex/latex/ucs/ucsencs.def
+ (/usr/share/texmf-texlive/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
 )
 Package hyperref Info: Link coloring OFF on input line 25.
@@ -327,74 +333,107 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 46.
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 94.
 
-LaTeX Font Info:    No file OMScmtt.fd. on input line 94.
+<Images/VisibilityPolygonBird.png, id=51, 616.3025pt x 451.6875pt>
+File: Images/VisibilityPolygonBird.png Graphic file (type png)
 
-
-LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 94.
-
-
-Overfull \hbox (22.4968pt too wide) in paragraph at lines 89--141
-[]\OT1/cmtt/m/n/10 Polygon PolygonUtil::CalcVisibilityPolygon[]([]Polygon& map,
- Point& point[]) 
- []
-
-
-Overfull \hbox (22.4968pt too wide) in paragraph at lines 89--141
-[]        []\OT1/cmtt/m/n/10 //Sort the points in intersectionPolygon according
- to distance 
- []
-
-
-Overfull \hbox (11.99689pt too wide) in paragraph at lines 89--141
-[]  []\OT1/cmtt/m/n/10 for[]([]it=listVisiblePoints.begin[]()[];it!=listVisible
-Points.end[]()[];++it[]) 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 89--141
-
- []
-
-[2] <Images/Cusp.png, id=48, 648.4225pt x 393.47pt>
+<use Images/VisibilityPolygonBird.png> [2 <./Images/VisibilityPolygonBird.png (
+PNG copy)>] <Images/Cusp.png, id=65, 648.4225pt x 393.47pt>
 File: Images/Cusp.png Graphic file (type png)
- <use Images/Cusp.png>
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+<use Images/Cusp.png> [3 <./Images/Cusp.png (PNG copy)>]
+<Images/VisibilityLine1.png, id=79, 603.25375pt x 401.5pt>
+File: Images/VisibilityLine1.png Graphic file (type png)
 
-[3]
-Overfull \hbox (21.24706pt too wide) in paragraph at lines 212--217
+<use Images/VisibilityLine1.png>
+Overfull \hbox (21.24706pt too wide) in paragraph at lines 202--207
 [][]\OT1/cmtt/m/n/10 PolygonUtil::PrepareVisibilityGraph[]([]Polygon& map, Poin
 t vertex[][]) 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 212--217
+Underfull \hbox (badness 10000) in paragraph at lines 202--207
 
  []
 
-
-Overfull \hbox (31.74696pt too wide) in paragraph at lines 230--234
+[4 <./Images/VisibilityLine1.png (PNG copy)>]
+Overfull \hbox (31.74696pt too wide) in paragraph at lines 220--224
 [][]\OT1/cmtt/m/n/10 PolygonUtil::CalcShortestPath[]([]int []source,graph[]_t& 
 g,Point vertex[][]) 
  []
 
-[4 <./Images/Cusp.png (PNG copy)>] [5] [6] (./Report.aux)
+<Images/VisibilityLine2.png, id=88, 728.7225pt x 424.58624pt>
+File: Images/VisibilityLine2.png Graphic file (type png)
+
+<use Images/VisibilityLine2.png>
+Overfull \hbox (19.36035pt too wide) in paragraph at lines 233--234
+ [] 
+ []
+
+[5 <./Images/VisibilityLine2.png (PNG copy)>]
+<Images/Hypothesis_office.png, id=95, 624.3325pt x 393.47pt>
+File: Images/Hypothesis_office.png Graphic file (type png)
+
+<use Images/Hypothesis_office.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[6]
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 323
+.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 323.
+
+
+LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 323.
+
+
+Overfull \hbox (48.74657pt too wide) in paragraph at lines 318--362
+[]  []\OT1/cmtt/m/n/10 Polygon GetTranslatePolygon[]([]Transformation& translat
+e, Polygon& polygon[])[]; 
+ []
+
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 318--362
+[]  []\OT1/cmtt/m/n/10 Polygon ConvertFaceToPolygon[]([]Arrangement::Ccb[]_half
+edge[]_const[]_circulator circ[])[]; 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 318--362
+
+ []
+
+[7 <./Images/Hypothesis_office.png (PNG copy)>]
+<Images/MajorityMapScenario1.png, id=109, 543.02875pt x 337.26pt>
+File: Images/MajorityMapScenario1.png Graphic file (type png)
+
+<use Images/MajorityMapScenario1.png>
+<Images/MajorityMapScenario4.png, id=110, 683.55376pt x 438.63875pt>
+File: Images/MajorityMapScenario4.png Graphic file (type png)
+
+<use Images/MajorityMapScenario4.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[8 <./Images/MajorityMapScenario1.png (PNG copy)>] [9 <./Images/MajorityMapScen
+ario4.png (PNG copy)>] (./Report.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 5279 strings out of 495061
- 75607 string characters out of 1182621
- 156931 words of memory out of 3000000
- 8343 multiletter control sequences out of 15000+50000
+ 5331 strings out of 495061
+ 76805 string characters out of 1182621
+ 154931 words of memory out of 3000000
+ 8373 multiletter control sequences out of 15000+50000
  10982 words of font info for 40 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,7n,36p,326b,481s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,8n,36p,326b,460s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
 re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
 xlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/
@@ -407,9 +446,9 @@ e/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1
 /public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
 nts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti
 10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Report.pdf (6 pages, 227803 bytes).
+Output written on Report.pdf (9 pages, 252416 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 179 PDF objects out of 1000 (max. 8388607)
+ 42 named destinations out of 1000 (max. 500000)
+ 100 words of extra memory for PDF output out of 10000 (max. 10000000)
 

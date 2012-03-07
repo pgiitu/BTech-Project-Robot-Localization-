@@ -3,3 +3,6 @@
 \BOOKMARK [2][-]{subsection.1.2}{Visibility Polygon of an edge of the polygon}{section.1}
 \BOOKMARK [2][-]{subsection.1.3}{Shortest Path Calculation}{section.1}
 \BOOKMARK [1][-]{section.2}{Hypothesis Generation}{}
+\BOOKMARK [1][-]{section.3}{Computing the Majority Rule Map}{}
+\BOOKMARK [2][-]{subsection.3.1}{Majority Rule Map Type}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{Algorithm}{section.3}
