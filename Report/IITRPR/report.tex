@@ -1,0 +1,126 @@
+%input macros (i.e. write your own macros file called MacroFile1.tex)
+%\include{Macros/MacroFile1}
+
+\documentclass[oneside,12pt]{Classes/IITRPRBTP}
+
+\RequirePackage{algorithmic}
+
+\ifpdf
+    \pdfinfo { /Title  (IIT Ropar BTech Project Report Classes)
+               /Creator (TeX)
+               /Producer (pdfTeX)
+               /Author (Jagpreet Singh jagpreets@iitrpr.ac.in)
+               /CreationDate (D:20120326000000)  %format D:YYYYMMDDhhmmss
+               /ModDate (D:20120326000000)
+               /Subject (Writing a BTech Project Report in LaTeX)
+               /Keywords (BTP)}
+    \pdfcatalog { /PageMode (/UseOutlines)
+                  /OpenAction (fitbh)  }
+\fi
+
+\title{Robot Localization Simulator}
+
+\renewcommand{\submittedtext}{A Project Report Submitted \\ in Partial Fulfillment of Requirements \\ for the Degree of}
+\degree{Bachelor of Technology}
+\degreedate{April 2012}
+
+\ifpdf
+  \author{\href{mailto:apurvverma@iitrpr.ac.in}{by} \\ {Apurv Verma(P2008CS1002)} 
+\\ \href{mailto:prateekgarg@iitrpr.ac.in}{Prateek Garg (P2008CS1022)}
+\\ \href{mailto:ashwanil@iitrpr.ac.in}{Kumar Ashwani (P2008CS1015)}}
+
+  \collegeordept{\href{http://www.iitrpr.ac.in}{Department of Computer Science \& Engineering }}
+  \university{\href{http://www.iitrpr.ac.in}{Indian Institute of Technology Ropar}}
+  \city{{Rupnagar 140001, India}}
+% insert below the file name that contains the crest in-place of 'IITRPRlogo'
+  \crest{\includegraphics[width=20mm]{IITRPRlogo}}
+%\else
+%  \author{Jagpreet Singh}
+%  \collegeordept{Department of Computer Science \& Engineering}
+%  \university{Indian Institute of Technology Ropar}
+% insert below the file name that contains the crest in-place of 'IITRPRlogo'
+%  \crest{\includegraphics[bb = 0 0 292 336, width=30mm]{IITRPRlogo}}
+\fi
+%
+% insert below the file name that contains the crest in-place of 'IITRPRlogo'
+% \crest{\IncludeGraphicsW{IITRPRlogo}{40mm}{14 14 73 81}}
+%
+
+% turn of those nasty overfull and underfull hboxes
+\hbadness=10000
+\hfuzz=50pt
+
+% Put all the style files you want in the directory StyleFiles and usepackage like this:
+%\usepackage{StyleFiles/watermark}
+
+% Comment out the next line to get single spacing
+\onehalfspacing
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+
+\begin{document}
+
+%\language{english}
+
+% A page with the abstract on including title and author etc may be
+% required to be handed in separately. If this is not so, then comment
+% the below 3 lines (between '\begin{abstractseparte}' and 
+% 'end{abstractseparate}'), normally like a declaration ... needs some more
+% work, mind as environment abstracts creates a new page!
+% \begin{abstractseparate}
+%   \input{Abstract/abstract}
+% \end{abstractseparate}
+
+
+
+
+% Using the watermark package which is in StyleFiles/
+% and to remove DRAFT COPY ONLY appearing on the top of all pages comment out below line
+%\watermark{DRAFT COPY ONLY}
+
+
+\maketitle
+
+%set the number of sectioning levels that get number and appear in the contents
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\frontmatter % book mode only
+\pagenumbering{roman}
+%\include{Dedication/dedication}
+\include{Abstract/abstract}
+\include{Acknowledgement/acknowledgement}
+\include{Certificate/certificate}
+
+\tableofcontents
+
+\listoffigures
+\printnomenclature  %% Print the nomenclature
+\addcontentsline{toc}{chapter}{Nomenclature}
+
+\mainmatter % book mode only
+\include{Introduction/introduction}
+\include{Chapter1/chapter1}
+\include{Chapter2/chapter2}
+\include{Chapter3/chapter3}
+\include{Chapter4/chapter4}
+\include{Chapter5/chapter5}
+
+\backmatter % book mode only
+\appendix
+\include{Appendix1/appendix1}
+\include{Appendix2/appendix2}
+
+\bibliographystyle{plainnat}
+%\bibliographystyle{Classes/IITRPRbiblio}
+\renewcommand{\bibname}{References} % changes default name Bibliography to References
+\bibliography{References/references} % References file
+
+\end{document}

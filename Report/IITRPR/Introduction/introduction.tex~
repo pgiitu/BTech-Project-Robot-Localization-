@@ -1,0 +1,58 @@
+%%% Thesis Introduction --------------------------------------------------
+\chapter{Robot Localization Algorithm}
+\ifpdf
+    \graphicspath{{Introduction/IntroductionFigs/PNG/}{Introduction/IntroductionFigs/PDF/}{Introduction/IntroductionFigs/}}
+\else
+    \graphicspath{{Introduction/IntroductionFigs/EPS/}{Introduction/IntroductionFigs/}}
+\fi
+
+\nomenclature[H]{$H$}{ A list of points which denotes potential robot positions.}                  
+
+\nomenclature[Pmaj]{$P_{maj}$}{The majority rule map of all translates of the polygon. The
+translates of the polygon are obtained by choosing one hypothesis as the origin and
+translating all the remaining hypotheses to this chosen origin.}                               
+
+\nomenclature[Gij]{$G_{ij}$}{ For the translates corresponding to pair of hypotheses $h_{i}$ and
+ $h_{j}$, $G_{ij}$ is the origin containing region obtained by taking the lower
+envelope of visibility polygons of all type 1 and type 2 edges of the polygon.\\
+An edge is of type 1 or type 2, if it belongs to exactly one of the translates.
+}                         
+
+\nomenclature[gi]{$g_{i}$}{The set of all points at which $h_{i}$ does not share the majority
+opinion about $i$.}          
+
+\nomenclature[Ki]{$K_{i}$}{The majority rule map of $G_{ij}$'s}  
+\nomenclature[Maj(gamma)]{$Maj(\gamma)$}{Set of hypothesis which share the majority opinion about $\gamma$.
+ $\gamma$ can be either a point or a region.} 
+
+
+{\bf Input:}\\
+Map polygon $P$, the visibility polygon $V$.
+\\
+{\bf Output:}\\
+The robot localizes to its actual position $h \in H$
+\\
+\begin{algorithmic}[1]
+  \STATE Compute the set of hypotheses $H$.
+ \WHILE{ $ | H | > 1$ } 
+  \STATE Compute the majority-rule map $P_{maj}$
+  \STATE Compute the polygons $G_{ij}$ for each pair of hypotheses, $h_{i}$ and $h_{j}$
+  \STATE Compute the majority rule map $K_{i}$ of $G_{ij}$'s
+  \STATE Find the edges on the boundary of $K_{i}$ which are not on the boundary of $P_{maj}$
+  \STATE Draw grids and compute the set of coordinates $Q_{H}$ on these edges.
+  \STATE Make instance $I_{P,H}$  of $\frac{1}{2}$ -Group Steiner Problem
+  \STATE Solve $I_{P,H}$ to compute a half computing path $C \subset P_{maj}$
+  \STATE Half-Localize by tracing $C $ and making observations at coordinates $Q_{H}$
+  \STATE Move back to the starting location.
+ \ENDWHILE
+\end{algorithmic}
+
+
+
+%%% ----------------------------------------------------------------------
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../thesis"
+%%% End: 

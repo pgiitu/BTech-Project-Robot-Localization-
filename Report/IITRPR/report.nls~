@@ -1,0 +1,39 @@
+\begin{thenomenclature} 
+
+ \nomgroup{G}
+
+  \item [{$\gamma$}]\begingroup A point inside the polygon with origin choosen at one of the hypotheses.
+		\nompageref{1}
+
+ \nomgroup{Z}
+
+  \item [{$H$}]\begingroup A list of points which denotes potential robot positions.
+\nompageref{1}
+
+\item [{$P_{maj}$}] \begingroup The majority rule map of all translates of the polygon. The
+translates of the polygon are obtained by choosing one hypothesis as the origin and
+translating all the remaining hypotheses to this chosen origin.
+\nompageref{1}
+
+  \item [{$G_{ij}$}]\begingroup For the translates corresponding to pair of hypotheses $h_{i}$ and
+ $h_{j}$, $G_{ij}$ is the origin containing region obtained by taking the lower
+envelope of visibility polygons of all type 1 and type 2 edges of the union-polygon.\\
+An edge is of type 1 or type 2, if it belongs to exactly one of the translates.
+\nompageref{1}
+
+  \item [{$g_{i}$}]\begingroup Set of all points at which $h_{i}$ does not share the majority
+opinion about $i$.
+\nompageref{1}
+
+  \item [{$K_{i}$}]\begingroup The majority rule map of $G_{ij}$'s
+\nompageref{1}
+
+  \item [{$Maj(\gamma)$}]\begingroup Set of hypothesis which share the majority opinion about $\gamma$.
+
+\nompageref{1}
+
+
+
+
+
+\end{thenomenclature}

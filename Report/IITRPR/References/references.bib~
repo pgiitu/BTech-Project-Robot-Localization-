@@ -1,0 +1,87 @@
+% ------------------------------------------------------------------------
+% SAMPLE BIBLIOGRAPHY FILE
+% ------------------------------------------------------------------------
+
+@MISC{prime-number-theorem,
+   author = "Charles Louis Xavier Joseph de la Vall{\'e}e Poussin",
+   note = "A strong form of the prime number theorem, 19th century" }
+
+@INBOOK{SFPT,
+ author={N. Dunford and J. T. Schwartz},
+ title={Linear {Operators},
+        {Part} {I}: {General} {Theory}},
+ pages={456},
+ publisher={Interscience},
+ address={New York},
+ year={1957},
+}
+
+@BOOK{Hen93,
+ author={Peter Henderson},
+ title={Object-oriented specification and design with {C}$++$},
+ publisher={McGraw-Hill},
+ address={London},
+ year={1993},
+}
+
+@MASTERSTHESIS{Sim90,
+ author={A. Simoni\v{c}},
+ title={Grupe Operatorjev s Pozitivnim Spektrom},
+ school={Univerza v Ljubljani, FNT, Oddelek za Matematiko},
+ year={1990},
+}
+
+@UNPUBLISHED{Sim91,
+ author={A. Simoni\v{c}},
+ title={Notes on {Subharmonic} {Functions}},
+ note={Lecture Notes, Dalhousie University,
+       Department of Mathematics, Statistics, \& Computing Science},
+ year={1991},
+}
+
+
+@PHDTHESIS{Sim94,
+ author={A. Simoni\v{c}},
+ title={An {Extension} of {Lomonosov's} {Techniques} to {Non}-{Compact}
+       {Operators}},
+ school={Dalhousie University,
+         Department of Mathematics, Statistics, \& Computing Science},
+ year={1994},
+}
+
+
+@ARTICLE{Sim96b,
+ author={A. Simoni\v{c}},
+ title={An extension of {Lomonosov's} {Techniques} to non-compact
+       {Operators}},
+ journal={Trans. Amer. Math. Soc.},
+ volume={348},
+ pages={975-995},
+ year={1996},
+}
+
+% ------------------------------------------------------------------------
+
+@ARTICLE{key1,
+ author={Koenig Sven and Mudgal},
+ title={{A Near-Tight approximation algorithm for the robot localization problem}},
+ journal={Proceedings of the Symposium on Discrete Algorithms SODA},
+ year={2006},
+}
+
+@MISC{CGAL,
+   note  = {http://www.cgal.org/} }
+
+@ARTICLE{key3,
+ author={Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan},
+ title={{Linear time algorithms for visibility and shortest path problems inside simple polygons}},
+}
+
+@ARTICLE{key4,
+ author={},
+ title={{Linear time algorithms for visibility and shortest path problems inside simple polygons}},
+}
+
+
+
+

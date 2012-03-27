@@ -1,0 +1,10 @@
+\backcite {key1}{{i}{(document)}{Doc-Start}}
+\backcite {CGAL}{{i}{(document)}{Doc-Start}}
+\backcite {key3}{{vi}{(document)}{Doc-Start}}
+\backcite {key3}{{4}{2.1.2}{subsection.2.1.2}}
+\backcite {key3}{{5}{2.3}{figure.2.3}}
+\backcite {key4}{{9}{3.1}{theorem.3}}
+\backcite {key1}{{11}{4.1.1}{subsection.4.1.1}}
+\backcite {key1}{{19}{5.1}{section.5.1}}
+\backcite {key1}{{19}{5.1}{figure.5.1}}
+\backcite {key1}{{20}{5.2}{section.5.2}}

@@ -1,0 +1,28 @@
+\BOOKMARK [0][]{section*.2}{Contents}{}
+\BOOKMARK [0][]{section*.4}{List of Figures}{}
+\BOOKMARK [0][]{chapter*.5}{Nomenclature}{}
+\BOOKMARK [0][]{chapter.1}{1 Robot Localization Algorithm}{}
+\BOOKMARK [0][]{chapter.2}{2 Geometrical Algorithms}{}
+\BOOKMARK [1][]{section.2.1}{2.1 Computing Visibility Polygons}{chapter.2}
+\BOOKMARK [2][]{subsection.2.1.1}{2.1.1 Visibility Polygon of a Point Inside a Polygon}{section.2.1}
+\BOOKMARK [2][]{subsection.2.1.2}{2.1.2 Visibility Polygon of an edge of the polygon}{section.2.1}
+\BOOKMARK [2][]{subsection.2.1.3}{2.1.3 Shortest Path Calculation}{section.2.1}
+\BOOKMARK [0][]{chapter.3}{3 Hypothesis Generation}{}
+\BOOKMARK [1][]{section.3.1}{3.1 Hypothesis Generation}{chapter.3}
+\BOOKMARK [1][]{section.3.2}{3.2 Algorithm}{chapter.3}
+\BOOKMARK [1][]{section.3.3}{3.3 Examples}{chapter.3}
+\BOOKMARK [0][]{chapter.4}{4 Majority Rule Map}{}
+\BOOKMARK [1][]{section.4.1}{4.1 Computing the Majority Rule Map Pmaj}{chapter.4}
+\BOOKMARK [2][]{subsection.4.1.1}{4.1.1 Construction}{section.4.1}
+\BOOKMARK [2][]{subsection.4.1.2}{4.1.2 Majority Rule Map Type}{section.4.1}
+\BOOKMARK [2][]{subsection.4.1.3}{4.1.3 CGAL's Arrangement class to generate Overlay}{section.4.1}
+\BOOKMARK [2][]{subsection.4.1.4}{4.1.4 Algorithm}{section.4.1}
+\BOOKMARK [2][]{subsection.4.1.5}{4.1.5 Examples}{section.4.1}
+\BOOKMARK [0][]{chapter.5}{5 Computing Gij's and Ki}{}
+\BOOKMARK [1][]{section.5.1}{5.1 Gij}{chapter.5}
+\BOOKMARK [1][]{section.5.2}{5.2 Ki}{chapter.5}
+\BOOKMARK [0][]{chapter.6}{6 Computing QH}{}
+\BOOKMARK [0][]{appendix*.6}{Appendix1}{}
+\BOOKMARK [1][]{section..1}{.1 Input Format of the Map}{appendix*.6}
+\BOOKMARK [0][]{appendix*.7}{Further Examples}{}
+\BOOKMARK [0][]{section*.9}{References}{}
