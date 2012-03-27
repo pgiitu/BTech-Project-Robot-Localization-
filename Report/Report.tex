@@ -5,6 +5,7 @@
 \usepackage{color}
 \usepackage{subfigure}
 \usepackage{graphicx}
+\RequirePackage{algorithmic}
 
 
 %opening
@@ -36,6 +37,90 @@ location inside the polygon $P $ at a minimum cost of travel distance. We implem
 as given by \cite{key1}. CGAL \cite{key2} has been used for the various computational geometry algorithms.
 
 \end{abstract}
+
+\newpage
+\section{Robot Localization Algorithm}
+
+{\bf Input:}\\
+Map polygon $P$, the visibility polygon $V$.
+\\
+{\bf Output:}\\
+The robot localizes to its actual position $h \in H$
+\\
+\begin{algorithmic}[1]
+  \STATE Compute the set of hypotheses $H$.
+ \WHILE{ $ | H | > 1$ } 
+  \STATE Compute the majority-rule map $P_{maj}$
+  \STATE Compute the polygons $G_{ij}$ for each pair of hypotheses, $h_{i}$ and $h_{j}$
+  \STATE Compute the majority rule map $K_{i}$ of $G_{ij}$'s
+  \STATE Find the edges on the boundary of $K_{i}$ which are not on the boundary of $P_{maj}$
+  \STATE Draw grids and compute the set of coordinates $Q_{H}$ on these edges.
+  \STATE Make instance $I_{P,H}$  of $\frac{1}{2}$ -Group Steiner Problem
+  \STATE Solve $I_{P,H}$ to compute a half computing path $C \subset P_{maj}$
+  \STATE Half-Localize by tracing $C $ and making observations at coordinates $Q_{H}$
+  \STATE Move back to the starting location.
+ \ENDWHILE
+\end{algorithmic}
+
+\newpage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Notation}
+\begin{itemize}
+\item
+{\bf $H$}: A list of points which denotes potential robot positions.
+
+
+\item
+{\bf $P_{maj}$}: The majority rule map of all translates of the polygon. The
+translates of the polygon are obtained by choosing one hypothesis as the origin and
+translating all the remaining hypotheses to this chosen origin.
+
+
+\item
+{\bf $G_{ij}$}: For the translates corresponding to pair of hypotheses $h_{i}$ and
+ $h_{j}$, $G_{ij}$ is the origin containing region obtained by taking the lower
+envelope of visibility polygons of all type 1 and type 2 edges of the polygon.\\
+An edge is of type 1 or type 2, if it belongs to exactly one of the translates.
+
+\item
+{\bf $g_{i}$}: The set of all points at which $h_{i}$ does not share the majority
+opinion about $i$.
+
+\item
+{\bf $K_{i}$}: The majority rule map of $G_{ij}$'s
+
+\item
+{\bf $Maj(\gamma)$}: Set of hypothesis which share the majority opinion about $\gamma$. $\gamma$ can be either a point
+or a region.
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \newpage
 
@@ -70,7 +155,7 @@ Iterate over the list of visible vertices and for each reflex vertex, compute th
 Finally sort all the vertices in an order so that they form a simple polygon.
 \end{enumerate}
 
-{\bf Screenshots}
+{\bf Examples}
 
 The point $P$ is shown in blue and the visibility polygon is shown in green.
 
@@ -80,6 +165,15 @@ The point $P$ is shown in blue and the visibility polygon is shown in green.
 \caption{\label{fig:Visibility Polygon of Point}Visibility Polygon of Point}
 \end{center}
 \end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.40}{\includegraphics{Images/VisibilityPointOffice.png}}
+\caption{\label{fig:Visibility Polygon of Point}Visibility Polygon of Point}
+\end{center}
+\end{figure}
+
 
 
 
@@ -224,16 +318,29 @@ Utilizing these properties we construct a visibility graph for the polygon and u
 
 \end{itemize}
 
-{\bf Screenshots}
+{\bf Examples}
 
 The edge is shown in blue and its visibility polygon is shown in green.
 
 \begin{figure}[h]
 \begin{center}
-\scalebox{0.50}{\includegraphics{Images/VisibilityLine2.png}}
+\scalebox{0.40}{\includegraphics{Images/VisibilityLine2.png}}
 \caption{\label{fig:Visibility Polygon of Edge}Visibility Polygon of Edge}
 \end{center}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -266,7 +373,7 @@ visibility polygon, which is also an edge of the original polygon, is completely
 \begin{theorem}
  The visibility polygon of a point $P$ has atleast one edge which completely overlaps with an edge of the original polygon.
 \end{theorem}
-{\bf Proof} Let the visibility polygon be $V$ .Let the visibility polygon have $n$ non-spurious edges and $r$ spurious edges.
+{\bf Proof} Let the visibility polygon be $V$. Let the visibility polygon have $n$ non-spurious edges and $r$ spurious edges.
 Each of the spurious edge is due to a reflex vertex, so the polygon would have $r$ reflex vertices at least.
  According to the theorem, one of the $n$ edges must overlap completely with an edge of the polygon.
 We prove it by contradiction. Assume to the contrary that all of the $n$ edges are partially visible from $P$. Thus each of the $n$
@@ -278,30 +385,96 @@ Hence our original assumption was wrong.
 
 {\bf Algorithm}
 
-\begin{itemize}
+\begin{enumerate}
  \item Iterate over the edges of the polygon and the edges of the map. and find an edge in the map which has the same length and
  orientation as an edge in the polygon.
 
  \item
- For each such edge, find whether a complete match exists or not.
+ Translate the visibility polygon such that the matching edge of the map polygon
+and the visibility polygon coincide.
 
-\end{itemize}
+ \item
+ For each of the remaining edges of the visibility polygon, check whether a 
+complete match exists or not. If all the remaining edges match, the point where the
+origin was translated is added to the set of hypotheses.
 
-{\bf Screenshots}
+\end{enumerate}
+
+\newpage
+
+{\bf Examples}
 
 \begin{figure}[h]
 \begin{center}
-\scalebox{0.30}{\includegraphics{Images/Hypothesis_office.png}}
+\scalebox{0.40}{\includegraphics{Images/Hypothesis_office.png}}
+\caption{\label{fig:Hypothesis Generation}Hypothesis Generation}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.40}{\includegraphics{Images/HypothesisOfficeAnti.png}}
 \caption{\label{fig:Hypothesis Generation}Hypothesis Generation}
 \end{center}
 \end{figure}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
 
-\section{Computing the Majority Rule Map}
+\section{Computing the Majority Rule Map $P_{maj}$}
 
+\subsection{Construction}
+The following example taken from \cite{key1} demonstrates the construction of a majority rule map.
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/MajorityMapExample.png}}
+\caption{\label{fig:Construction}Majority Rule Map Construction}
+\end{center}
+\end{figure}
+
+${h_{1},h_{2},h_{3},h_{4}}$ form the set of hypotheses. Arbitrarily we choose $h_{1}$ as the origin. Next we translate all the 
+remaining hypotheses to $h_{1}$ to obtain the overlay arrangement. The overlay arrangement contains the following faces
+$R_{0},R_{1},R_{2},R_{3},R_{4},R_{5},R_{6}$. Recall from the definition of $Maj(\gamma)$
+
+
+
+$  Maj(R_{0})  =  {h_{1}, h_{2}, h_{3}, h_{4}} $ , $  Maj(R_{1})  =  { h_{2}, h_{3}, h_{4}} $, $ Maj(R_{2})  =  {h_{1}, h_{2}, h_{3}} $,
+$  Maj(R_{3})  =  {h_{3}, h_{4}} $ and $  Maj(R_{4})  =  {h_{1}, h_{2}} $
+
+
+
+In the majority rule map the region $R_{5}$ and $R_{6}$ are blocked because less than half the hypothesis said that they were
+ traversable. They have been shown in gray.
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.40}{\includegraphics{Images/MajorityMapScenario1.png}}
+\caption{\label{fig:Majority Rule Map}Majority Rule Map shown in green}
+\end{center}
+\end{figure}
+
+
+
+
+
+\newpage
 \subsection{Majority Rule Map Type}
 
 The Majority Rule Map is represented as a class. The following code demonstrates the values stored along with a majority rule map and the 
@@ -362,10 +535,99 @@ functions applicable on it.
 
 }
 
+Each majority rule map is basically a collection of faces. Faces is another type that encapsulates information about the opinion of 
+each of the hypotheses about that face. Here is the Faces class.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Java Sourcecode to TeX automatically converted code
+%  Java2Html Converter 5.0 [2006-02-26]by Markus Gebhard  markus@jave.de
+%     Further information: http://www.java2html.de
+{
+\noindent \ttfamily
+\jttstylea \\
+\jttstylee class~\jttstylek Faces~\jttstylei \{\\
+\jttstylee public\jttstylek :\\
+\jttstylea ~~\jttstylek Polygon~face;\\
+\jttstylea ~~\jttstylej int~\jttstylek noOfHypothesis;\\
+\jttstylea ~~\jttstylek bool~\verb#*#containedIn;\\
+\jttstylea ~~\jttstylek bool~partOfMajorityMap;\\
+\jttstylea ~~\jttstylek Faces\jttstylei ()\jttstylek ;\\
+\jttstylea ~~\jttstylek Faces\jttstylei (\jttstylej int~\jttstylek n,Polygon~p,~bool~\verb#*#A,bool~partMmap\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylek Faces\jttstylei (\jttstylek Polygon~p\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylej void~\jttstylek PrintDescription\jttstylei ()\jttstylek ;\\
+\jttstylea ~~\jttstylek virtual~\verb#~#Faces\jttstylei ()\jttstylek ;\\
+\jttstylei \}\jttstylek ;\\
+
+}
+
+Each Face has a bool flag partOfMajorityMap, which is true if this face is a part of the majority map i.e. atleast half of the 
+hypotheses say that this face is traversable and false otherwise. It also has an bool array to specifically store the opinion of
+ each of the hypothesis about this face.
+
+\newpage
+\subsection {CGAL's Arrangement class to generate Overlay}
+
+
+
+%Java2TeX style definitions
+%You can modify them to fit your needs
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Java Sourcecode to TeX automatically converted code
+%  Java2Html Converter 5.0 [2006-02-26]by Markus Gebhard  markus@jave.de
+%     Further information: http://www.java2html.de
+{
+\noindent \ttfamily
+\jttstylea \\
+\jttstylea \\
+\jttstylea \\
+\jttstylej void~\jttstylek Majoritymap::GenerateOverlay\jttstylei (\jttstylek list\verb#<#Polygon\verb#>#~polygonList\jttstylei )\\
+\jttstylei \{\\
+\jttstylea \\
+\jttstylea ~~\jttstylek list\verb#<#Polygon\verb#>#::iterator~pi;\\
+\jttstylea \\
+\jttstylea ~~\jttstylee for\jttstylei (\jttstylek pi=polygonList.begin\jttstylei ()\jttstylek ;pi!=polygonList.end\jttstylei ()\jttstylek ;++pi\jttstylei )\\
+\jttstylea ~~\jttstylei \{\\
+\jttstylea ~~~~\jttstylee for~\jttstylei (\jttstylek EdgeIterator~ei~=~pi-\verb#>#edges\verb#_#begin\jttstylei ()\jttstylek ;~ei~!=~pi-\verb#>#edges\verb#_#end\jttstylei ()\jttstylek ;~++ei\jttstylei )\\
+\jttstylea ~~~~\jttstylei \{\\
+\jttstylea ~~~~~~\jttstylek Point~s=ei-\verb#>#start\jttstylei ()\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylek Point~d=ei-\verb#>#end\jttstylei ()\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylek Point\verb#_#2~source\jttstylei (\jttstylek s.cartesian\jttstylei (\jttstyleh 0\jttstylei )\jttstylek ,s.cartesian\jttstylei (\jttstyleh 1\jttstylei ))\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylek Point\verb#_#2~destination\jttstylei (\jttstylek d.cartesian\jttstylei (\jttstyleh 0\jttstylei )\jttstylek ,d.cartesian\jttstylei (\jttstyleh 1\jttstylei ))\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylek Segment\verb#_#2~seg\jttstylei (\jttstylek source,~destination\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylek CGAL::insert~\jttstylei (\jttstylek mmapArrangement,seg\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~\jttstylei \}\\
+\jttstylea ~~\jttstylei \}\\
+\jttstylea \\
+\jttstylea \\
+\jttstylea ~~\jttstylek Arrangement::Face\verb#_#const\verb#_#iterator~fit;\\
+\jttstylea \\
+\jttstylea ~~\jttstylee for~\jttstylei (\jttstylek fit~=~mmapArrangement.faces\verb#_#begin\jttstylei ()\jttstylek ;~fit~!=~mmapArrangement.faces\verb#_#end\jttstylei ()\jttstylek ;~++fit\jttstylei )\\
+\jttstylea ~~\jttstylei \{\\
+\jttstylea ~~~~\jttstylee if~\jttstylei (\jttstylek !fit-\verb#>#is\verb#_#unbounded\jttstylei ())\\
+\jttstylea ~~~~\jttstylei \{\\
+\jttstylea ~~~~~~\jttstylek Polygon~p=ConvertFaceToPolygon\jttstylei (\jttstylek fit-\verb#>#outer\verb#_#ccb\jttstylei ())\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylek Faces~f\jttstylei (\jttstylek p\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~\jttstyled //constructing~the~overlay~Arrangement~by~adding~the~faces~as~polygons.\\
+\jttstylea ~~~~~~\jttstylek listMmapFaces.push\verb#_#back\jttstylei (\jttstylek f\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~\jttstylei \}\\
+\jttstylea \\
+\jttstylea ~~\jttstylei \}\\
+\jttstylei \}\\
+\jttstylea \\
+\jttstylea \jttstylea 
+\\
+
+}
+First we insert all edges in the region using CGAL::insert (mmapArrangement,seg). The Arrangement class which is inbuilt in CGAL 
+automatically generates all faces that can be formed by the intersection of the edges.
+
+
+\newpage
 
 
 \subsection{Algorithm}
-\begin{itemize}
+\begin{enumerate}
 \item
 The overlay arrangement can be easily constructed using CGAL's inbuilt Arrangement class. Obtain the translates of the polygon by 
 choosing one hypothesis as the origin and shifting other hypothesis to it.
@@ -373,16 +635,10 @@ choosing one hypothesis as the origin and shifting other hypothesis to it.
 Insert all these translates in CGAL's inbuilt arrangement to obtain all the faces in the overlay arrangement.
 \item
 Faces which belong to atleast half the hypothesis are marked as part of the majority rule map.
-\end{itemize}
+\end{enumerate}
 
 
-{\bf Screenshots}
-\begin{figure}[h]
-\begin{center}
-\scalebox{0.50}{\includegraphics{Images/MajorityMapScenario1.png}}
-\caption{\label{fig:Majority Rule Map}Majority Rule Map}
-\end{center}
-\end{figure}
+{\bf Examples}
 
 
 \begin{figure}[h]
@@ -391,6 +647,22 @@ Faces which belong to atleast half the hypothesis are marked as part of the majo
 \caption{\label{fig:Majority Rule Map}Majority Rule Map}
 \end{center}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Computing $G_{ij}$'s}
+
+
+
 
 
 \newpage

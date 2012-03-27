@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.19)  7 MAR 2012 09:23
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.19)  27 MAR 2012 10:07
 entering extended mode
  %&-line parsing enabled.
 **Report.tex
@@ -264,36 +264,57 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 )
 \Gin@req@height=\dimen117
 \Gin@req@width=\dimen118
+) (./algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\c@theorem=\count112
+\c@ALC@unique=\count112
+\c@ALC@line=\count113
+\c@ALC@rem=\count114
+\c@ALC@depth=\count115
+\ALC@tlm=\skip52
+\algorithmicindent=\skip53
+)
+\c@theorem=\count116
  (./Report.aux
 
+LaTeX Warning: Label `fig:Visibility Polygon of Point' multiply defined.
+
+
 LaTeX Warning: Label `fig:Visibility Polygon of Edge' multiply defined.
 
 
 LaTeX Warning: Label `fig:Visibility Polygon of Edge' multiply defined.
+
+
+LaTeX Warning: Label `fig:Hypothesis Generation' multiply defined.
+
+
+LaTeX Warning: Label `fig:Majority Rule Map' multiply defined.
 
 )
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
  (/usr/share/texmf-texlive/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
 )
-Package hyperref Info: Link coloring OFF on input line 25.
+Package hyperref Info: Link coloring OFF on input line 26.
 
 (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
@@ -301,10 +322,10 @@ Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 (/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
 Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
-\c@section@level=\count113
+\c@section@level=\count117
 )
-LaTeX Info: Redefining \ref on input line 25.
-LaTeX Info: Redefining \pageref on input line 25.
+LaTeX Info: Redefining \ref on input line 26.
+LaTeX Info: Redefining \pageref on input line 26.
  (./Report.out)
 (./Report.out)
 \@outlinefile=\write3
@@ -313,112 +334,185 @@ LaTeX Info: Redefining \pageref on input line 25.
 \AtBeginShipoutBox=\box28
  (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count114
+\scratchcounter=\count118
 \scratchdimen=\dimen119
 \scratchbox=\box29
-\nofMPsegments=\count115
-\nofMParguments=\count116
+\nofMPsegments=\count119
+\nofMParguments=\count120
 \everyMPshowfont=\toks26
-\MPscratchCnt=\count117
+\MPscratchCnt=\count121
 \MPscratchDim=\dimen120
-\MPnumerator=\count118
+\MPnumerator=\count122
 \everyMPtoPDFconversion=\toks27
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 46.
+Underfull \hbox (badness 10000) in paragraph at lines 44--50
 
-(/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
+ []
+
+[2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 84.
+ (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 46.
-
-<Images/VisibilityPolygonBird.png, id=51, 616.3025pt x 451.6875pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 84.
+ [3]
+<Images/VisibilityPolygonBird.png, id=98, 616.3025pt x 451.6875pt>
 File: Images/VisibilityPolygonBird.png Graphic file (type png)
 
-<use Images/VisibilityPolygonBird.png> [2 <./Images/VisibilityPolygonBird.png (
-PNG copy)>] <Images/Cusp.png, id=65, 648.4225pt x 393.47pt>
-File: Images/Cusp.png Graphic file (type png)
+<use Images/VisibilityPolygonBird.png>
+<Images/VisibilityPointOffice.png, id=99, 767.86874pt x 339.2675pt>
+File: Images/VisibilityPointOffice.png Graphic file (type png)
 
-<use Images/Cusp.png> [3 <./Images/Cusp.png (PNG copy)>]
-<Images/VisibilityLine1.png, id=79, 603.25375pt x 401.5pt>
+<use Images/VisibilityPointOffice.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[4 <./Images/VisibilityPolygonBird.png (PNG copy)>]
+<Images/Cusp.png, id=109, 648.4225pt x 393.47pt>
+File: Images/Cusp.png Graphic file (type png)
+ <use Images/Cusp.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5 <./Images/VisibilityPointOffice.png (PNG copy)>]
+<Images/VisibilityLine1.png, id=123, 603.25375pt x 401.5pt>
 File: Images/VisibilityLine1.png Graphic file (type png)
 
 <use Images/VisibilityLine1.png>
-Overfull \hbox (21.24706pt too wide) in paragraph at lines 202--207
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (21.24706pt too wide) in paragraph at lines 296--301
 [][]\OT1/cmtt/m/n/10 PolygonUtil::PrepareVisibilityGraph[]([]Polygon& map, Poin
 t vertex[][]) 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 202--207
+Underfull \hbox (badness 10000) in paragraph at lines 296--301
 
  []
 
-[4 <./Images/VisibilityLine1.png (PNG copy)>]
-Overfull \hbox (31.74696pt too wide) in paragraph at lines 220--224
+
+Overfull \hbox (31.74696pt too wide) in paragraph at lines 314--318
 [][]\OT1/cmtt/m/n/10 PolygonUtil::CalcShortestPath[]([]int []source,graph[]_t& 
 g,Point vertex[][]) 
  []
 
-<Images/VisibilityLine2.png, id=88, 728.7225pt x 424.58624pt>
+<Images/VisibilityLine2.png, id=124, 728.7225pt x 424.58624pt>
 File: Images/VisibilityLine2.png Graphic file (type png)
 
-<use Images/VisibilityLine2.png>
-Overfull \hbox (19.36035pt too wide) in paragraph at lines 233--234
- [] 
- []
-
-[5 <./Images/VisibilityLine2.png (PNG copy)>]
-<Images/Hypothesis_office.png, id=95, 624.3325pt x 393.47pt>
+<use Images/VisibilityLine2.png> [6 <./Images/Cusp.png (PNG copy)>] [7 <./Image
+s/VisibilityLine1.png (PNG copy)> <./Images/VisibilityLine2.png (PNG copy)>]
+[8] <Images/Hypothesis_office.png, id=150, 624.3325pt x 393.47pt>
 File: Images/Hypothesis_office.png Graphic file (type png)
 
 <use Images/Hypothesis_office.png>
+<Images/HypothesisOfficeAnti.png, id=151, 807.015pt x 379.4175pt>
+File: Images/HypothesisOfficeAnti.png Graphic file (type png)
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+<use Images/HypothesisOfficeAnti.png> [9 <./Images/Hypothesis_office.png (PNG c
+opy)> <./Images/HypothesisOfficeAnti.png (PNG copy)>]
 
-[6]
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 323
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 440.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 440.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 440.
+
+<Images/MajorityMapExample.png, id=159, 782.925pt x 360.34625pt>
+File: Images/MajorityMapExample.png Graphic file (type png)
+
+<use Images/MajorityMapExample.png>
+Overfull \hbox (46.46155pt too wide) in paragraph at lines 447--448
+ [] 
+ []
+
+<Images/MajorityMapScenario1.png, id=160, 543.02875pt x 337.26pt>
+File: Images/MajorityMapScenario1.png Graphic file (type png)
+
+<use Images/MajorityMapScenario1.png> [10 <./Images/MajorityMapExample.png (PNG
+ copy)> <./Images/MajorityMapScenario1.png (PNG copy)>]
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 496
 .
-LaTeX Font Info:    No file OMScmtt.fd. on input line 323.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 496.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 323.
+(Font)              for symbol `textbraceleft' on input line 496.
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 318--362
+Overfull \hbox (48.74657pt too wide) in paragraph at lines 491--535
 []  []\OT1/cmtt/m/n/10 Polygon GetTranslatePolygon[]([]Transformation& translat
 e, Polygon& polygon[])[]; 
  []
 
 
-Overfull \hbox (74.99634pt too wide) in paragraph at lines 318--362
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 491--535
 []  []\OT1/cmtt/m/n/10 Polygon ConvertFaceToPolygon[]([]Arrangement::Ccb[]_half
 edge[]_const[]_circulator circ[])[]; 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 318--362
+Underfull \hbox (badness 10000) in paragraph at lines 491--535
 
  []
 
-[7 <./Images/Hypothesis_office.png (PNG copy)>]
-<Images/MajorityMapScenario1.png, id=109, 543.02875pt x 337.26pt>
-File: Images/MajorityMapScenario1.png Graphic file (type png)
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 546--560
 
-<use Images/MajorityMapScenario1.png>
-<Images/MajorityMapScenario4.png, id=110, 683.55376pt x 438.63875pt>
+ []
+
+[12]
+Overfull \hbox (43.49661pt too wide) in paragraph at lines 580--620
+[]    []\OT1/cmtt/m/n/10 for []([]EdgeIterator ei = pi-[]>edges[]_begin[]()[]; 
+ei != pi-[]>edges[]_end[]()[]; ++ei[]) 
+ []
+
+
+Overfull \hbox (106.49606pt too wide) in paragraph at lines 580--620
+[]  []\OT1/cmtt/m/n/10 for []([]fit = mmapArrangement.faces[]_begin[]()[]; fit 
+!= mmapArrangement.faces[]_end[]()[]; ++fit[]) 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 580--620
+[]      []\OT1/cmtt/m/n/10 //constructing the overlay Arrangement by adding the
+ faces as polygons. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 580--620
+
+ []
+
+[13] <Images/MajorityMapScenario4.png, id=181, 683.55376pt x 438.63875pt>
 File: Images/MajorityMapScenario4.png Graphic file (type png)
 
-<use Images/MajorityMapScenario4.png>
+<use Images/MajorityMapScenario4.png> [14 <./Images/MajorityMapScenario4.png (P
+NG copy)>]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 662.
 
-[8 <./Images/MajorityMapScenario1.png (PNG copy)>] [9 <./Images/MajorityMapScen
-ario4.png (PNG copy)>] (./Report.aux)
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 662.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 662.
+
+[15] [16] (./Report.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -427,28 +521,31 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5331 strings out of 495061
- 76805 string characters out of 1182621
- 154931 words of memory out of 3000000
- 8373 multiletter control sequences out of 15000+50000
- 10982 words of font info for 40 fonts, out of 3000000 for 9000
+ 5570 strings out of 495061
+ 79706 string characters out of 1182621
+ 157907 words of memory out of 3000000
+ 8570 multiletter control sequences out of 15000+50000
+ 11821 words of font info for 43 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,8n,36p,326b,460s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,7n,39p,326b,355s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
 re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
 xlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/
 type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmmi9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/
-texmf-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texliv
-e/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
-nts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti
-10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Report.pdf (9 pages, 252416 bytes).
+c/amsfonts/cm/cmmi12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
+cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi9.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
+/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-t
+exlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/font
+s/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on Report.pdf (16 pages, 329914 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
- 42 named destinations out of 1000 (max. 500000)
- 100 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 272 PDF objects out of 1000 (max. 8388607)
+ 75 named destinations out of 1000 (max. 500000)
+ 155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

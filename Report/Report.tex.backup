@@ -5,6 +5,7 @@
 \usepackage{color}
 \usepackage{subfigure}
 \usepackage{graphicx}
+\RequirePackage{algorithmic}
 
 
 %opening
@@ -36,6 +37,167 @@ location inside the polygon $P $ at a minimum cost of travel distance. We implem
 as given by \cite{key1}. CGAL \cite{key2} has been used for the various computational geometry algorithms.
 
 \end{abstract}
+
+\newpage
+\section{Robot Localization Algorithm}
+
+{\bf Input:}\\
+Map polygon $P$, the visibility polygon $V$.
+\\
+{\bf Output:}\\
+The robot localizes to its actual position $h \in H$
+\\
+\begin{algorithmic}[1]
+  \STATE Compute the set of hypotheses $H$.
+ \WHILE{ $ | H | > 1$ } 
+  \STATE Compute the majority-rule map $P_{maj}$
+  \STATE Compute the polygons $G_{ij}$ for each pair of hypotheses, $h_{i}$ and $h_{j}$
+  \STATE Compute the majority rule map $K_{i}$ of $G_{ij}$'s
+  \STATE Find the edges on the boundary of $K_{i}$ which are not on the boundary of $P_{maj}$
+  \STATE Draw grids and compute the set of coordinates $Q_{H}$ on these edges.
+  \STATE Make instance $I_{P,H}$  of $\frac{1}{2}$ -Group Steiner Problem
+  \STATE Solve $I_{P,H}$ to compute a half computing path $C \subset P_{maj}$
+  \STATE Half-Localize by tracing $C $ and making observations at coordinates $Q_{H}$
+  \STATE Move back to the starting location.
+ \ENDWHILE
+\end{algorithmic}
+
+\newpage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Notation}
+\begin{itemize}
+\item
+{\bf $H$}: A list of points which denotes potential robot positions.
+
+
+\item
+{\bf $P_{maj}$}: The majority rule map of all translates of the polygon. The
+translates of the polygon are obtained by choosing one hypothesis as the origin and
+translating all the remaining hypotheses to this chosen origin.
+
+
+\item
+{\bf $G_{ij}$}: For the translates corresponding to pair of hypotheses $h_{i}$ and
+ $h_{j}$, $G_{ij}$ is the origin containing region obtained by taking the lower
+envelope of visibility polygons of all type 1 and type 2 edges of the polygon.\\
+An edge is of type 1 or type 2, if it belongs to exactly one of the translates.
+
+\item
+{\bf $g_{i}$}: The set of all points at which $h_{i}$ does not share the majority
+opinion about $i$.
+
+\item
+{\bf $K_{i}$}: The majority rule map of $G_{ij}$'s
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Hypothesis Generation}
+Hypothesis Generation phase is based on the following conjecture which we try to prove in the next subsection.
+
+\begin{theorem}
+ A point, $P$ inside a simple polygon sees atleast one edge of the polygon completely.
+\end{theorem}
+The proof of the above theorem comes from the following two simple facts.
+\begin{itemize}
+ \item An edge is partially visible from a point inside the polygon only if it is occluded partially by another reflex vertex of the polygon
+not belonging to that edge.
+\item A reflex vertex can occlude one and only one edge of the polygon.
+\end{itemize}
+
+To prove the theorem for any arbitrary polygon we obtain the visibility polygon of point P and show that atleast one edge of this
+visibility polygon, which is also an edge of the original polygon, is completely visible from point $P$. Alternatively Theorem 1 can be
+ restated as follows.
+
+\begin{definition}
+ {\bf Spurious Edge:} In the visibility polygon of a point, an edge is called a spurious edge if it is obtained by extending the line
+ joining the point $P$ and a reflex vertex till it meets the polygon.
+\end{definition}
+
+
+\begin{theorem}
+ The visibility polygon of a point $P$ has atleast one edge which completely overlaps with an edge of the original polygon.
+\end{theorem}
+{\bf Proof} Let the visibility polygon be $V$. Let the visibility polygon have $n$ non-spurious edges and $r$ spurious edges.
+Each of the spurious edge is due to a reflex vertex, so the polygon would have $r$ reflex vertices at least.
+ According to the theorem, one of the $n$ edges must overlap completely with an edge of the polygon.
+We prove it by contradiction. Assume to the contrary that all of the $n$ edges are partially visible from $P$. Thus each of the $n$
+edges must be occluded by a reflex vertex $v$ not lying on the edge. And since a reflex vertex cannot occlude multiple edges, therefore
+ a total of $n$ reflex vertices will be required to occlude the $n$ edges.
+So such a polygon, if it exists, should have $n+r$ reflex vertices, but it is not possible to construct a closed polygon with all
+ vertices as reflex vertex.
+Hence our original assumption was wrong.
+
+{\bf Algorithm}
+
+\begin{itemize}
+ \item Iterate over the edges of the polygon and the edges of the map. and find an edge in the map which has the same length and
+ orientation as an edge in the polygon.
+
+ \item
+ Translate the visibility polygon such that the matching edge of the map polygon
+and the visibility polygon coincide.
+
+ \item
+ For each of the remaining edges of the visibility polygon, check whether a 
+complete match exists or not. If all the remaining edges match, the point where the
+origin was translated is added to the set of hypotheses.
+
+\end{itemize}
+
+{\bf Examples}
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.30}{\includegraphics{Images/Hypothesis_office.png}}
+\caption{\label{fig:Hypothesis Generation}Hypothesis Generation}
+\end{center}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \newpage
 
@@ -70,7 +232,7 @@ Iterate over the list of visible vertices and for each reflex vertex, compute th
 Finally sort all the vertices in an order so that they form a simple polygon.
 \end{enumerate}
 
-{\bf Screenshots}
+{\bf Examples}
 
 The point $P$ is shown in blue and the visibility polygon is shown in green.
 
@@ -224,13 +386,13 @@ Utilizing these properties we construct a visibility graph for the polygon and u
 
 \end{itemize}
 
-{\bf Screenshots}
+{\bf Examples}
 
 The edge is shown in blue and its visibility polygon is shown in green.
 
 \begin{figure}[h]
 \begin{center}
-\scalebox{0.50}{\includegraphics{Images/VisibilityLine2.png}}
+\scalebox{0.40}{\includegraphics{Images/VisibilityLine2.png}}
 \caption{\label{fig:Visibility Polygon of Edge}Visibility Polygon of Edge}
 \end{center}
 \end{figure}
@@ -239,68 +401,22 @@ The edge is shown in blue and its visibility polygon is shown in green.
 
 
 
-\newpage
-\section{Hypothesis Generation}
-Hypothesis Generation phase is based on the following conjecture which we try to prove in the next subsection.
-
-\begin{theorem}
- A point, $P$ inside a simple polygon sees atleast one edge of the polygon completely.
-\end{theorem}
-The proof of the above theorem comes from the following two simple facts.
-\begin{itemize}
- \item An edge is partially visible from a point inside the polygon only if it is occluded partially by another reflex vertex of the polygon
-not belonging to that edge.
-\item A reflex vertex can occlude one and only one edge of the polygon.
-\end{itemize}
-
-To prove the theorem for any arbitrary polygon we obtain the visibility polygon of point P and show that atleast one edge of this
-visibility polygon, which is also an edge of the original polygon, is completely visible from point $P$. Alternatively Theorem 1 can be
- restated as follows.
-
-\begin{definition}
- {\bf Spurious Edge:} In the visibility polygon of a point, an edge is called a spurious edge if it is obtained by extending the line
- joining the point $P$ and a reflex vertex till it meets the polygon.
-\end{definition}
 
 
-\begin{theorem}
- The visibility polygon of a point $P$ has atleast one edge which completely overlaps with an edge of the original polygon.
-\end{theorem}
-{\bf Proof} Let the visibility polygon be $V$ .Let the visibility polygon have $n$ non-spurious edges and $r$ spurious edges.
-Each of the spurious edge is due to a reflex vertex, so the polygon would have $r$ reflex vertices at least.
- According to the theorem, one of the $n$ edges must overlap completely with an edge of the polygon.
-We prove it by contradiction. Assume to the contrary that all of the $n$ edges are partially visible from $P$. Thus each of the $n$
-edges must be occluded by a reflex vertex $v$ not lying on the edge. And since a reflex vertex cannot occlude multiple edges, therefore
- a total of $n$ reflex vertices will be required to occlude the $n$ edges.
-So such a polygon, if it exists, should have $n+r$ reflex vertices, but it is not possible to construct a closed polygon with all
- vertices as reflex vertex.
-Hence our original assumption was wrong.
 
-{\bf Algorithm}
 
-\begin{itemize}
- \item Iterate over the edges of the polygon and the edges of the map. and find an edge in the map which has the same length and
- orientation as an edge in the polygon.
 
- \item
- For each such edge, find whether a complete match exists or not.
 
-\end{itemize}
 
-{\bf Screenshots}
 
-\begin{figure}[h]
-\begin{center}
-\scalebox{0.30}{\includegraphics{Images/Hypothesis_office.png}}
-\caption{\label{fig:Hypothesis Generation}Hypothesis Generation}
-\end{center}
-\end{figure}
+
+
 
 
 
 \newpage
 
-\section{Computing the Majority Rule Map}
+\section{Computing the Majority Rule Map $P_{maj}$}
 
 \subsection{Majority Rule Map Type}
 
@@ -362,13 +478,60 @@ functions applicable on it.
 
 }
 
+Each majority rule map is basically a collection of faces. Faces is another type that encapsulates information about the opinion of 
+each of the hypotheses about that face. Here is the Faces class.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Java Sourcecode to TeX automatically converted code
+%  Java2Html Converter 5.0 [2006-02-26]by Markus Gebhard  markus@jave.de
+%     Further information: http://www.java2html.de
+{
+\noindent \ttfamily
+\jttstylea \\
+\jttstylee class~\jttstylek Faces~\jttstylei \{\\
+\jttstylee public\jttstylek :\\
+\jttstylea ~~\jttstylek Polygon~face;\\
+\jttstylea ~~\jttstylej int~\jttstylek noOfHypothesis;\\
+\jttstylea ~~\jttstylek bool~\verb#*#containedIn;\\
+\jttstylea ~~\jttstylek bool~partOfMajorityMap;\\
+\jttstylea ~~\jttstylek Faces\jttstylei ()\jttstylek ;\\
+\jttstylea ~~\jttstylek Faces\jttstylei (\jttstylej int~\jttstylek n,Polygon~p,~bool~\verb#*#A,bool~partMmap\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylek Faces\jttstylei (\jttstylek Polygon~p\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylej void~\jttstylek PrintDescription\jttstylei ()\jttstylek ;\\
+\jttstylea ~~\jttstylek virtual~\verb#~#Faces\jttstylei ()\jttstylek ;\\
+\jttstylei \}\jttstylek ;\\
+
+}
+
 
 
 \subsection{Algorithm}
 \begin{itemize}
 \item
-The overlay arrangement can be easily constructed using CGAL's inbuilt Arrangement class.
+The overlay arrangement can be easily constructed using CGAL's inbuilt Arrangement class. Obtain the translates of the polygon by 
+choosing one hypothesis as the origin and shifting other hypothesis to it.
+\item
+Insert all these translates in CGAL's inbuilt arrangement to obtain all the faces in the overlay arrangement.
+\item
+Faces which belong to atleast half the hypothesis are marked as part of the majority rule map.
 \end{itemize}
+
+
+{\bf Examples}
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/MajorityMapScenario1.png}}
+\caption{\label{fig:Majority Rule Map}Majority Rule Map}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/MajorityMapScenario4.png}}
+\caption{\label{fig:Majority Rule Map}Majority Rule Map}
+\end{center}
+\end{figure}
 
 
 \newpage
