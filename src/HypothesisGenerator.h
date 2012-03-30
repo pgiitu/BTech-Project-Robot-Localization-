@@ -1,8 +1,8 @@
-/*
+/**
  * HypothesisGenerator.h
  *
  *  Created on: 14-Jan-2012
- *      Author: apurv
+ *  Author: Apurv, Ashwani, Prateek
  */
 #include "constants.h"
 #include "PolygonUtil.h"
@@ -15,7 +15,11 @@
 #define HYPOTHESISGENERATOR_H_
 
 using namespace std;
-
+/**
+ * @params s1: Represents the segment
+ * @params s2: Represents the segment
+ * @returns bool indicating if s1 equals s2
+ */
 class cmp_segments{
 public:
 	bool operator()(Segment s1, Segment s2);
@@ -24,6 +28,13 @@ public:
 class HypothesisGenerator {
 
 private:
+	/**
+	 * Class members
+	 * @params mapP: Map polygon
+	 * @params visP: Visibility polygon
+	 * @params pUtil: A object of polygon Util class
+	 * @params robotPos: Original Position of robot
+	 */
 	Polygon mapP;
 	Polygon visP;
 	PolygonUtil pUtil;
@@ -33,7 +44,7 @@ private:
 	double GetSlope(Segment& edge);
 
 
-	double length(Segment edge);//Returns the square of length of an edge.
+	double length(Segment edge);
 	double orient(Segment edge);
 
 

@@ -12,6 +12,7 @@
 #include "HypothesisGenerator.h"
 #include "Majoritymap.h"
 #include "UIutil.h"
+#include "Grid.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
@@ -33,7 +34,7 @@ using namespace std;
  bool flagForKi=false;
 
  float zoomfactor=1.0;
- Camera camera;
+
 
  GLUI_Spinner *edgeSpinner;
  GLUI_Listbox *mapList;
@@ -41,7 +42,8 @@ using namespace std;
  /*
   * for Fij's
   */
- list<Majoritymap> Kijs;
+
+ list<Majoritymap> Kijs,Kijs_copy;
  list<list<Polygon> > Gijs;
  list<list<Polygon> > Fijs;
  list<list<list<Polygon> > > all_two_faces;
@@ -74,17 +76,23 @@ list<Point> hyps;  //list of hypothesis
 int no_of_hypothesis;
 
 
+list<Polygon> GI; //for storing GI's
+
 //-----------------------------------------------------------------------------------------------
 
 void DisplayMajorityMap();
 void DisplayFaceContainingOrigin();
 void DisplayVisibilityPolygonEdge();
+void CalcMajorityMap();
 void DisplayLocalMap();
 void DisplayMajorityMap();
 void MapIntegerToEdge();
 void LoadNewMap();
 void DisplayMap();
 void ShowMap(int id);
+void DisplayPoint(Point p);
+void print_polygon (Polygon & P);
+void calculateGI();
 
 void LoadNewMap()
 {
@@ -114,18 +122,130 @@ void LoadNewMap()
 	glCallList(listIDMap);
 	glColor3f(0,1,0);
 	glCallList(listIDVPolygon);
+	DisplayPoint(robotPos);
 }
 
-void special(int key, int, int) {
-  switch (key) {
-    case GLUT_KEY_LEFT:  camera.moveLeft(); break;
-    case GLUT_KEY_RIGHT: camera.moveRight(); break;
-    case GLUT_KEY_UP:    camera.moveUp(); break;
-    case GLUT_KEY_DOWN:  camera.moveDown(); break;
-  }
-    glutPostRedisplay();
+void print_polygon (Polygon & P)
+{
+	Polygon::Vertex_const_iterator	vit;
+	std::cout << "[ " << P.size() << " vertices:";
+	for (vit = P.vertices_begin(); vit != P.vertices_end(); ++vit)
+	{
+		std::cout << " (" << *vit << ")";
+		std::cout << " ]" << std::endl;
+	}
+}
+
+
+void print_polygon_with_holes(const Polygon_with_holes & pwh)
+{
+	if (! pwh.is_unbounded()) {
+		std::cout << "{ Outer boundary = ";
+//		pUtil.DisplayPolygon(pwh.outer_boundary())
+		Polygon p1=pwh.outer_boundary();
+		print_polygon (p1);
+	}
+	else
+		std::cout << "{ Unbounded polygon." << std::endl;
+
+	Polygon_with_holes::Hole_const_iterator hit;
+	unsigned int k = 1;
+	std::cout << " " << pwh.number_of_holes() << " holes:" << std::endl;
+	for (hit = pwh.holes_begin(); hit != pwh.holes_end(); ++hit, ++k)
+	{
+		std::cout << "Hole #" << k << " = ";
+		Polygon p1=*hit;
+		print_polygon (p1);
+	}
+	std::cout << " }" << std::endl;
+}
+
+
+void MajorityMapUnion()
+{
+
+/*
+	Polygon P;
+	P.push_back(Point(0,0));
+	P.push_back(Point(1,0));
+	P.push_back(Point(1.2,0.5));
+	P.push_back(Point(1,1));
+	P.push_back(Point(0,1));
+
+	Polygon Q;
+	Q.push_back (Point(0.5,0));
+	Q.push_back (Point(1.5,0));
+	Q.push_back (Point(1.5,1));
+	Q.push_back (Point(0.5,1));
+
+	Polygon_with_holes unionR;
+
+	bool val=CGAL::join(P,Q,unionR);
+	std::cout<<"after Join"<<val<<std::endl;
+	print_polygon_with_holes(unionR);
+*/
+	CalcMajorityMap();
+
+	std::list<Polygon> listp;
+
+	list<Faces>::iterator fit;
+	for(fit=mmap.listMmapFaces.begin();fit!=mmap.listMmapFaces.end();++fit)
+	{
+		Polygon p=fit->face;
+		listp.push_back(p);
+	}
+
+	std::list<Polygon> newlistp=pUtil.unionPolygons(listp);
+	std::cout<<"size of list is"<<newlistp.size();
+	if (newlistp.size()==1)
+	{
+		Polygon p1=newlistp.front();
+		Polygon p=pUtil.RemoveCollinearPoints(p1);
+		pUtil.DisplayPolygon(p);
+	}
+}
+
+
+void calculateGI()
+{
+	CalcMajorityMap();
+
+	list<Polygon> Gi[mmap.noOfHypothesis];
+
+	list<Faces>::iterator fi;
+	for (fi=mmap.listMmapFaces.begin();fi!=mmap.listMmapFaces.end();++fi)
+	{
+				for(int i=0;i<mmap.noOfHypothesis;i++)
+				{
+					if((fi->partOfMajorityMap && (!fi->containedIn[i])) )
+						Gi[i].push_back(fi->face);
+				}
+	}
+
+	list<Polygon> unionlist;
+	for (int i=0;i<mmap.noOfHypothesis;i++)
+	{
+		cout<<"FOR HYPOTHESIS "<<(i+1)<<"\n\n";
+		if(Gi[i].size())
+		{
+			unionlist=pUtil.unionPolygons(Gi[i]);
+			if(unionlist.size()==1)
+			{
+				cout<<"For hyp "<<(i+1)<<" poly is";
+				pUtil.DisplayPolygon(unionlist.front());
+				GI.push_back(unionlist.front());
+			}
+			else
+			{
+				cout<<"Size is "<<unionlist.size()<<"  The union is not a single polygon\n\n";
+			}
+		}
+//		unionlist.clear();
+	}
+
 
 }
+
 
 void MapIntegerToEdge()
 {
@@ -148,6 +268,7 @@ void DisplayMap()
 	glCallList(listIDMap);
 	glColor3f(0,1,0);
 	glCallList(listIDVPolygon);
+	DisplayPoint(robotPos);
 }
 
 
@@ -178,7 +299,8 @@ void DisplayHypothesis()
 	glColor3f(0,0,1);
 	glBegin(GL_POINTS);
     std::list<Point>::iterator it;
-	for(it=hyps.begin();it!=hyps.end();++it)
+	std::cout<<"Hyps length "<<hyps.size();
+    for(it=hyps.begin();it!=hyps.end();++it)
 	{
 		glVertex2f((*it).cartesian(0),(*it).cartesian(1));
 	}
@@ -210,7 +332,22 @@ void CalcMajorityMap()
 
 void DisplayMajorityMap()
 {
+
+
 	CalcMajorityMap();
+
+//	MajorityMapUnion();
+	calculateGI();
+	list<Polygon>::iterator pit;
+	cout<<"Size of GI "<<GI.size()<<"\n\n";
+	int i=1;
+	for(pit=GI.begin();pit!=GI.end();++pit,i++)
+	{
+		Polygon p=*pit;
+		cout<<"For Hypothesis "<<i<<"\n";
+		pUtil.DisplayPolygon(p);
+	}
+
 
 	std::list<Faces>::iterator fit;
 
@@ -224,27 +361,12 @@ void DisplayMajorityMap()
 		else
 		{
 			glColor3f(0,0,0);
-			cout<<"Not majrity.....................................................................\n";
 		}
 
 		GLuint j=tessellate1((*fit).face,0);
 		glCallList(j);
 	}
-
-/*
-	std::list<Polygon>::iterator pit;
-	for(pit=mmap.listTanslatedPolygons.begin();pit!=mmap.listTanslatedPolygons.end();++pit)
-	{
-		float rand1=(rand()%255);
-		float rand2=(rand()%255);
-		float rand3=(rand()%255);
-
-		glColor3f(0,1,0);
-		GLuint j=tessellate1((*pit),0);
-		glCallList(j);
-	}
-*/
-
+	DisplayPoint(robotPos);
 }
 
 void CalcFaceContainingOrigin()
@@ -265,6 +387,16 @@ void DisplayFaceContainingOrigin()
 		GLuint j=tessellate1(*pit,0);
 		glCallList(j);
 	}
+	DisplayPoint(robotPos);
+}
+void DisplayPoint(Point p)
+{
+	glPointSize(10);
+	glColor3f(0.4,0.2,0.9);
+	glBegin(GL_POINTS);
+	glVertex2f(robotPos.cartesian(0),robotPos.cartesian(1));
+	glEnd();
+
 }
 
 Polygon CalcVisibilityPolygonEdge()
@@ -313,9 +445,9 @@ void DisplayVisibilityPolygonPoint(Point point)
 	}
 	glPointSize(5);
 	glColor3f(0,0,1);
+
 	glBegin(GL_POINTS);
 	glVertex2f(point.cartesian(0),point.cartesian(1));
-//	glVertex2f(10,10);
 	glEnd();
 //	glFlush();
 }
@@ -378,16 +510,6 @@ if(Kijs.size()<=0 && Gijs.size()<=0 && Fijs.size()<=0 && all_two_faces.size()<=0
     	Gijs.push_back(GPolygonList);
     	Fijs.push_back(FPolygonList);
     	all_two_faces.push_back(two_faces);
-    	 // Using GPOLYGONLIST we need to construct Ki
-    	 // Insert Ki in KPOLYGONLIST
-
-
-//    	cout<<"Hypothesis  "<<hypothesisArray[i]<<endl;
-    	list<Polygon>::iterator pit;
-    	for(pit=GPolygonList.begin();pit!=GPolygonList.end();++pit)
-    	{
-//    		pUtil.DisplayPolygon(*pit);
-    	}
 
     	Majoritymap Ki(GPolygonList.size(),GPolygonList);
     	Ki.GenerateOverlay(GPolygonList);
@@ -398,54 +520,115 @@ if(Kijs.size()<=0 && Gijs.size()<=0 && Fijs.size()<=0 && all_two_faces.size()<=0
 
     	cout<<"Ki for hypothesis No:- "<<(i+1)<<"  Done\n\n";
     }
+
+    Kijs_copy=Kijs;
 }
-  /*
 
-	cout<<"Length of all two faces is :- "<<all_two_faces.size()<<"   size of first list  "<<all_two_faces.front().size()<<"\n";
-	cout<<"Length of all Fij is :- "<<Fijs.size()<<"\n";
-	cout<<"Length of all Gij is :- "<<Gijs.size()<<"\n\n";
-	cout<<"Length of all Kis is :- "<<Kijs.size()<<"\n\n";
-*/
+}
 
- /*
- * Displaying all the pair of hypothesis
- */
-/*
-    list<list<list<Polygon> > >::iterator pit3;
-	list<list<Polygon> >::iterator pit2;
-	list<Polygon> ::iterator pit1;
-	int n=1;
+void calcReferencePoints(list<list<Segment> >impSegments,double geodesic)
+{
+	    list< list<Segment> >::iterator li1;
+		list<Segment>::iterator sit;
 
-	for(pit3=all_two_faces.begin();pit3!=all_two_faces.end();++pit3)
-	{
-		cout<<"For Hypothesis No:- "<<n++<<endl;
-		for(pit2=(*pit3).begin();pit2!=(*pit3).end();++pit2)
+		list<list<Point> > ReferencePoints;
+
+
+		int i=0;
+		for(li1=impSegments.begin();li1!=impSegments.end();++li1)
 		{
-			cout<<"Size of list of two polygons :- "<<(*pit2).size()<<endl;
-			cout<<"A pair of polygons\n";
-			for(pit1=(*pit2).begin();pit1!=(*pit2).end();++pit1)
+			list<Segment> ls=*li1;
+			cout<<"For hypothesis "<<i++<<"\n";
+			list<Point> refPoints;
+			Grid grid(no_of_hypothesis,robotPos,geodesic,ls);
+			grid.findQh(refPoints);
+			list<Point>::iterator pit;
+			for(pit=refPoints.begin();pit!=refPoints.end();++pit)
 			{
-				pUtil.DisplayPolygon(*pit1);
+				cout <<*pit<<"\n";
 			}
+			ReferencePoints.push_back(refPoints);
 		}
-	}
-*/
 
-
-/*
-	list<list<Polygon> >::iterator fit2=Fijs.begin();
-	list<Polygon>::iterator fit1=(*fit2).begin();
-	for(fit2=Fijs.begin();fit2!=Fijs.end();++fit2)
+}
+void calculateImportantEdges()
+{
+	CalcMajorityMap();
+	CalculateFijs();
+	list<Polygon> l_Ki; //this list represents the list of outer boundaries(represented as polygon) of the majority map for each hypothesis i.
+	list<Majoritymap>::iterator mit;
+	for (mit=Kijs_copy.begin();mit!=Kijs_copy.end();++mit)
 	{
-		for(fit1=(*fit2).begin();fit1!=(*fit2).end();++fit1)
-		{
-			pUtil.DisplayPolygon(*fit1);
-		}
+		l_Ki.push_back(mit->generateUnionFaces());
 	}
 
-*/
+	Polygon mmapAsPolygon=mmap.generateUnionFaces();
+
+	EdgeIterator mmape,kie;
+
+	list<Polygon>::iterator pit;
+	list< list<Segment> > impSegments;
+
+	for (pit=l_Ki.begin();pit!=l_Ki.end();++pit)
+	{
+		list<Segment> ls;
+		ls.clear();
+		for(kie=pit->edges_begin();kie!=pit->edges_end();++kie)
+		{
+			bool flag=true;
+			for(mmape=mmapAsPolygon.edges_begin();mmape!=mmapAsPolygon.edges_end();++mmape)
+			{
+				Segment s;
+				Object obj=CGAL::intersection(*kie,*mmape);
+				if(CGAL::assign(s,obj))
+				{
+					flag=false;
+				}
+
+			}
+			if(flag)
+				ls.push_back(*kie);
+		}
+		impSegments.push_back(ls);
+	}
+
+	list< list<Segment> >::iterator li1;
+	list<Segment>::iterator sit;
 
 
+	list<double> distance;
+	int i=0;
+	for(li1=impSegments.begin();li1!=impSegments.end();++li1)
+	{
+		list<Segment> ls=*li1;
+		cout<<"For hypothesis "<<i++<<"\n";
+
+		list<double> dist;
+		for(sit=ls.begin();sit!=ls.end();++sit)
+		{
+			double d=pUtil.minimumDistance(*sit,robotPos);
+			dist.push_back(d);
+			cout<<(*sit)<<" Distance "<<d<<"\n";
+		}
+		dist.sort();
+		distance.push_back(dist.front());
+	}
+
+	list<double>::iterator dit;
+
+	distance.sort();
+	int median=(no_of_hypothesis/2)+1;
+
+	dit=distance.begin();
+	for(int i=0;i<median;++dit,i++)
+		{
+			//cout << "Distance "<<*dit;
+		}
+
+	double geodesic=*dit;
+	cout<<"Geodesic Radius "<<geodesic<<"\n";
+
+	calcReferencePoints(impSegments,geodesic);
 
 }
 
@@ -481,7 +664,7 @@ if(!flagForKi)
 			Display_polygon_as_line(*pit1);
 			glColor3f(1,0,0);
 		}
-		cout<<"size of two faces  "<<all_two_faces.front().size()<<endl;
+//		cout<<"size of two faces  "<<all_two_faces.front().size()<<endl;
 
 	glColor3f(0,1,0);
 	list<list<Polygon> >::iterator fit2=Fijs.begin();
@@ -539,7 +722,9 @@ else
 
 }
 
-	cout<<"GIJ Drawn\n";
+DisplayPoint(robotPos);
+
+//	cout<<"GIJ Drawn\n";
 }
 
 
@@ -589,6 +774,7 @@ void display()
 			break;
 		case 8:
 			CalculateFijs();
+			calculateImportantEdges();
 			break;
 		case 10:
 			Display_Fij();
@@ -664,9 +850,10 @@ string convert_point_string(Point p)
 
 int main(int argc, char ** argv)
 {
+	//	MajorityMapUnion();
 
-	GLUI *glui;
-	 GLUI_Panel *VisibilityPanel;
+	  GLUI *glui;
+	  GLUI_Panel *VisibilityPanel;
 	  GLUI_Panel *HGererationPanel;
 	  GLUI_EditText *hyp1,*hyp2,*Xcoordinate,*Ycoordinate;
       glutInit( &argc, argv );
@@ -692,10 +879,12 @@ int main(int argc, char ** argv)
 	  mapMap[2]="Scenario2.txt";
 	  mapList->add_item(3,"Scenario3.txt");
 	  mapMap[3]="Scenario3.txt";
-	  mapList->add_item(4,"Office.txt");
-	  mapMap[4]="Office.txt";
-	  mapList->add_item(5,"Office_anti.txt");
-	  mapMap[5]="Office_anti.txt";
+	  mapList->add_item(4,"Scenario4.txt");
+	  mapMap[4]="Scenario4.txt";
+	  mapList->add_item(5,"Office.txt");
+	  mapMap[5]="Office.txt";
+	  mapList->add_item(6,"Office_anti.txt");
+	  mapMap[6]="Office_anti.txt";
 
 	  glui->add_button("Choose Map",0,ShowMap);
 

@@ -1,8 +1,8 @@
-/*
+/**
  * Majoritymap.h
  *
  *  Created on: 22-Jan-2012
- *      Author: prateek
+ *      Author: prateek,ashwani,apurv
  */
 
 #ifndef MAJORITYMAP_H_
@@ -15,7 +15,6 @@
 typedef CGAL::Quotient<CGAL::MP_Float>                  Number_type;
 
 using namespace std;
-//using namespace boost::numeric::ublas;
 
 class Majoritymap {
 public:
@@ -28,9 +27,7 @@ public:
 	list<Polygon> listTanslatedPolygons;
 	Arrangement mmapArrangement;
 
-	PolygonUtil pUtil; //For using polygon util functions.
-
-	//HypothesisGenerator hGenerator;
+	PolygonUtil pUtil;
 
 	Majoritymap();
 	Majoritymap(int n, Point H[],Point c,Polygon P);
@@ -40,7 +37,6 @@ public:
 	void PrintMajorityMap();
 	void GenerateMajorityMap();
 	Polygon GetTranslatePolygon(Transformation& translate, Polygon& polygon);
-//	bool ContainmentTest();
 	Polygon ConvertFaceToPolygon(Arrangement::Ccb_halfedge_const_circulator circ);
 	bool IsContainedIn(Polygon outer,Polygon inner);
 	bool CheckPartOfMajorityMap(int agree, int noOfHypothesis);
@@ -49,9 +45,7 @@ public:
 	bool areAdjacent(Polygon& poly1, Polygon& poly2);
 
 	Polygon OverlayContaningOrigin(Point &center);
-
-//	void print_face (Arrangement::Face_const_handle f);
-//	void print_ccb (Arrangement::Ccb_halfedge_const_circulator circ);
+	Polygon generateUnionFaces();
 	void GenerateOverlay(list<Polygon> polygonList);
 	void partMajority();
 	virtual ~Majoritymap();

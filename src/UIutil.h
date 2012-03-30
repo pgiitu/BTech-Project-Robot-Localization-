@@ -13,9 +13,7 @@
 #include <GL/glut.h>
 #include "Majoritymap.h"
 #include "constants.h"
-#include "Camera.h"
 
-//void special(int key, int, int);
 void init(void);
 void errorCallback(GLenum errorCode);
 void endCallback(void);

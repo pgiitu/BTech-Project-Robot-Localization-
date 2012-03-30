@@ -1,14 +1,20 @@
-/*
+/**
  * HypothesisGenerator.cpp
  *
  *  Created on: 14-Jan-2012
- *      Author: apurv
+ *      Author: apurv, ashwani, prateek
  */
 
 #include "HypothesisGenerator.h"
 using namespace boost::numeric::ublas;
 
-
+/**
+ * Constructor
+ * @params mapP: Map polygon
+ * @params visP: Visibility polygon
+ * @params pUtil: A object of polygon Util class
+ * @params robotPos: Original Position of robot
+ */
 
 
 HypothesisGenerator::HypothesisGenerator(Polygon& mapP, Polygon& visP, Point& robotPos) {
@@ -30,11 +36,17 @@ HypothesisGenerator::HypothesisGenerator()
 {
 
 }
-
+/**
+ * Destructor
+ */
 HypothesisGenerator::~HypothesisGenerator() {
 
 }
-
+/**
+ * @params ei: Edge Iterator of polygon
+ * @params polygon: Polygon
+ * @returns Segment which is next to the edge iterator.
+ */
 Segment HypothesisGenerator::GetNextEdge(EdgeIterator& ei, Polygon& polygon){
 	if (ei == (polygon.edges_end()-1)){
 		ei = polygon.edges_begin();
@@ -44,7 +56,9 @@ Segment HypothesisGenerator::GetNextEdge(EdgeIterator& ei, Polygon& polygon){
 	}
 	return *ei;
 }
-
+/**
+ *@returns list of hypothesis
+ */
 
 list<Point> HypothesisGenerator::GenHypothesis(){
 	list<Point> hyps;
@@ -73,22 +87,19 @@ list<Point> HypothesisGenerator::GenHypothesis(){
 				Transformation invTranslate(CGAL::TRANSLATION, invT);
 
 				TranslatePolygon(translate, visP);
-
 				robotPos = translate(robotPos);
 
-				if(!IsInList(hyps,robotPos))
+				Polygon visibilityPolygon=pUtil.CalcVisibilityPolygon(mapP,robotPos);
+				if(pUtil.doPolygonsMatch(visibilityPolygon,visP))
 				{
-					Polygon visibilityPolygon=pUtil.CalcVisibilityPolygon(mapP,robotPos);
-					if(pUtil.doPolygonsMatch(visibilityPolygon,visP))
-					{
-							hyps.push_back(robotPos);
+					if(!IsInList(hyps,robotPos)){
+						hyps.push_back(robotPos);
 					}
 				}
 
 				TranslatePolygon(invTranslate, visP);
 				robotPos = invTranslate(robotPos);
 			}
-
 			visEdge = GetNextEdge(visIter, visP);
 			GetNextEdge(visIterCpy, visP);
 		}
@@ -97,7 +108,11 @@ list<Point> HypothesisGenerator::GenHypothesis(){
 	}
 	return hyps;
 }
-
+/**
+ *@params list<Point> hyps: list of hypothesis
+ *@params p: Point
+ *@returns a bool if p is present in the list.
+ */
 bool HypothesisGenerator::IsInList(list<Point> hyps, Point p){
 	list<Point>::iterator it;
 	for(it = hyps.begin(); it != hyps.end(); it++){
@@ -107,7 +122,11 @@ bool HypothesisGenerator::IsInList(list<Point> hyps, Point p){
 	}
 	return false;
 }
-
+/**
+ * @params translate: Transformation object of CGAL
+ * @params polygon: Polygon
+ * translates the polygon by the translate object
+ */
 
 void HypothesisGenerator::TranslatePolygon(Transformation& translate, Polygon& polygon)
 {
@@ -116,38 +135,6 @@ void HypothesisGenerator::TranslatePolygon(Transformation& translate, Polygon& p
 		*vi = translate(*vi);
 	}
 }
-
-
-bool HypothesisGenerator::IsComplMatch( EdgeIterator& visIter){
-
-	Segment visEdge = *(visIter);
-	int i = 0;
-
-	while(i < visP.size()){
-		Point p1 = visEdge.point(0);
-		Point p2 = visEdge.point(1);
-
-		if( !(mapP.has_on_boundary(p1) && mapP.has_on_boundary(p2)) ){
-/*
-			cout<<"Edge which didn't match "<< visEdge<<"\n";
-			cout<<"On Boundary P1 "<<mapP.has_on_boundary(p1)<<"\n";
-			cout<<"On Boundary P2 "<<mapP.has_on_boundary(p2)<<"\n";
-*/
-			return false;
-		}
-
-		if( !TwoVertexOnEdge(visEdge)){
-/*			cout<<"Edge which didn't match Condition2  "<< visEdge<<"\n";*/
-			return false;
-		}
-
-		i++;
-		visEdge = GetNextEdge(visIter, visP);
-	}
-
-	return true;
-}
-
 
 /**
  * Returns whether edge has atmost two vertices of polygon lying on this edge.
@@ -170,14 +157,21 @@ bool HypothesisGenerator::TwoVertexOnEdge(Segment& edge){
 	return (count <= 2);
 }
 
-
+/**
+ * @params mapEdge: Segment of original map
+ * @params visEdge: segment of visibility polygon
+ * @returns if mapEdge matches visEdge
+ */
 
 
 bool HypothesisGenerator::IsMatch(Segment mapEdge, Segment visEdge){
 	return (pUtil.EqualsValue(length(mapEdge),length(visEdge)) && pUtil.EqualsValue(orient(mapEdge),orient(visEdge)));
-//	return (length(mapEdge) == length(visEdge) && orient(mapEdge) == orient(visEdge) );
 }
 
+/**
+ * @params edge: Segment
+ * @returns slope of edge
+ */
 double HypothesisGenerator::GetSlope(Segment& edge){
 	Point p2 = edge.point(1);
 	Point p1 = edge.point(0);
@@ -188,12 +182,16 @@ double HypothesisGenerator::GetSlope(Segment& edge){
 }
 
 /**
- * Returns the square of length of an edge.
+ * @params edge: Segment
+ * @returns length of the edge
  */
 double HypothesisGenerator::length(Segment edge){
 	return edge.squared_length();
 }
-
+/**
+ * @params edge: Segment
+ * @returns the orientation of edge
+ */
 double HypothesisGenerator::orient(Segment edge){
 	return GetSlope(edge);
 }

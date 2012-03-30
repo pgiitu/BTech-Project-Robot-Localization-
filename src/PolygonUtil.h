@@ -1,8 +1,8 @@
-/*
+/**
  * PolygonUtil.h
  *
  *  Created on: 13-Jan-2012
- *      Author: apurv
+ *      Author: apurv,ashwani,prateek
  */
 #include "constants.h"
 #include <boost/numeric/ublas/vector.hpp>
@@ -12,12 +12,12 @@
 #ifndef POLYGONUTIL_H_
 #define POLYGONUTIL_H_
 
-//Point robotPos(0.1,-1.8);  //point from where we are calculating the visibility polygon
 
 class PolygonUtil {
 public:
 	PolygonUtil();
 	virtual ~PolygonUtil();
+
 	Point Right(Polygon& polygon, Point& point);
 	Point Left(Polygon& polygon, Point& point);
 	bool IsReflex(Polygon& polygon, Point& point);
@@ -27,7 +27,6 @@ public:
 	void FindCandidateIntrPoints(Polygon &Map,Ray &rayToCorner,std::list<Point> &intersectionPolygon);
 
 	bool IsVertexOfPolygon(Polygon &Map,Point &p);
-//	bool CompareDistance(Point p1,Point p2);
 
 	bool Equals(Point& p1, Point& p2);
 	Polygon SortPolygon(Polygon& polygon, Polygon& map);
@@ -55,13 +54,13 @@ public:
 	int findIndex(Point vertex[],int size,Point point);
 	Polygon CalcGPolygon(Point& center,Polygon& FPolygon,std::list<Polygon> polygonList);
 	int ClassifyEdges(Segment edge, Polygon& P1,Polygon& P2);
+
 	bool EqualsValue(double v1, double v2);
 	bool doPolygonsMatch(Polygon &P1,Polygon &P2);
 	double GetSlope(Segment& edge);
 	Polygon RemoveCollinearPoints(Polygon P);
 
 
-	//Functions to calculate shortest path and edge visibility.
 	bool IsInsidePolygon(Point& p1, Point& p2, Polygon& polygon);
 	bool IsInsidePolygon1(Point& p1, Point& p2, Polygon& polygon);
 	graph_t PrepareVisibilityGraph(Polygon& map, Point vertex[]);
@@ -77,6 +76,12 @@ public:
 	std::list<Point> UniqueList(std::list<Point> pointList);
 
 	bool isPointInList(std::list<Point> pointList,Point p);
+
+	std::list<Polygon> unionPolygons(std::list<Polygon>);
+	Polygon convertPolygonWithHolesToPolygon(Polygon_with_holes polyHoles);
+
+	double minimumDistance(Segment edge,Point p);
+
 
 };
 

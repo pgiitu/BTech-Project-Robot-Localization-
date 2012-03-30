@@ -7,14 +7,26 @@
 
 #include "Faces.h"
 using std::cout;
+/**
+ * Default Constructor
+ */
 Faces::Faces() {
 	// TODO Auto-generated constructor stub
 
 }
+/**
+ * Constructor which accepts a polygon
+ */
 Faces::Faces(Polygon p)
 {
 	face=p;
 }
+/**
+ * @params face: It represnts polygon corresponding to the face
+ * @params noOfHypothesis: It shows the number of hypothesis
+ * @containedIn: A bool array showing the response of hypothesis to this face
+ * @partOfMajorityMap: Boolean showing the part of majority map
+ */
 Faces::Faces(int n, Polygon p, bool *A,bool partMmap)
 {
 	containedIn=new bool[n];
@@ -23,18 +35,17 @@ Faces::Faces(int n, Polygon p, bool *A,bool partMmap)
 	for(int i=0;i<noOfHypothesis;i++)
 	{
 		containedIn[i]=*(A+i);
-		//cout<<"A[i] is  "<<A[i]<<" contained in "<<containedIn[i];
 	}
 	partOfMajorityMap=partMmap;
 }
-
+/**
+ * Destructor
+ */
 Faces::~Faces() {
-	// TODO Auto-generated destructor stub
-//	std::cout << "Destructor being called \n\n\n\n\n\n";
-//	delete [] containedIn;
-//	containedIn=0;
 }
-
+/**
+ * A method to print the description of face
+ */
 void Faces::PrintDescription()
 {
 	std::cout<<"The face is part of majority map:"<<partOfMajorityMap<<"\n";
