@@ -27,30 +27,82 @@ An edge is of type 1 or type 2, if it belongs to exactly one of the translates.
 \nomenclature[gi]{$g_{i}$}{The set of all points at which $h_{i}$ does not share the majority
 opinion about $i$.}          
 
-\nomenclature[Ki]{$K_{i}$}{The majority rule map of $G_{ij}$'s}  
+\nomenclature[Ki]{$K_{i}$}{The majority rule map of $G_{ij}$'s for a particular i and $j \belongs [1...n]\backslash i$}  
 \nomenclature[Maj(gamma)]{$Maj(\gamma)$}{Set of hypothesis which share the majority opinion about $\gamma$.
  $\gamma$ can be either a point or a region.} 
 
 
 \section{Computing Visibility Polygons}
-Visibility polygon is an indispensable component is the hypothesis generation step of the algorithm. Since CGAL had no inbuilt support
+Visibility polygon is an indispensable component in the hypothesis generation step of the algorithm. Since CGAL had no inbuilt support
  for computing visibility polygons we implemented the following two routines for our purposes.
 \begin{itemize}
  \item Visibility Polygon of a point inside a polygon
  \item Visibility Polygon of an edge of the polygon.
 \end{itemize}
 
+
+%Java2TeX style definitions
+%You can modify them to fit your needs
+\newcommand{\jttstylea}{\color[rgb]{1.00,1.00,1.00}} %Background
+\newcommand{\jttstyleb}{\color[rgb]{.501,.501,.501}} %Line numbers
+\newcommand{\jttstylec}{\color[rgb]{.247,.498,.372}} %Multi-line comments
+\newcommand{\jttstyled}{\color[rgb]{.247,.498,.372}} %Single-line comments
+\newcommand{\jttstylee}{\color[rgb]{.498,.000,.333}} %Keywords
+\newcommand{\jttstylef}{\color[rgb]{.164,.000,1.00}} %Strings
+\newcommand{\jttstyleg}{\color[rgb]{.600,.000,.000}} %Character constants
+\newcommand{\jttstyleh}{\color[rgb]{.600,.000,.000}} %Numeric constants
+\newcommand{\jttstylei}{\color[rgb]{.000,.000,.000}} %Parenthesis
+\newcommand{\jttstylej}{\color[rgb]{.498,.000,.333}} %Primitive Types
+\newcommand{\jttstylek}{\color[rgb]{.000,.000,.000}} %Others
+\newcommand{\jttstylel}{\color[rgb]{.498,.623,.749}} %Javadoc keywords
+\newcommand{\jttstylem}{\color[rgb]{.498,.498,.623}} %Javadoc HTML tags
+\newcommand{\jttstylen}{\color[rgb]{.247,.247,.749}} %Javadoc links
+\newcommand{\jttstyleo}{\color[rgb]{.247,.372,.749}} %Javadoc others
+\newcommand{\jttstylep}{\color[rgb]{1.00,.380,.000}} %Undefined
+\newcommand{\jttstyleq}{\color[rgb]{.392,.392,.392}} %Annotation
+
+
 \subsection{Visibility Polygon of a Point Inside a Polygon}
+
+\begin{definition}
+ {\bf Visibility Polygon of Point:} $p$ is the bounded polygonal region of all points of the polygon visible from $p$.  
+\end{definition}
 
 The following is the C++ function in the file PolygonUtil.cpp. We pass the map polygon and the point $P$, whose visibility polygon is to be
  computed. The function returns the visibility polygon of $P$ as another Polygon type.
 In $setVisiblePoints$ we collect all those points which are directly visible from $P$. Note that
- all these points will form a part of the visibility polygon of $P$ since they are directly visible from $P$. 
-Besides these some additional spurious vertices will also be introduced. Each spurious vertex which is a part of the visibility polygon
- can be obtained by extending the line joining the point $P$ to some reflex vertex. We do this in the if block and collect all the 
-spurious vertices also. Finally we sort all the vertices obtained in an order so that they form the visibility polygon of $P$.
+ all these points will form a part of the visibility polygon of $P$ since they are directly visible from $P$. These points can contain 
+ some reflex vertices as well. A reflex vertex occludes a portion of map resulting in a spurious vertex [\cite{key4}]. Each spurious vertex which is a part of the visibility polygon
+ can be obtained by extending the line joining the point $P$ to a reflex vertex. We do this in the if block and collect all the 
+spurious vertices also. Finally we sort all the vertices obtained by traversing along the boundary of the map in anticlockwise direction to get the visibility polygon of $P$.\\ \\
 
+{
+\noindent \ttfamily
+\jttstylek Polygon~PolygonUtil::CalcVisibilityPolygon\jttstylei (\jttstylek Polygon\&~map,~Point\&~point\jttstylei )\\
+\jttstylei \{\\
+\jttstylea ~~\jttstylek Polygon~setVisiblePoints~=~VisiblePointSet\jttstylei (\jttstylek map,point\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylek list\verb#<#Point\verb#>#~listVisiblePoints;\\
+\jttstylea \\
+\jttstylea ~~\jttstylee for~\jttstylei (\jttstylek VertexIterator~vi~=~setVisiblePoints.vertices\verb#_#begin\jttstylei ()\jttstylek ;~vi~!=~setVisiblePoints.vertices\verb#_#end\jttstylei ()\jttstylek ;~++vi\jttstylei )\\
+\jttstylea ~~\jttstylei \{\\
+\jttstylea ~~~~\jttstylek listVisiblePoints.push\verb#_#back\jttstylei (\jttstylek \verb#*#vi\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~\jttstylee if\jttstylei (\jttstylek IsReflex\jttstylei (\jttstylek map,\verb#*#vi\jttstylei ))\\
+\jttstylea ~~~~\jttstylei \{\\
+\jttstylea ~~~~~~\jttstylek Ray~rayToCorner\jttstylei (\jttstylek point,\verb#*#vi\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylek std::list\verb#<#Point\verb#>#~intPointList;\\
+\jttstylea ~~~~~~\jttstylek std::list\verb#<#Point\verb#>#::iterator~it;\\
+\jttstylea ~~~~~~\jttstylek FindCandidatePoints\jttstylei (\jttstylek map,rayToCorner,intPointList\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylee if\jttstylei (\jttstylek intPointList.size\jttstylei ()~\jttstylek \verb#>#~\jttstyleh 0\jttstylei )\{\\
+\jttstylea ~~~~~~~~\jttstylek intPointList.sort\jttstylei (\jttstylek CompareDistance1\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~~~\jttstylek Point~spuriousVertex~=~\verb#*#intPointList.begin\jttstylei ()\jttstylek ;\\
+\jttstylea ~~~~~~~~\jttstylek listVisiblePoints.push\verb#_#back\jttstylei (\jttstylek spuriousVertex\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~\jttstylei \}\\
+\jttstylea ~~~~\jttstylei \}\\
+\jttstylea ~~\jttstylei \}\\
+\jttstylea ~~\jttstylee return~\jttstylek sortPoints\jttstylei (\jttstylek listVisiblePoints\jttstylei )\jttstylek ;\\
+\jttstylei \}\\
 
+}
 
 {\bf Algorithm}
 
@@ -86,30 +138,15 @@ The point $P$ is shown in blue and the visibility polygon is shown in green.
 
 
 
-%Java2TeX style definitions
-%You can modify them to fit your needs
-\newcommand{\jttstylea}{\color[rgb]{1.00,1.00,1.00}} %Background
-\newcommand{\jttstyleb}{\color[rgb]{.501,.501,.501}} %Line numbers
-\newcommand{\jttstylec}{\color[rgb]{.247,.498,.372}} %Multi-line comments
-\newcommand{\jttstyled}{\color[rgb]{.247,.498,.372}} %Single-line comments
-\newcommand{\jttstylee}{\color[rgb]{.498,.000,.333}} %Keywords
-\newcommand{\jttstylef}{\color[rgb]{.164,.000,1.00}} %Strings
-\newcommand{\jttstyleg}{\color[rgb]{.600,.000,.000}} %Character constants
-\newcommand{\jttstyleh}{\color[rgb]{.600,.000,.000}} %Numeric constants
-\newcommand{\jttstylei}{\color[rgb]{.000,.000,.000}} %Parenthesis
-\newcommand{\jttstylej}{\color[rgb]{.498,.000,.333}} %Primitive Types
-\newcommand{\jttstylek}{\color[rgb]{.000,.000,.000}} %Others
-\newcommand{\jttstylel}{\color[rgb]{.498,.623,.749}} %Javadoc keywords
-\newcommand{\jttstylem}{\color[rgb]{.498,.498,.623}} %Javadoc HTML tags
-\newcommand{\jttstylen}{\color[rgb]{.247,.247,.749}} %Javadoc links
-\newcommand{\jttstyleo}{\color[rgb]{.247,.372,.749}} %Javadoc others
-\newcommand{\jttstylep}{\color[rgb]{1.00,.380,.000}} %Undefined
-\newcommand{\jttstyleq}{\color[rgb]{.392,.392,.392}} %Annotation
 
 
 
 
 \subsection{Visibility Polygon of an edge of the polygon}
+\begin{definition}
+ {\bf Visibility Polygon of Edge:} $e$ is the bounded polygonal region of all points of the polygon visible from any point on the edge $e$. 
+\end{definition}
+
 The algorithm for the visibility polygon of an edge has been taken from \cite{key3}.
 Let $E$ be the set of edges of the polygon. To find the visibility polygon of an edge $AB$, we compute, for each of 
  the remaining edges of the polygon the portion of it which is weakly visible from the edge $AB$. Once we obtain these portions we join
@@ -161,12 +198,6 @@ This routine computes the visibility polygon of the edge excluding its endpoints
 endpoints are inclusive one could compute the visibility polygon of point at the two endpoints and take a union with the visibility
 polygon returned by this routine.
 
-\begin{figure}[h]
-\begin{center}
-\scalebox{0.50}{\includegraphics{Images/VisibilityLine1.png}}
-\caption{\label{fig:Visibility Polygon of Edge}Visibility Polygon of Edge}
-\end{center}
-\end{figure}
 
 
 
@@ -183,9 +214,12 @@ polygon. Draw an edge between two vertices if the line joining the corresponding
 polygon.
 \end{definition}
 
+For Example \\
+
+Error in inserting figure babaji
 
 Utilizing these properties we construct a visibility graph for the polygon and use the normal dijikstra's single source shortest path
- algorithm on the visibility graph obtained. The following two functions do the above mentioned tasks.
+algorithm of Boost Graph Libraray \cite{BOOST} on the visibility graph obtained. The following two functions do the above mentioned tasks.
 
 
 
@@ -229,6 +263,13 @@ Utilizing these properties we construct a visibility graph for the polygon and u
 {\bf Examples}
 
 The edge is shown in blue and its visibility polygon is shown in green.
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/VisibilityLine1.png}}
+\caption{\label{fig:Visibility Polygon of Edge}Visibility Polygon of Edge}
+\end{center}
+\end{figure}
 
 \begin{figure}[h]
 \begin{center}

@@ -2,5 +2,5 @@
 \nomenclatureentry{Pmaj$P_{maj}$@[{$P_{maj}$}]\begingroup The majority rule map of all translates of the polygon. The translates of the polygon are obtained by choosing one hypothesis as the origin and translating all the remaining hypotheses to this chosen origin.\nomeqref {2.0}|nompageref}{2}
 \nomenclatureentry{Gij$G_{ij}$@[{$G_{ij}$}]\begingroup  For the translates corresponding to pair of hypotheses $h_{i}$ and  $h_{j}$, $G_{ij}$ is the origin containing region obtained by taking the lower envelope of visibility polygons of all type 1 and type 2 edges of the polygon.\\ An edge is of type 1 or type 2, if it belongs to exactly one of the translates. \nomeqref {2.0}|nompageref}{2}
 \nomenclatureentry{gi$g_{i}$@[{$g_{i}$}]\begingroup The set of all points at which $h_{i}$ does not share the majority opinion about $i$.\nomeqref {2.0}|nompageref}{2}
-\nomenclatureentry{Ki$K_{i}$@[{$K_{i}$}]\begingroup The majority rule map of $G_{ij}$'s\nomeqref {2.0}|nompageref}{2}
+\nomenclatureentry{Ki$K_{i}$@[{$K_{i}$}]\begingroup The majority rule map of $G_{ij}$'s for a particular i and $j \belongs [1...n]\backslash i$\nomeqref {2.0}|nompageref}{2}
 \nomenclatureentry{Maj(gamma)$Maj(\gamma)$@[{$Maj(\gamma)$}]\begingroup Set of hypothesis which share the majority opinion about $\gamma$.  $\gamma$ can be either a point or a region.\nomeqref {2.0}|nompageref}{2}

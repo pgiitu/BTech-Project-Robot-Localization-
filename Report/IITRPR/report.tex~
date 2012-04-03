@@ -25,7 +25,7 @@
 \degreedate{April 2012}
 
 \ifpdf
-  \author{\href{mailto:apurvverma@iitrpr.ac.in}{by} \\ {Apurv Verma(P2008CS1002)} 
+  \author{{by} \\ \href{mailto:apurvverma@iitrpr.ac.in}{Apurv Verma(P2008CS1002)} 
 \\ \href{mailto:prateekgarg@iitrpr.ac.in}{Prateek Garg (P2008CS1022)}
 \\ \href{mailto:ashwanil@iitrpr.ac.in}{Kumar Ashwani (P2008CS1015)}}
 
@@ -116,7 +116,7 @@
 \backmatter % book mode only
 \appendix
 \include{Appendix1/appendix1}
-\include{Appendix1/appendix1}
+\include{Appendix2/appendix2}
 
 \bibliographystyle{plainnat}
 %\bibliographystyle{Classes/IITRPRbiblio}

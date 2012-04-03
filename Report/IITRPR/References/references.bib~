@@ -63,14 +63,16 @@
 % ------------------------------------------------------------------------
 
 @ARTICLE{key1,
- author={Koenig Sven and Mudgal},
+ author={Apurva Mudgal, Sven Koenig, Joseph S. B. Mitchell, Craig Tovey},
  title={{A Near-Tight approximation algorithm for the robot localization problem}},
- journal={Proceedings of the Symposium on Discrete Algorithms SODA},
+ journal={SIAM Journal on Computing},
  year={2006},
 }
-
 @MISC{CGAL,
    note  = {http://www.cgal.org/} }
+
+@MISC{BOOST,
+   note  = {http://www.boost.org/} }
 
 @ARTICLE{key3,
  author={Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan},
@@ -78,10 +80,20 @@
 }
 
 @ARTICLE{key4,
- author={},
- title={{Linear time algorithms for visibility and shortest path problems inside simple polygons}},
+ author={Guibas, Motwani and Raghavan},
+ title={{The Robot Localization Problem}},
+ year = {1995}
 }
 
+@ARTICLE{key5,
+ author={Gregory Dudek, Kathleen Romanik, Sue Whitesides},
+ title={{Localizing a Robot with Minimum Travel}},
+ year = {1998}
+}
 
+@ARTICLE{key6,
+ author={Malvika Rao, Gregory Dudek, Sue Whitesides},
+ title={{Randomized Algorithms for Minimum Distance Localization}},
+}
 
 

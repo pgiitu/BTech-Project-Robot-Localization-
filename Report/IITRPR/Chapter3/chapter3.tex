@@ -57,13 +57,8 @@ functions applicable on it.
 %     Further information: http://www.java2html.de
 {
 \noindent \ttfamily
-\jttstylea \\
-\jttstylea \\
-\jttstylea \\
-\jttstylea \\
 \jttstylee class~\jttstylek Majoritymap~\jttstylei \{\\
 \jttstylee public\jttstylek :\\
-\jttstylea \\
 \jttstylea ~~\jttstylek list\verb#<#Faces\verb#>#~listMmapFaces;\\
 \jttstylea ~~\jttstylek Polygon~map;\\
 \jttstylea ~~\jttstylej int~\jttstylek noOfHypothesis;\\
@@ -71,32 +66,23 @@ functions applicable on it.
 \jttstylea ~~\jttstylek Point~center;\\
 \jttstylea ~~\jttstylek list\verb#<#Polygon\verb#>#~listTanslatedPolygons;\\
 \jttstylea ~~\jttstylek Arrangement~mmapArrangement;\\
-\jttstylea \\
 \jttstylea ~~\jttstylek PolygonUtil~pUtil;~\jttstyled //For~using~polygon~util~functions.\\
-\jttstylea \\
 \jttstylea ~~\jttstylek Majoritymap\jttstylei ()\jttstylek ;\\
 \jttstylea ~~\jttstylek Majoritymap\jttstylei (\jttstylej int~\jttstylek n,~Point~H\jttstylei []\jttstylek ,Point~c,Polygon~P\jttstylei )\jttstylek ;\\
 \jttstylea ~~\jttstylek Majoritymap\jttstylei (\jttstylej int~\jttstylek n,std::list\verb#<#Polygon\verb#>#~PolygonList\jttstylei )\jttstylek ;\\
-\jttstylea \\
-\jttstylea \\
 \jttstylea ~~\jttstylej void~\jttstylek PrintMajorityMap\jttstylei ()\jttstylek ;\\
 \jttstylea ~~\jttstylej void~\jttstylek GenerateMajorityMap\jttstylei ()\jttstylek ;\\
 \jttstylea ~~\jttstylek Polygon~GetTranslatePolygon\jttstylei (\jttstylek Transformation\&~translate,~Polygon\&~polygon\jttstylei )\jttstylek ;\\
 \jttstylea ~~\jttstylek Polygon~ConvertFaceToPolygon\jttstylei (\jttstylek Arrangement::Ccb\verb#_#halfedge\verb#_#const\verb#_#circulator~circ\jttstylei )\jttstylek ;\\
 \jttstylea ~~\jttstylek bool~IsContainedIn\jttstylei (\jttstylek Polygon~outer,Polygon~inner\jttstylei )\jttstylek ;\\
 \jttstylea ~~\jttstylek bool~CheckPartOfMajorityMap\jttstylei (\jttstylej int~\jttstylek agree,~\jttstylej int~\jttstylek noOfHypothesis\jttstylei )\jttstylek ;\\
-\jttstylea \\
 \jttstylea ~~\jttstylek list\verb#<#Polygon\verb#>#~findRegionContaningOrigin\jttstylei ()\jttstylek ;\\
 \jttstylea ~~\jttstylek bool~areAdjacent\jttstylei (\jttstylek Polygon\&~poly1,~Polygon\&~poly2\jttstylei )\jttstylek ;\\
-\jttstylea \\
 \jttstylea ~~\jttstylek Polygon~OverlayContaningOrigin\jttstylei (\jttstylek Point~\&center\jttstylei )\jttstylek ;\\
-\jttstylea \\
 \jttstylea ~~\jttstylej void~\jttstylek GenerateOverlay\jttstylei (\jttstylek list\verb#<#Polygon\verb#>#~polygonList\jttstylei )\jttstylek ;\\
 \jttstylea ~~\jttstylej void~\jttstylek partMajority\jttstylei ()\jttstylek ;\\
 \jttstylea ~~\jttstylek virtual~\verb#~#Majoritymap\jttstylei ()\jttstylek ;\\
 \jttstylei \}\jttstylek ;\\
-\jttstylea \\
-\jttstylea \\
 \jttstylea \\
 \jttstylea \jttstylea 
 \\
@@ -146,12 +132,8 @@ hypotheses say that this face is traversable and false otherwise. It also has an
 %     Further information: http://www.java2html.de
 {
 \noindent \ttfamily
-\jttstylea \\
-\jttstylea \\
-\jttstylea \\
 \jttstylej void~\jttstylek Majoritymap::GenerateOverlay\jttstylei (\jttstylek list\verb#<#Polygon\verb#>#~polygonList\jttstylei )\\
 \jttstylei \{\\
-\jttstylea \\
 \jttstylea ~~\jttstylek list\verb#<#Polygon\verb#>#::iterator~pi;\\
 \jttstylea \\
 \jttstylea ~~\jttstylee for\jttstylei (\jttstylek pi=polygonList.begin\jttstylei ()\jttstylek ;pi!=polygonList.end\jttstylei ()\jttstylek ;++pi\jttstylei )\\
@@ -167,9 +149,7 @@ hypotheses say that this face is traversable and false otherwise. It also has an
 \jttstylea ~~~~\jttstylei \}\\
 \jttstylea ~~\jttstylei \}\\
 \jttstylea \\
-\jttstylea \\
 \jttstylea ~~\jttstylek Arrangement::Face\verb#_#const\verb#_#iterator~fit;\\
-\jttstylea \\
 \jttstylea ~~\jttstylee for~\jttstylei (\jttstylek fit~=~mmapArrangement.faces\verb#_#begin\jttstylei ()\jttstylek ;~fit~!=~mmapArrangement.faces\verb#_#end\jttstylei ()\jttstylek ;~++fit\jttstylei )\\
 \jttstylea ~~\jttstylei \{\\
 \jttstylea ~~~~\jttstylee if~\jttstylei (\jttstylek !fit-\verb#>#is\verb#_#unbounded\jttstylei ())\\
@@ -179,10 +159,8 @@ hypotheses say that this face is traversable and false otherwise. It also has an
 \jttstylea ~~~~~~\jttstyled //constructing~the~overlay~Arrangement~by~adding~the~faces~as~polygons.\\
 \jttstylea ~~~~~~\jttstylek listMmapFaces.push\verb#_#back\jttstylei (\jttstylek f\jttstylei )\jttstylek ;\\
 \jttstylea ~~~~\jttstylei \}\\
-\jttstylea \\
 \jttstylea ~~\jttstylei \}\\
 \jttstylei \}\\
-\jttstylea \\
 \jttstylea \jttstylea 
 \\
 
@@ -211,11 +189,56 @@ Faces which belong to atleast half the hypothesis are marked as part of the majo
 
 \begin{figure}[h]
 \begin{center}
+\scalebox{0.50}{\includegraphics{Images/Scenario4.png}}
+\caption{\label{fig:Majority Rule Map}Map Polygon with robot position and Visibility Polygon}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
 \scalebox{0.50}{\includegraphics{Images/MajorityMapScenario4.png}}
 \caption{\label{fig:Majority Rule Map}Majority Rule Map}
 \end{center}
 \end{figure}
 
+
+\section{Connected Component containing Origin in $P_{maj}$}
+
+We need to calculate connected component containing origin in $P_{maj}$ as the robot can only move in this area. \\
+
+\noindent For this purpose we need to make a dual graph [\cite{CGAL}] of all the faces of $P_{maj}$. Dual graph of a given planar graph $G$ 
+is a graph which has a vertex corresponding to each face of $G$ and an edge joining two neighbouring faces for each edge in $G$.We also have
+a vertex for the unbounded face which is connected to all the faces sharing boundary with unbounded face.  
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/dualg.png}}
+\caption{\label{fig:Dual Graph} (a) Graph $G$ (b) Dual Graph for $G$}
+\end{center}
+\end{figure}
+
+\subsection{Algorithm}
+\begin{enumerate}
+ \item Prepare a dual graph $G$ of the traversible faces in the $P_{maj}$.
+ \item Find the vertex($v_0$) corresponding to the face containing origin in dual graph G.
+ \item Perform Depth First Search [\cite{BOOST}] from $v_0$ to obtain all the connected vertices.
+ \item Output the union of the faces corresponding to the connected vertices obtained above.  
+\end{enumerate}
+
+\subsection{Examples}
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/MajorityMapOffice.png}}
+\caption{\label{fig:Connected component} A Majority Map(blue point represents origin)}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/connected_face.png}}
+\caption{\label{fig:Connected Component} Connected Component Containing Origin}
+\end{center}
+\end{figure}
 
 % ------------------------------------------------------------------------
 

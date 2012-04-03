@@ -1,4 +1,4 @@
-\chapter{Computing $G_{ij}$'s and $K_{i}$}
+\chapter{Computing the Group Boundaries}
 
 \section{$G_{ij}$}
 
@@ -41,7 +41,29 @@ Finding the lower envelope is easy using the CGAL's inbuilt Arrangement class. W
 or type 2 and insert it into an arrangement. Later we check the face which contains the point $\gamma_{0}$. This face is nothing else
 but $G_{ij}$
 The above algorithm is repeated to obtain $G_{i1}$, $G_{i2}$, $G_{i3}$, $G_{i4}$, .... $G_{ik}$.
+\subsection{Examples}
 
+For The below map
+\begin{figure}
+\begin{center}
+\scalebox{0.80}{\includegraphics{Images/HypothesisScenario1.png}}
+\caption{\label{fig:Construction}Lower Envelope}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\scalebox{0.80}{\includegraphics{Images/Map1_G02.png}}
+\caption{\label{fig:Construction}Lower Envelope}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\scalebox{1.50}{\includegraphics{Images/Map1_G01.png}}
+\caption{\label{fig:Construction}Lower Envelope}
+\end{center}
+\end{figure}
 
 \section{$K_{i}$}
  To obtain $K_{i}$ we construct the 
@@ -50,7 +72,3 @@ proof of it, please refer \cite{key1}
 \begin{remark} 
  A robot initially located at $h_{i}$ half localizes if it crosses the boundary of $K_{i}$.
 \end{remark}
-
-
-
-

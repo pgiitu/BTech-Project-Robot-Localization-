@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.19)  28 MAR 2012 03:23
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.21)  3 APR 2012 23:33
 entering extended mode
  %&-line parsing enabled.
 **report.tex
@@ -96,7 +96,7 @@ File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 Package color Info: Driver file: pdftex.def on input line 130.
 
 (/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
+File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
 \Gread@gobject=\count89
 )
 (/usr/share/texmf-texlive/tex/latex/graphics/dvipsnam.def
@@ -319,6 +319,9 @@ LaTeX Warning: Label `fig:Hypothesis Generation' multiply defined.
 
 LaTeX Warning: Label `fig:Majority Rule Map' multiply defined.
 
+
+LaTeX Warning: Label `fig:Majority Rule Map' multiply defined.
+
 ) (./Chapter4/chapter4.aux
 
 LaTeX Warning: Label `fig:Construction' multiply defined.
@@ -326,8 +329,23 @@ LaTeX Warning: Label `fig:Construction' multiply defined.
 
 LaTeX Warning: Label `fig:Construction' multiply defined.
 
-) (./Chapter5/chapter5.aux) (./Appendix1/appendix1.aux)
-(./Appendix2/appendix2.aux))
+
+LaTeX Warning: Label `fig:Construction' multiply defined.
+
+
+LaTeX Warning: Label `fig:Construction' multiply defined.
+
+
+LaTeX Warning: Label `fig:Construction' multiply defined.
+
+) (./Chapter5/chapter5.aux
+
+LaTeX Warning: Label `fig:Construction' multiply defined.
+
+
+LaTeX Warning: Label `fig:Construction' multiply defined.
+
+) (./Appendix1/appendix1.aux) (./Appendix2/appendix2.aux))
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 68.
@@ -345,7 +363,7 @@ LaTeX Font Info:    ... okay on input line 68.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 68.
 LaTeX Font Info:    ... okay on input line 68.
 
-(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+(/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count105
 \scratchdimen=\dimen112
@@ -376,7 +394,7 @@ LaTeX Info: Redefining \pageref on input line 68.
 
 Package backref Info: ** backref set up for natbib ** on input line 68.
 \AtBeginShipoutBox=\box27
- <ThesisFigs/IITRPRlogo.jpg, id=118, 313.17pt x 350.81062pt>
+ <ThesisFigs/IITRPRlogo.jpg, id=146, 313.17pt x 350.81062pt>
 File: ThesisFigs/IITRPRlogo.jpg Graphic file (type jpg)
 
 <use ThesisFigs/IITRPRlogo.jpg> [0
@@ -453,59 +471,70 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 
 
 ]
-<Images/VisibilityPolygonBird.png, id=244, 616.3025pt x 451.6875pt>
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 82.
+
+LaTeX Font Info:    No file OMScmtt.fd. on input line 82.
+
+
+LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 82.
+
+
+Overfull \hbox (241.98537pt too wide) in paragraph at lines 80--104
+[]  []\OT1/cmtt/m/n/12 for []([]VertexIterator vi = setVisiblePoints.vertices[]
+_begin[]()[]; vi != setVisiblePoints.vertices[]_end[]()[]; ++vi[]) 
+ []
+
+[3] <Images/VisibilityPolygonBird.png, id=310, 616.3025pt x 451.6875pt>
 File: Images/VisibilityPolygonBird.png Graphic file (type png)
 
 <use Images/VisibilityPolygonBird.png>
-<Images/VisibilityPointOffice.png, id=245, 767.86874pt x 339.2675pt>
+<Images/VisibilityPointOffice.png, id=312, 767.86874pt x 339.2675pt>
 File: Images/VisibilityPointOffice.png Graphic file (type png)
 
-<use Images/VisibilityPointOffice.png> [3 <./Images/VisibilityPolygonBird.png (
-PNG copy)> <./Images/VisibilityPointOffice.png (PNG copy)>]
-<Images/Cusp.png, id=254, 648.4225pt x 393.47pt>
+<use Images/VisibilityPointOffice.png> [4 <./Images/VisibilityPolygonBird.png> 
+<./Images/VisibilityPointOffice.png>]
+<Images/Cusp.png, id=322, 648.4225pt x 393.47pt>
 File: Images/Cusp.png Graphic file (type png)
  <use Images/Cusp.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4] <Images/VisibilityLine1.png, id=266, 603.25375pt x 401.5pt>
+[5] [6 <./Images/Cusp.png (PNG copy)>]
+<Images/VisibilityLine1.png, id=341, 603.25375pt x 401.5pt>
 File: Images/VisibilityLine1.png Graphic file (type png)
 
 <use Images/VisibilityLine1.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5 <./Images/Cusp.png (PNG copy)>]
-<Images/VisibilityLine2.png, id=274, 728.7225pt x 424.58624pt>
+<Images/VisibilityLine2.png, id=342, 685.56125pt x 363.3575pt>
 File: Images/VisibilityLine2.png Graphic file (type png)
 
 <use Images/VisibilityLine2.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [6 <./Images/VisibilityLine1.png (PNG copy)>] [7 <./Images/VisibilityLine2.pn
-g (PNG copy)>]
+) [7 <./Images/VisibilityLine1.png>] [8 <./Images/VisibilityLine2.png>]
 \openout2 = `Chapter2/chapter2.aux'.
 
- (./Chapter2/chapter2.tex
+
+(./Chapter2/chapter2.tex
 Chapter 3.
-[8
+[9
 
 
 
-] [9] <Images/Hypothesis_office.png, id=302, 624.3325pt x 393.47pt>
+] [10] <Images/Hypothesis_office.png, id=371, 624.3325pt x 393.47pt>
 File: Images/Hypothesis_office.png Graphic file (type png)
 
 <use Images/Hypothesis_office.png>
-<Images/HypothesisOfficeAnti.png, id=303, 807.015pt x 379.4175pt>
+<Images/HypothesisOfficeAnti.png, id=372, 807.015pt x 379.4175pt>
 File: Images/HypothesisOfficeAnti.png Graphic file (type png)
 
-<use Images/HypothesisOfficeAnti.png>) [10 <./Images/Hypothesis_office.png (PNG
- copy)> <./Images/HypothesisOfficeAnti.png (PNG copy)>]
+<use Images/HypothesisOfficeAnti.png>) [11 <./Images/Hypothesis_office.png> <./
+Images/HypothesisOfficeAnti.png>]
 \openout2 = `Chapter3/chapter3.aux'.
 
-
-(./Chapter3/chapter3.tex
+ (./Chapter3/chapter3.tex
 Chapter 4.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -519,64 +548,92 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 8.
 
-<Images/MajorityMapExample.png, id=310, 782.925pt x 360.34625pt>
+<Images/MajorityMapExample.png, id=382, 782.925pt x 360.34625pt>
 File: Images/MajorityMapExample.png Graphic file (type png)
 
-<use Images/MajorityMapExample.png> [11
+<use Images/MajorityMapExample.png> [12
 
 
 
  <./Images/MajorityMapExample.png (PNG copy)>] <Images/MajorityMapScenario1.png
-, id=316, 543.02875pt x 337.26pt>
+, id=387, 543.02875pt x 337.26pt>
 File: Images/MajorityMapScenario1.png Graphic file (type png)
 
-<use Images/MajorityMapScenario1.png> [12 <./Images/MajorityMapScenario1.png (P
+<use Images/MajorityMapScenario1.png> [13 <./Images/MajorityMapScenario1.png (P
 NG copy)>]
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 64.
-
-LaTeX Font Info:    No file OMScmtt.fd. on input line 64.
-
-
-LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 64.
-
-
-Overfull \hbox (50.56027pt too wide) in paragraph at lines 59--103
+Overfull \hbox (50.56027pt too wide) in paragraph at lines 59--89
 []  []\OT1/cmtt/m/n/12 Polygon GetTranslatePolygon[]([]Transformation& translat
 e, Polygon& polygon[])[]; 
  []
 
 
-Overfull \hbox (81.43529pt too wide) in paragraph at lines 59--103
+Overfull \hbox (81.43529pt too wide) in paragraph at lines 59--89
 []  []\OT1/cmtt/m/n/12 Polygon ConvertFaceToPolygon[]([]Arrangement::Ccb[]_half
 edge[]_const[]_circulator circ[])[]; 
  []
 
-[13] [14] [15]
-Overfull \hbox (118.4853pt too wide) in paragraph at lines 148--188
+[14] [15]
+Overfull \hbox (118.4853pt too wide) in paragraph at lines 134--166
 []  []\OT1/cmtt/m/n/12 for []([]fit = mmapArrangement.faces[]_begin[]()[]; fit 
 != mmapArrangement.faces[]_end[]()[]; ++fit[]) 
  []
 
 
-Overfull \hbox (62.91028pt too wide) in paragraph at lines 148--188
+Overfull \hbox (62.91028pt too wide) in paragraph at lines 134--166
 []      []\OT1/cmtt/m/n/12 //constructing the overlay Arrangement by adding the
  faces as polygons. 
  []
 
-[16] <Images/MajorityMapScenario4.png, id=337, 683.55376pt x 438.63875pt>
+[16] <Images/Scenario4.png, id=404, 466.74374pt x 342.27875pt>
+File: Images/Scenario4.png Graphic file (type png)
+
+<use Images/Scenario4.png>
+<Images/MajorityMapScenario4.png, id=405, 683.55376pt x 438.63875pt>
 File: Images/MajorityMapScenario4.png Graphic file (type png)
 
 <use Images/MajorityMapScenario4.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [17] [18 <./Images/MajorityMapScenario4.png (PNG copy)>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 205.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 205.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 205.
+
+[17 <./Images/Scenario4.png (PNG copy)>]
+<Images/dualg.png, id=415, 685.56125pt x 363.3575pt>
+File: Images/dualg.png Graphic file (type png)
+ <use Images/dualg.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[18 <./Images/MajorityMapScenario4.png (PNG copy)>]
+<Images/MajorityMapOffice.png, id=423, 773.89125pt x 482.80376pt>
+File: Images/MajorityMapOffice.png Graphic file (type png)
+
+<use Images/MajorityMapOffice.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Images/connected_face.png, id=424, 679.53876pt x 381.425pt>
+File: Images/connected_face.png Graphic file (type png)
+
+<use Images/connected_face.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [19 <./Images/dualg.png>] [20 <./Images/MajorityMapOffice.png (PNG copy)> <./
+Images/connected_face.png (PNG copy)>]
 \openout2 = `Chapter4/chapter4.aux'.
 
-
-(./Chapter4/chapter4.tex
+ (./Chapter4/chapter4.tex
 Chapter 5.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -614,30 +671,44 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 3.
 
-<Images/F12.png, id=352, 723.70375pt x 562.1pt>
+<Images/F12.png, id=438, 723.70375pt x 562.1pt>
 File: Images/F12.png Graphic file (type png)
- <use Images/F12.png> [19
+ <use Images/F12.png> [21
 
 
 
  <./Images/F12.png (PNG copy)>]
-<Images/LowerEnvelope.png, id=361, 644.4075pt x 269.005pt>
+<Images/LowerEnvelope.png, id=446, 644.4075pt x 269.005pt>
 File: Images/LowerEnvelope.png Graphic file (type png)
 
 <use Images/LowerEnvelope.png>
+<Images/HypothesisScenario1.png, id=447, 509.905pt x 304.13625pt>
+File: Images/HypothesisScenario1.png Graphic file (type png)
+
+<use Images/HypothesisScenario1.png>
+<Images/Map1_G02.png, id=448, 453.695pt x 219.82124pt>
+File: Images/Map1_G02.png Graphic file (type png)
+
+<use Images/Map1_G02.png>
+<Images/Map1_G01.png, id=449, 247.92625pt x 163.61125pt>
+File: Images/Map1_G01.png Graphic file (type png)
+
+<use Images/Map1_G01.png>
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 46.
+(hyperref)                removing `math shift' on input line 68.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 46.
+(hyperref)                removing `subscript' on input line 68.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 46.
+(hyperref)                removing `math shift' on input line 68.
 
-) [20 <./Images/LowerEnvelope.png (PNG copy)>]
+[22 <./Images/LowerEnvelope.png (PNG copy)>] [23 <./Images/HypothesisScenario1.
+png> <./Images/Map1_G02.png (PNG copy)>]) [24 <./Images/Map1_G01.png (PNG copy)
+>]
 \openout2 = `Chapter5/chapter5.aux'.
 
  (./Chapter5/chapter5.tex
@@ -654,23 +725,35 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 2.
 
-) [21
+<Images/reference.png, id=473, 515.9275pt x 323.2075pt>
+File: Images/reference.png Graphic file (type png)
+
+<use Images/reference.png> [25
 
 
 
-]
+ <./Images/reference.png>]
+<Images/reference1.png, id=482, 395.32307pt x 263.13692pt>
+File: Images/reference1.png Graphic file (type png)
+
+<use Images/reference1.png>
+<Images/reference2.png, id=483, 531.9875pt x 353.32pt>
+File: Images/reference2.png Graphic file (type png)
+
+<use Images/reference2.png>) [26] [27 <./Images/reference1.png> <./Images/refer
+ence2.png>]
 \openout2 = `Appendix1/appendix1.aux'.
 
- (./Appendix1/appendix1.tex [22
+ (./Appendix1/appendix1.tex [28
 
 
 
 
-]) [23]
+]) [29]
 \openout2 = `Appendix2/appendix2.aux'.
 
  (./Appendix2/appendix2.tex)
-[24
+[30
 
 
 
@@ -678,7 +761,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 \tf@brf=\write7
 \openout7 = `report.brf'.
 
-) [25
+) [31
 
 
 ] (./report.aux (./Abstract/abstract.aux) (./Acknowledgement/acknowledgement.au
@@ -695,24 +778,27 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6463 strings out of 495061
- 91086 string characters out of 1182621
- 167120 words of memory out of 3000000
- 9291 multiletter control sequences out of 15000+50000
+ 6570 strings out of 495061
+ 92875 string characters out of 1182620
+ 169300 words of memory out of 3000000
+ 9347 multiletter control sequences out of 15000+50000
  15373 words of font info for 59 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 45i,11n,47p,285b,482s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,12n,50p,286b,457s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sha
 re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-te
 xlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/
 type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public
 /amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
-/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/
-texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on report.pdf (33 pages, 419646 bytes).
+/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/tex
+mf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/
+fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/
+public/amsfonts/cm/cmti12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
+onts/cm/cmtt12.pfb>
+Output written on report.pdf (39 pages, 515380 bytes).
 PDF statistics:
- 462 PDF objects out of 1000 (max. 8388607)
- 117 named destinations out of 1000 (max. 500000)
- 290 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 611 PDF objects out of 1000 (max. 8388607)
+ 158 named destinations out of 1000 (max. 500000)
+ 396 words of extra memory for PDF output out of 10000 (max. 10000000)
 

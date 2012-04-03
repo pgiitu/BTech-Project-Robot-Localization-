@@ -27,6 +27,7 @@ visibility polygon, which is also an edge of the original polygon, is completely
  {\bf Spurious Edge:} In the visibility polygon of a point, an edge is called a spurious edge if it is obtained by extending the line
  joining the point $P$ and a reflex vertex till it meets the polygon.
 \end{definition}
+Additional details about spurious edges and vertices can be obtained from \cite{key4}
 
 
 \begin{theorem}
