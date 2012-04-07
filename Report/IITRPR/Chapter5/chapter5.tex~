@@ -3,7 +3,7 @@
 \section{Introduction to Reference Points}
 \begin{definition}
  {\bf Reference Points:} are the discrete set of points on the edges of $\partial K_{i} \cap \partial G_{i}$  which are used to determine the
-  half localization path of robot.   
+  half localization path of robot [see \cite{key5}].   
 \end{definition}
 
 \begin{definition}
@@ -46,14 +46,14 @@ we will find out reference points. Let $L_i$ contains all these edges for a part
 
 \section{Examples}
 
-\begin{figure}[h]
+\begin{figure}
 \begin{center}
 \scalebox{0.60}{\includegraphics{Images/reference1.png}}
 \caption{\label{fig:Construction}Reference Points in blue color and hypotheses in green color}
 \end{center}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
 \begin{center}
 \scalebox{0.60}{\includegraphics{Images/reference2.png}}
 \caption{\label{fig:Construction}Reference Points in blue color and hypotheses in green color}

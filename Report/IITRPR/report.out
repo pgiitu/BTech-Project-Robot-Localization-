@@ -21,15 +21,18 @@
 \BOOKMARK [1][]{section.4.2}{4.2 Connected Component containing Origin in Pmaj}{chapter.4}
 \BOOKMARK [2][]{subsection.4.2.1}{4.2.1 Algorithm}{section.4.2}
 \BOOKMARK [2][]{subsection.4.2.2}{4.2.2 Examples}{section.4.2}
-\BOOKMARK [0][]{chapter.5}{5 Computing Gij's and Ki}{}
+\BOOKMARK [0][]{chapter.5}{5 Computing the Group Boundaries}{}
 \BOOKMARK [1][]{section.5.1}{5.1 Gij}{chapter.5}
-\BOOKMARK [2][]{subsection.5.1.1}{5.1.1 Examples}{section.5.1}
 \BOOKMARK [1][]{section.5.2}{5.2 Ki}{chapter.5}
+\BOOKMARK [1][]{section.5.3}{5.3 Examples}{chapter.5}
 \BOOKMARK [0][]{chapter.6}{6 Computing Reference Points \(QH\)}{}
 \BOOKMARK [1][]{section.6.1}{6.1 Introduction to Reference Points}{chapter.6}
 \BOOKMARK [1][]{section.6.2}{6.2 Algorithm}{chapter.6}
 \BOOKMARK [1][]{section.6.3}{6.3 Examples}{chapter.6}
 \BOOKMARK [0][]{appendix*.6}{Appendix1}{}
 \BOOKMARK [1][]{section..1}{.1 Input Format of the Map}{appendix*.6}
-\BOOKMARK [0][]{appendix*.7}{Further Examples}{}
-\BOOKMARK [0][]{section*.9}{References}{}
+\BOOKMARK [0][]{appendix*.7}{Appendix 2}{}
+\BOOKMARK [1][]{section..2}{.2 Further Examples}{appendix*.7}
+\BOOKMARK [0][]{appendix*.8}{Appendix 3}{}
+\BOOKMARK [1][]{section..3}{.3 OpenGL}{appendix*.8}
+\BOOKMARK [0][]{section*.10}{References}{}

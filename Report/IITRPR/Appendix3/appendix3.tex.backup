@@ -1,0 +1,9 @@
+\chapter{OpenGL}
+
+OpenGL (Open Graphics Library)[\cite{OpenGL}] is a standard specification defining a cross-language, cross-platform API for writing applications that produce 2D and 3D computer graphics.\\
+
+GLUI[\cite{GLUI}] is a GLUT-based C++ user interface library which provides controls such as buttons, checkboxes, radio buttons, and spinners to OpenGL applications. It is window-system independent, relying on GLUT to handle all system-dependent issues, such as window and mouse management.
+The visual component of the project was handled using OpenGL [see red book] and GLUI panel.
+
+OpenGL supports convex polygons. It doesn’t support concave polygons by default. Since our project requires drawing concave polygons we have used tessellation feature to break concave polygons into a series of triangles.
+Code Snippet for Tessellation.

@@ -1,7 +1,7 @@
 \select@language {english}
 \contentsline {chapter}{Contents}{iv}{section*.2}
 \contentsline {chapter}{List of Figures}{vi}{section*.4}
-\contentsline {chapter}{Nomenclature}{vii}{chapter*.5}
+\contentsline {chapter}{Nomenclature}{viii}{chapter*.5}
 \contentsline {chapter}{\numberline {1}Robot Localization Algorithm}{1}{chapter.1}
 \contentsline {chapter}{\numberline {2}Geometrical Algorithms}{2}{chapter.2}
 \contentsline {section}{\numberline {2.1}Computing Visibility Polygons}{2}{section.2.1}
@@ -22,15 +22,18 @@
 \contentsline {section}{\numberline {4.2}Connected Component containing Origin in $P_{maj}$}{18}{section.4.2}
 \contentsline {subsection}{\numberline {4.2.1}Algorithm}{18}{subsection.4.2.1}
 \contentsline {subsection}{\numberline {4.2.2}Examples}{19}{subsection.4.2.2}
-\contentsline {chapter}{\numberline {5}Computing $G_{ij}$'s and $K_{i}$}{21}{chapter.5}
+\contentsline {chapter}{\numberline {5}Computing the Group Boundaries}{21}{chapter.5}
 \contentsline {section}{\numberline {5.1}$G_{ij}$}{21}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Examples}{22}{subsection.5.1.1}
-\contentsline {section}{\numberline {5.2}$K_{i}$}{24}{section.5.2}
-\contentsline {chapter}{\numberline {6}Computing Reference Points $(Q_{H})$}{25}{chapter.6}
-\contentsline {section}{\numberline {6.1}Introduction to Reference Points}{25}{section.6.1}
+\contentsline {section}{\numberline {5.2}$K_{i}$}{22}{section.5.2}
+\contentsline {section}{\numberline {5.3}Examples}{23}{section.5.3}
+\contentsline {chapter}{\numberline {6}Computing Reference Points $(Q_{H})$}{26}{chapter.6}
+\contentsline {section}{\numberline {6.1}Introduction to Reference Points}{26}{section.6.1}
 \contentsline {section}{\numberline {6.2}Algorithm}{26}{section.6.2}
-\contentsline {section}{\numberline {6.3}Examples}{26}{section.6.3}
-\contentsline {chapter}{Appendix1}{28}{appendix*.6}
-\contentsline {section}{\numberline {.1}Input Format of the Map}{28}{section..1}
-\contentsline {chapter}{Further Examples}{30}{appendix*.7}
-\contentsline {chapter}{References}{31}{section*.9}
+\contentsline {section}{\numberline {6.3}Examples}{27}{section.6.3}
+\contentsline {chapter}{Appendix1}{29}{appendix*.6}
+\contentsline {section}{\numberline {.1}Input Format of the Map}{29}{section..1}
+\contentsline {chapter}{Appendix 2}{31}{appendix*.7}
+\contentsline {section}{\numberline {.2}Further Examples}{31}{section..2}
+\contentsline {chapter}{Appendix 3}{32}{appendix*.8}
+\contentsline {section}{\numberline {.3}OpenGL}{32}{section..3}
+\contentsline {chapter}{References}{34}{section*.10}

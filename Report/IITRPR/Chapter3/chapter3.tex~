@@ -235,7 +235,7 @@ a vertex for the unbounded face which is connected to all the faces sharing boun
 
 \begin{figure}[h]
 \begin{center}
-\scalebox{0.50}{\includegraphics{Images/connected.png}}
+\scalebox{0.50}{\includegraphics{Images/connected_face.png}}
 \caption{\label{fig:Connected Component} Connected Component Containing Origin}
 \end{center}
 \end{figure}

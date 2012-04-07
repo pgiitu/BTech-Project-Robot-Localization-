@@ -216,10 +216,15 @@ polygon.
 
 For Example \\
 
-Error in inserting figure babaji
+\begin{figure}
+\begin{center}
+\scalebox{1.0}{\includegraphics{Images/visibilitygraph.png}}
+\caption{\label{fig:Construction} Visibility Graph}
+\end{center}
+\end{figure}
 
 Utilizing these properties we construct a visibility graph for the polygon and use the normal dijikstra's single source shortest path
-algorithm on the visibility graph obtained. The following two functions do the above mentioned tasks.
+algorithm of Boost Graph Libraray \cite{BOOST} on the visibility graph obtained. The following two functions do the above mentioned tasks.
 
 
 

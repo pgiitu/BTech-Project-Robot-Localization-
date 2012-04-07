@@ -74,6 +74,9 @@
 @MISC{BOOST,
    note  = {http://www.boost.org/} }
 
+@MISC{OpenGL,
+   note  = {http://www.opengl.org/} }
+
 @ARTICLE{key3,
  author={Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan},
  title={{Linear time algorithms for visibility and shortest path problems inside simple polygons}},

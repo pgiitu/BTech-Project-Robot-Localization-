@@ -1,4 +1,6 @@
-\chapter{Input Format of the Map}
+\chapter{Appendix1}
+
+\section{Input Format of the Map}
 
 A map is inputted in form of a scenario file. Here is a sample scenario file.
 \begin{verbatim}

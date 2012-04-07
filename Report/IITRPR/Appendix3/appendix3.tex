@@ -1,0 +1,54 @@
+
+
+\chapter{Appendix 3}
+
+\section{OpenGL}
+
+OpenGL (Open Graphics Library)[\cite{OpenGL}] is a standard specification defining a cross-language, cross-platform API for writing applications that produce 2D and 3D computer graphics.\\
+
+\noindent GLUI[\cite{GLUI}] is a GLUT-based C++ user interface library which provides controls such as buttons, checkboxes, radio buttons, and spinners to OpenGL applications. It is window-system independent, relying on GLUT to handle all system-dependent issues, such as window and mouse management.\\
+The visual component of the project was handled using OpenGL and GLUI panel.\\
+
+\noindent OpenGL supports convex polygons. It doesn’t support concave polygons by default. Since our project requires drawing concave polygons we have used tessellation feature to break concave polygons into a series of triangles.\\
+Code Snippet for Tessellation.\\
+
+{
+\noindent \ttfamily
+\jttstylek GLuint~tessellate1\jttstylei (\jttstylek Polygon\&~polygon,int~translate\jttstylei )\\
+\jttstylei \{\\
+\jttstylea ~~\jttstylek GLuint~id~=~glGenLists\jttstylei (\jttstyleh 1\jttstylei )\jttstylek ;~~\jttstyled //~create~a~display~list\\
+\jttstylea ~~~~\jttstylee if\jttstylei (\jttstylek !id\jttstylei )~\jttstylee return~\jttstylek id;~~~~~~~~~~\jttstyled //~failed~to~create~a~list,~return~0\\
+\jttstylea ~~~~\jttstylek GLUtesselator~\verb#*#tess~=~gluNewTess\jttstylei ()\jttstylek ;~\jttstyled //~create~a~tessellator\\
+\jttstylea ~~~~\jttstylee if\jttstylei (\jttstylek !tess\jttstylei )~\jttstylee return~\jttstyleh 0\jttstylek ;~~\jttstyled //~failed~to~create~tessellation~object,~return~0\\
+\jttstylea ~~~~\jttstylej int~\jttstylek size=polygon.size\jttstylei ()\jttstylek ;\\
+\jttstylea ~~~~\jttstylek GLdouble~polygonArray\jttstylei [\jttstylek size\jttstylei ][\jttstyleh 3\jttstylei ]\jttstylek ;\\
+\jttstylea ~~~~\jttstylej int~\jttstylek i=\jttstyleh 0\jttstylek ;\\
+\jttstylea ~~~~\jttstylee for\jttstylei (\jttstylek VertexIterator~vi~=~polygon.vertices\verb#_#begin\jttstylei ()\jttstylek ;~vi~!=~polygon.vertices\verb#_#end\jttstylei ()\jttstylek ;~++vi\jttstylei )\\
+\jttstylea ~~~~~~~~\jttstylei \{\\
+\jttstylea ~~~~~~~~~~~~~~\jttstylek polygonArray\jttstylei [\jttstylek i\jttstylei ][\jttstyleh 0\jttstylei ]\jttstylek =translate+\jttstylei (\jttstylek \verb#*#vi\jttstylei )\jttstylek .cartesian\jttstylei (\jttstyleh 0\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~~~~~~~~~\jttstylek polygonArray\jttstylei [\jttstylek i\jttstylei ][\jttstyleh 1\jttstylei ]\jttstylek =\jttstylei (\jttstylek \verb#*#vi\jttstylei )\jttstylek .cartesian\jttstylei (\jttstyleh 1\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~~~~~~~~~\jttstylek polygonArray\jttstylei [\jttstylek i\jttstylei ][\jttstyleh 2\jttstylei ]\jttstylek =\jttstyleh 0\jttstylek ;\\
+\jttstylea ~~~~~~~~~~~~~~\jttstylek i++;\\
+\jttstylea ~~~~~~~~\jttstylei \}\\
+\jttstylea \\
+\jttstylea ~~~~\jttstyled //~register~callback~functions\\
+\jttstylea ~~~~\jttstylek gluTessCallback\jttstylei (\jttstylek tess,~GLU\verb#_#TESS\verb#_#VERTEX,\jttstylei (\jttstylek GLvoid~\jttstylei (\jttstylek \verb#*#\jttstylei )~())~\jttstylek \&glVertex3dv\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~\jttstylek gluTessCallback\jttstylei (\jttstylek tess,~GLU\verb#_#TESS\verb#_#BEGIN,~\jttstylei (\jttstylek GLvoid~\jttstylei (\jttstylek \verb#*#\jttstylei )~())~\jttstylek \&beginCallback\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~\jttstylek gluTessCallback\jttstylei (\jttstylek tess,~GLU\verb#_#TESS\verb#_#END,~\jttstylei (\jttstylek GLvoid~\jttstylei (\jttstylek \verb#*#\jttstylei )~())~\jttstylek \&endCallback\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~\jttstylek gluTessCallback\jttstylei (\jttstylek tess,~GLU\verb#_#TESS\verb#_#ERROR,~\jttstylei (\jttstylek GLvoid~\jttstylei (\jttstylek \verb#*#\jttstylei )~())~\jttstylek \&errorCallback\jttstylei )\jttstylek ;\\
+\jttstylea \\
+\jttstylea ~~~~\jttstylek glNewList\jttstylei (\jttstylek id,~GL\verb#_#COMPILE\jttstylei )\jttstylek ;\\
+\jttstylea ~~\jttstylek gluTessBeginPolygon\jttstylei (\jttstylek tess,~NULL\jttstylei )\jttstylek ;~~~~~~~~~~~~~~~~~~~\jttstyled //~with~NULL~data\\
+\jttstylea ~~~~~\jttstylek gluTessBeginContour\jttstylei (\jttstylek tess\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~~~~~~~\jttstylee for\jttstylei (\jttstylej int~\jttstylek j=\jttstyleh 0\jttstylek ;j\verb#<#size;j++\jttstylei )\\
+\jttstylea ~~~~~~~~~~~~~~~\jttstylei \{\\
+\jttstylea ~~~~~~~~~~~~~~~~~~\jttstylek gluTessVertex\jttstylei (\jttstylek tess,~polygonArray\jttstylei [\jttstylek j\jttstylei ]\jttstylek ,~polygonArray\jttstylei [\jttstylek j\jttstylei ])\jttstylek ;\\
+\jttstylea ~~~~~~~~~~~~~\jttstylei \}\\
+\jttstylea ~~~~~\jttstylek gluTessEndContour\jttstylei (\jttstylek tess\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~\jttstylek gluTessEndPolygon\jttstylei (\jttstylek tess\jttstylei )\jttstylek ;\\
+\jttstylea ~~~~\jttstylek glEndList\jttstylei ()\jttstylek ;\\
+\jttstylea ~~~~\jttstylek gluDeleteTess\jttstylei (\jttstylek tess\jttstylei )\jttstylek ;~~~~~~~~\jttstyled //~delete~after~tessellation\\
+\jttstylea ~~~~\jttstylee return~\jttstylek id;~~~~~~\jttstyled //~return~handle~ID~of~a~display~list\\
+\jttstylei \}\\
+
+}
