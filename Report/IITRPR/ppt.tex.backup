@@ -202,7 +202,7 @@ polygon.
 \end{figure}
 }
 
-\frame[allowframebreaks]
+\frame
 {
 \frametitle{Examples}
 
@@ -215,7 +215,7 @@ polygon.
 
 }
 
-\frame[allowframebreaks]
+\frame
 {
 \frametitle{Examples}
 \begin{figure}
@@ -228,5 +228,99 @@ polygon.
 }
 
 
+\frame
+{
+ \frametitle{Hypothesis Generation}
 
+\begin{theorem}
+ A point, $P$ inside a simple polygon sees atleast one edge of the polygon completely.
+\end{theorem}
+
+\begin{definition}
+ {\bf Spurious Edge:} In the visibility polygon of a point, an edge is called a spurious edge if it is obtained by extending the line
+ joining the point $P$ and a reflex vertex till it meets the polygon.
+\end{definition}
+
+
+\begin{theorem}
+ The visibility polygon of a point $P$ has atleast one edge which completely overlaps with an edge of the original polygon.
+\end{theorem}
+
+}
+
+
+\frame
+{
+\frametitle{Algorithm}
+\begin{enumerate}
+ \item Iterate over the edges of the polygon and the edges of the map. and find an edge in the map which has the same length and
+ orientation as an edge in the polygon.
+
+ \item
+ Translate the visibility polygon such that the matching edge of the map polygon
+and the visibility polygon coincide.
+
+ \item
+ For each of the remaining edges of the visibility polygon, check whether a 
+complete match exists or not. If all the remaining edges match, the point where the
+origin was translated is added to the set of hypotheses.
+
+\end{enumerate}
+
+}
+
+\frame[allowframebreaks]
+{
+\frametitle{Examples}
+
+\begin{figure}
+\begin{center}
+\scalebox{0.40}{\includegraphics{Images/Hypothesis_office.png}}
+\caption{\label{fig:Hypothesis Generation}Hypothesis Generation}
+\end{center}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\scalebox{0.40}{\includegraphics{Images/HypothesisOfficeAnti.png}}
+\caption{\label{fig:Hypothesis Generation}Hypothesis Generation}
+\end{center}
+\end{figure}
+
+}
+
+\frame
+{
+\frametitle{Majority Rule Map}
+
+The following example taken from \cite{key1} demonstrates the construction of a majority rule map.
+
+\begin{figure}[h]
+\begin{center}
+\scalebox{0.50}{\includegraphics{Images/MajorityMapExample.png}}
+\caption{\label{fig:Construction}Majority Rule Map Construction}
+\end{center}
+\end{figure}
+}
+
+\frame
+{
+\frametitle{Majority Rule Map}
+
+${h_{1},h_{2},h_{3},h_{4}}$ form the set of hypotheses. Arbitrarily we choose $h_{1}$ as the origin. Next we translate all the 
+remaining hypotheses to $h_{1}$ to obtain the overlay arrangement. The overlay arrangement contains the following faces
+$R_{0},R_{1},R_{2},R_{3},R_{4},R_{5},R_{6}$. Recall from the definition of $Maj(\gamma)$
+
+
+
+$  Maj(R_{0})  =  {h_{1}, h_{2}, h_{3}, h_{4}} $ , $  Maj(R_{1})  =  { h_{2}, h_{3}, h_{4}} $, $ Maj(R_{2})  =  {h_{1}, h_{2}, h_{3}} $,
+$  Maj(R_{3})  =  {h_{3}, h_{4}} $ and $  Maj(R_{4})  =  {h_{1}, h_{2}} $
+
+
+
+In the majority rule map the region $R_{5}$ and $R_{6}$ are blocked because less than half the hypothesis said that they were
+ traversable. They have been shown in gray.
+
+}
 \end{document}
