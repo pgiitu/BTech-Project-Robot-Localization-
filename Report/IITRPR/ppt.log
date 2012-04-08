@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.19)  9 APR 2012 00:43
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.21)  9 APR 2012 01:23
 entering extended mode
  %&-line parsing enabled.
 **ppt.tex
@@ -104,7 +104,7 @@ File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
 (/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
+File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
 \Gread@gobject=\count106
 ))
 \Gin@req@height=\dimen119
@@ -668,6 +668,9 @@ Package: beamerfontthemestructurebold 2007/01/28  (rcs-revision 1.3)
 LaTeX Warning: Label `fig:Visibility Polygon of Point' multiply defined.
 
 
+LaTeX Warning: Label `fig:Construction' multiply defined.
+
+
 LaTeX Warning: Label `fig:Visibility Polygon of Edge' multiply defined.
 
 
@@ -732,7 +735,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
- (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+ (/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count160
 \scratchdimen=\dimen181
@@ -865,18 +868,22 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 38.
+LaTeX Font Info:    Try loading font information for U+msa on input line 45.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 38.
+LaTeX Font Info:    Try loading font information for U+msb on input line 45.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-) [3
+)
+<Images/Map.png, id=69, 432.61626pt x 211.79124pt>
+File: Images/Map.png Graphic file (type png)
+ <use Images/Map.png>
+[3
 
-] [4
+ <./Images/Map.png (PNG copy)>] [4
 
 ] [5
 
@@ -885,14 +892,14 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 
 ] [7
 
-]
-[8
+] [8
 
-] <Images/VisibilityPolygonBird.png, id=234, 616.3025pt x 451.6875pt>
+]
+<Images/VisibilityPolygonBird.png, id=236, 616.3025pt x 451.6875pt>
 File: Images/VisibilityPolygonBird.png Graphic file (type png)
 
 <use Images/VisibilityPolygonBird.png>
-<Images/VisibilityPointOffice.png, id=236, 767.86874pt x 339.2675pt>
+<Images/VisibilityPointOffice.png, id=238, 767.86874pt x 339.2675pt>
 File: Images/VisibilityPointOffice.png Graphic file (type png)
 
 <use Images/VisibilityPointOffice.png> [9
@@ -905,11 +912,11 @@ y\040Polygon\040of\040Point}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.126 }
+l.133 }
         <./Images/VisibilityPointOffice.png>] [11
 
 ]
-<Images/Cusp.png, id=320, 648.4225pt x 393.47pt>
+<Images/Cusp.png, id=322, 648.4225pt x 393.47pt>
 File: Images/Cusp.png Graphic file (type png)
  <use Images/Cusp.png> [12
 
@@ -921,16 +928,21 @@ File: Images/Cusp.png Graphic file (type png)
 ] [15
 
 ]
-<Images/visibilitygraph.png, id=428, 685.56125pt x 363.3575pt>
+<Images/visibilitygraph.png, id=430, 685.56125pt x 363.3575pt>
 File: Images/visibilitygraph.png Graphic file (type png)
 
-<use Images/visibilitygraph.png> [16
+<use Images/visibilitygraph.png>pdfTeX warning (ext4): destination with the sam
+e identifier (name{fig:Construction}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.207 ...label{fig:Construction} Visibility Graph}
+                                                   [16
 
 ] [17
 
 
- <./Images/visibilitygraph.png>]
-<Images/VisibilityLine1.png, id=483, 603.25375pt x 401.5pt>
+ <./Images/visibilitygraph.png>] <Images/VisibilityLine1.png, id=484, 603.25375
+pt x 401.5pt>
 File: Images/VisibilityLine1.png Graphic file (type png)
 
 <use Images/VisibilityLine1.png>pdfTeX warning (ext4): destination with the sam
@@ -938,11 +950,11 @@ e identifier (name{fig:Visibility\040Polygon\040of\040Edge}) has been already u
 sed, duplicate ignored
 <to be read again> 
                    \relax 
-l.216 }
+l.223 }
         [18
 
  <./Images/VisibilityLine1.png>]
-<Images/VisibilityLine2.png, id=511, 685.56125pt x 363.3575pt>
+<Images/VisibilityLine2.png, id=512, 685.56125pt x 363.3575pt>
 File: Images/VisibilityLine2.png Graphic file (type png)
 
 <use Images/VisibilityLine2.png>pdfTeX warning (ext4): destination with the sam
@@ -950,7 +962,7 @@ e identifier (name{fig:Visibility\040Polygon\040of\040Edge}) has been already u
 sed, duplicate ignored
 <to be read again> 
                    \relax 
-l.228 }
+l.235 }
         [19
 
  <./Images/VisibilityLine2.png>] [20
@@ -963,15 +975,15 @@ l.228 }
 ] [23
 
 ]
-<Images/Hypothesis_office.png, id=644, 624.3325pt x 393.47pt>
+<Images/Hypothesis_office.png, id=645, 624.3325pt x 393.47pt>
 File: Images/Hypothesis_office.png Graphic file (type png)
 
 <use Images/Hypothesis_office.png>
-<Images/HypothesisOfficeAnti.png, id=645, 807.015pt x 379.4175pt>
+<Images/HypothesisOfficeAnti.png, id=646, 807.015pt x 379.4175pt>
 File: Images/HypothesisOfficeAnti.png Graphic file (type png)
 
 <use Images/HypothesisOfficeAnti.png>
-Overfull \hbox (15.5104pt too wide) in paragraph at lines 316--317
+Overfull \hbox (15.5104pt too wide) in paragraph at lines 323--324
  [] 
  []
 
@@ -985,14 +997,14 @@ s\040Generation}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.321 }
+l.328 }
         <./Images/HypothesisOfficeAnti.png>] [26
 
 ] [27
 
 
 ]
-<Images/MajorityMapExample.png, id=755, 782.925pt x 360.34625pt>
+<Images/MajorityMapExample.png, id=756, 782.925pt x 360.34625pt>
 File: Images/MajorityMapExample.png Graphic file (type png)
 
 <use Images/MajorityMapExample.png>pdfTeX warning (ext4): destination with the 
@@ -1000,7 +1012,7 @@ same identifier (name{fig:Construction}) has been already used, duplicate ignor
 ed
 <to be read again> 
                    \relax 
-l.367 }
+l.374 }
         [28
 
  <./Images/MajorityMapExample.png (PNG copy)>] [29
@@ -1008,11 +1020,11 @@ l.367 }
 ] [30
 
 ]
-<Images/Scenario4.png, id=835, 466.74374pt x 342.27875pt>
+<Images/Scenario4.png, id=836, 466.74374pt x 342.27875pt>
 File: Images/Scenario4.png Graphic file (type png)
 
 <use Images/Scenario4.png>
-<Images/MajorityMapScenario4.png, id=836, 683.55376pt x 438.63875pt>
+<Images/MajorityMapScenario4.png, id=837, 683.55376pt x 438.63875pt>
 File: Images/MajorityMapScenario4.png Graphic file (type png)
 
 <use Images/MajorityMapScenario4.png> [31
@@ -1026,11 +1038,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{fig:Majority\
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.422 }
+l.429 }
         <./Images/MajorityMapScenario4.png (PNG copy)>] [33
 
 ]
-<Images/dualg.png, id=918, 685.56125pt x 363.3575pt>
+<Images/dualg.png, id=919, 685.56125pt x 363.3575pt>
 File: Images/dualg.png Graphic file (type png)
  <use Images/dualg.png>
 [34
@@ -1038,11 +1050,11 @@ File: Images/dualg.png Graphic file (type png)
  <./Images/dualg.png>] [35
 
 ]
-<Images/MajorityMapOffice.png, id=975, 773.89125pt x 482.80376pt>
+<Images/MajorityMapOffice.png, id=976, 773.89125pt x 482.80376pt>
 File: Images/MajorityMapOffice.png Graphic file (type png)
 
 <use Images/MajorityMapOffice.png>
-<Images/connected_face.png, id=976, 679.53876pt x 381.425pt>
+<Images/connected_face.png, id=977, 679.53876pt x 381.425pt>
 File: Images/connected_face.png Graphic file (type png)
 
 <use Images/connected_face.png> [36
@@ -1056,19 +1068,19 @@ File: Images/connected_face.png Graphic file (type png)
 
 
 ]
-<Images/F12.png, id=1085, 723.70375pt x 562.1pt>
+<Images/F12.png, id=1086, 723.70375pt x 562.1pt>
 File: Images/F12.png Graphic file (type png)
  <use Images/F12.png>pdfTeX warning (ext4): destination with the same identifie
 r (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.541 \caption{\label{fig:Construction}$F_{12}$}
+l.548 \caption{\label{fig:Construction}$F_{12}$}
                                                  [40
 
 ] [41
 
 
- <./Images/F12.png (PNG copy)>] <Images/LowerEnvelope.png, id=1138, 644.4075pt 
+ <./Images/F12.png (PNG copy)>] <Images/LowerEnvelope.png, id=1139, 644.4075pt 
 x 269.005pt>
 File: Images/LowerEnvelope.png Graphic file (type png)
 
@@ -1076,13 +1088,13 @@ File: Images/LowerEnvelope.png Graphic file (type png)
 identifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.557 ...n{\label{fig:Construction}Lower Envelope}
+l.564 ...n{\label{fig:Construction}Lower Envelope}
                                                    [42
 
  <./Images/LowerEnvelope.png>] [43
 
 
-] <Images/HypothesisScenario1.png, id=1193, 509.905pt x 304.13625pt>
+] <Images/HypothesisScenario1.png, id=1194, 509.905pt x 304.13625pt>
 File: Images/HypothesisScenario1.png Graphic file (type png)
 
 <use Images/HypothesisScenario1.png>pdfTeX warning (ext4): destination with the
@@ -1090,25 +1102,25 @@ File: Images/HypothesisScenario1.png Graphic file (type png)
 red
 <to be read again> 
                    \relax 
-l.575 ...n{\label{fig:Construction}Lower Envelope}
+l.582 ...n{\label{fig:Construction}Lower Envelope}
                                                   
-<Images/Map1_G02.png, id=1194, 453.695pt x 219.82124pt>
+<Images/Map1_G02.png, id=1195, 453.695pt x 219.82124pt>
 File: Images/Map1_G02.png Graphic file (type png)
 
 <use Images/Map1_G02.png>pdfTeX warning (ext4): destination with the same ident
 ifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.583 ...n{\label{fig:Construction}Lower Envelope}
+l.590 ...n{\label{fig:Construction}Lower Envelope}
                                                   
-<Images/Map1_G01.png, id=1195, 247.92625pt x 163.61125pt>
+<Images/Map1_G01.png, id=1196, 247.92625pt x 163.61125pt>
 File: Images/Map1_G01.png Graphic file (type png)
 
 <use Images/Map1_G01.png>pdfTeX warning (ext4): destination with the same ident
 ifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.591 ...n{\label{fig:Construction}Lower Envelope}
+l.598 ...n{\label{fig:Construction}Lower Envelope}
                                                    [44
 
  <./Images/HypothesisScenario1.png>] [45
@@ -1131,29 +1143,29 @@ e same identifier (name{fig:Construction}) has been already used, duplicate ign
 ored
 <to be read again> 
                    \relax 
-l.649 ...Construction}Map Polygon with Hypotheses}
+l.656 ...Construction}Map Polygon with Hypotheses}
                                                   
 File: Images/Map1_G02.png Graphic file (type png)
  <use Images/Map1_G02.png>pdfTeX warning (ext4): destination with the same iden
 tifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.656 ...l{fig:Construction}$G_{02}$ and $F_{02}$}
+l.663 ...l{fig:Construction}$G_{02}$ and $F_{02}$}
                                                   
 File: Images/Map1_G01.png Graphic file (type png)
  <use Images/Map1_G01.png>pdfTeX warning (ext4): destination with the same iden
 tifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.663 ...l{fig:Construction}$G_{01}$ and $F_{01}$}
+l.670 ...l{fig:Construction}$G_{01}$ and $F_{01}$}
                                                   
-<Images/Ki.png, id=1355, 91.34125pt x 62.2325pt>
+<Images/Ki.png, id=1356, 91.34125pt x 62.2325pt>
 File: Images/Ki.png Graphic file (type png)
  <use Images/Ki.png>pdfTeX warning (ext4): destination with the same identifier
  (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.670 \caption{\label{fig:Construction} $K_{1}$}
+l.677 \caption{\label{fig:Construction} $K_{1}$}
                                                  [50
 
 ] [51
@@ -1170,7 +1182,7 @@ l.670 \caption{\label{fig:Construction} $K_{1}$}
 ] [55
 
 ]
-<Images/reference.png, id=1515, 515.9275pt x 323.2075pt>
+<Images/reference.png, id=1516, 515.9275pt x 323.2075pt>
 File: Images/reference.png Graphic file (type png)
 
 <use Images/reference.png> [56
@@ -1181,23 +1193,23 @@ File: Images/reference.png Graphic file (type png)
 
 
 ]
-<Images/reference1.png, id=1597, 395.32307pt x 263.13692pt>
+<Images/reference1.png, id=1598, 395.32307pt x 263.13692pt>
 File: Images/reference1.png Graphic file (type png)
 
 <use Images/reference1.png>pdfTeX warning (ext4): destination with the same ide
 ntifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.773 ...blue color and hypotheses in green color}
+l.780 ...blue color and hypotheses in green color}
                                                   
-<Images/reference2.png, id=1598, 531.9875pt x 353.32pt>
+<Images/reference2.png, id=1599, 531.9875pt x 353.32pt>
 File: Images/reference2.png Graphic file (type png)
 
 <use Images/reference2.png>pdfTeX warning (ext4): destination with the same ide
 ntifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.780 ...blue color and hypotheses in green color}
+l.787 ...blue color and hypotheses in green color}
                                                    [59
 
  <./Images/reference1.png>] [60
@@ -1225,10 +1237,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13627 strings out of 495061
- 240552 string characters out of 1182621
- 327761 words of memory out of 3000000
- 16273 multiletter control sequences out of 15000+50000
+ 13629 strings out of 495061
+ 240557 string characters out of 1182620
+ 327535 words of memory out of 3000000
+ 16274 multiletter control sequences out of 15000+50000
  16721 words of font info for 62 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  45i,15n,51p,323b,539s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1244,9 +1256,9 @@ hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/share/texmf
 nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/p
 ublic/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
 ts/symbols/msam10.pfb>
-Output written on ppt.pdf (61 pages, 711969 bytes).
+Output written on ppt.pdf (61 pages, 712982 bytes).
 PDF statistics:
- 1757 PDF objects out of 2073 (max. 8388607)
+ 1758 PDF objects out of 2073 (max. 8388607)
  136 named destinations out of 1000 (max. 500000)
- 148 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 153 words of extra memory for PDF output out of 10000 (max. 10000000)
 
