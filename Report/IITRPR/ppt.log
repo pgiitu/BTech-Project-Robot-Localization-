@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.21)  9 APR 2012 01:23
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.21)  9 APR 2012 02:34
 entering extended mode
  %&-line parsing enabled.
 **ppt.tex
@@ -718,23 +718,26 @@ LaTeX Warning: Label `fig:Construction' multiply defined.
 
 LaTeX Warning: Label `fig:Construction' multiply defined.
 
+
+LaTeX Warning: Label `fig:Construction' multiply defined.
+
 )
 \openout1 = `ppt.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
  (/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count160
@@ -789,7 +792,7 @@ driver: pdftex
 
 (1in=72.27pt, 1cm=28.45pt)
 -----------------------
-Package hyperref Info: Link coloring OFF on input line 17.
+Package hyperref Info: Link coloring OFF on input line 18.
 (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
@@ -798,8 +801,8 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
 \c@section@level=\count165
 )
-LaTeX Info: Redefining \ref on input line 17.
-LaTeX Info: Redefining \pageref on input line 17.
+LaTeX Info: Redefining \ref on input line 18.
+LaTeX Info: Redefining \pageref on input line 18.
  (./ppt.out)
 (./ppt.out)
 \@outlinefile=\write4
@@ -807,47 +810,47 @@ LaTeX Info: Redefining \pageref on input line 17.
 
 \AtBeginShipoutBox=\box56
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 17.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 18.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 17.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 18.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 17.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 17.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 17.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 17.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 18.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 17.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 17.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 17.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 18.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 17.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 17.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 17.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 18.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 17.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 17.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 18.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 17.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 18.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 17.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 17.
+(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 17.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 17.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 17.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 18.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 17.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 18.
 
 (/usr/share/texmf-texlive/tex/latex/translator/translator-theorem-dictionary-En
 glish.dict
@@ -857,28 +860,28 @@ File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
 ) (./ppt.nav)
 
 LaTeX Font Warning: Font shape `OT1/cmss/bx/n' in size <4> not available
-(Font)              size <5> substituted on input line 18.
+(Font)              size <5> substituted on input line 19.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 18.
+(Font)              size <5> substituted on input line 19.
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 45.
+LaTeX Font Info:    Try loading font information for U+msa on input line 46.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 45.
+LaTeX Font Info:    Try loading font information for U+msb on input line 46.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-<Images/Map.png, id=69, 432.61626pt x 211.79124pt>
+<Images/Map.png, id=70, 432.61626pt x 211.79124pt>
 File: Images/Map.png Graphic file (type png)
  <use Images/Map.png>
 [3
@@ -912,7 +915,7 @@ y\040Polygon\040of\040Point}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.133 }
+l.134 }
         <./Images/VisibilityPointOffice.png>] [11
 
 ]
@@ -935,7 +938,7 @@ File: Images/visibilitygraph.png Graphic file (type png)
 e identifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.207 ...label{fig:Construction} Visibility Graph}
+l.208 ...label{fig:Construction} Visibility Graph}
                                                    [16
 
 ] [17
@@ -950,7 +953,7 @@ e identifier (name{fig:Visibility\040Polygon\040of\040Edge}) has been already u
 sed, duplicate ignored
 <to be read again> 
                    \relax 
-l.223 }
+l.224 }
         [18
 
  <./Images/VisibilityLine1.png>]
@@ -962,7 +965,7 @@ e identifier (name{fig:Visibility\040Polygon\040of\040Edge}) has been already u
 sed, duplicate ignored
 <to be read again> 
                    \relax 
-l.235 }
+l.236 }
         [19
 
  <./Images/VisibilityLine2.png>] [20
@@ -983,7 +986,7 @@ File: Images/Hypothesis_office.png Graphic file (type png)
 File: Images/HypothesisOfficeAnti.png Graphic file (type png)
 
 <use Images/HypothesisOfficeAnti.png>
-Overfull \hbox (15.5104pt too wide) in paragraph at lines 323--324
+Overfull \hbox (15.5104pt too wide) in paragraph at lines 324--325
  [] 
  []
 
@@ -997,7 +1000,7 @@ s\040Generation}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.328 }
+l.329 }
         <./Images/HypothesisOfficeAnti.png>] [26
 
 ] [27
@@ -1012,7 +1015,7 @@ same identifier (name{fig:Construction}) has been already used, duplicate ignor
 ed
 <to be read again> 
                    \relax 
-l.374 }
+l.375 }
         [28
 
  <./Images/MajorityMapExample.png (PNG copy)>] [29
@@ -1038,7 +1041,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{fig:Majority\
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.429 }
+l.430 }
         <./Images/MajorityMapScenario4.png (PNG copy)>] [33
 
 ]
@@ -1074,7 +1077,7 @@ File: Images/F12.png Graphic file (type png)
 r (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.548 \caption{\label{fig:Construction}$F_{12}$}
+l.549 \caption{\label{fig:Construction}$F_{12}$}
                                                  [40
 
 ] [41
@@ -1088,7 +1091,7 @@ File: Images/LowerEnvelope.png Graphic file (type png)
 identifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.564 ...n{\label{fig:Construction}Lower Envelope}
+l.565 ...n{\label{fig:Construction}Lower Envelope}
                                                    [42
 
  <./Images/LowerEnvelope.png>] [43
@@ -1102,7 +1105,7 @@ File: Images/HypothesisScenario1.png Graphic file (type png)
 red
 <to be read again> 
                    \relax 
-l.582 ...n{\label{fig:Construction}Lower Envelope}
+l.583 ...n{\label{fig:Construction}Lower Envelope}
                                                   
 <Images/Map1_G02.png, id=1195, 453.695pt x 219.82124pt>
 File: Images/Map1_G02.png Graphic file (type png)
@@ -1111,7 +1114,7 @@ File: Images/Map1_G02.png Graphic file (type png)
 ifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.590 ...n{\label{fig:Construction}Lower Envelope}
+l.591 ...n{\label{fig:Construction}Lower Envelope}
                                                   
 <Images/Map1_G01.png, id=1196, 247.92625pt x 163.61125pt>
 File: Images/Map1_G01.png Graphic file (type png)
@@ -1120,7 +1123,7 @@ File: Images/Map1_G01.png Graphic file (type png)
 ifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.598 ...n{\label{fig:Construction}Lower Envelope}
+l.599 ...n{\label{fig:Construction}Lower Envelope}
                                                    [44
 
  <./Images/HypothesisScenario1.png>] [45
@@ -1143,21 +1146,21 @@ e same identifier (name{fig:Construction}) has been already used, duplicate ign
 ored
 <to be read again> 
                    \relax 
-l.656 ...Construction}Map Polygon with Hypotheses}
+l.657 ...Construction}Map Polygon with Hypotheses}
                                                   
 File: Images/Map1_G02.png Graphic file (type png)
  <use Images/Map1_G02.png>pdfTeX warning (ext4): destination with the same iden
 tifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.663 ...l{fig:Construction}$G_{02}$ and $F_{02}$}
+l.664 ...l{fig:Construction}$G_{02}$ and $F_{02}$}
                                                   
 File: Images/Map1_G01.png Graphic file (type png)
  <use Images/Map1_G01.png>pdfTeX warning (ext4): destination with the same iden
 tifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.670 ...l{fig:Construction}$G_{01}$ and $F_{01}$}
+l.671 ...l{fig:Construction}$G_{01}$ and $F_{01}$}
                                                   
 <Images/Ki.png, id=1356, 91.34125pt x 62.2325pt>
 File: Images/Ki.png Graphic file (type png)
@@ -1165,7 +1168,7 @@ File: Images/Ki.png Graphic file (type png)
  (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.677 \caption{\label{fig:Construction} $K_{1}$}
+l.678 \caption{\label{fig:Construction} $K_{1}$}
                                                  [50
 
 ] [51
@@ -1187,29 +1190,38 @@ File: Images/reference.png Graphic file (type png)
 
 <use Images/reference.png> [56
 
- <./Images/reference.png>] [57
+ <./Images/reference.png>]
+<Images/refpoints.png, id=1545, 432.61626pt x 211.79124pt>
+File: Images/refpoints.png Graphic file (type png)
+
+<use Images/refpoints.png>pdfTeX warning (ext4): destination with the same iden
+tifier (name{fig:Construction}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.772 ...g:Construction} Reference Points in Grid}
+                                                   [57
 
 ] [58
 
 
-]
-<Images/reference1.png, id=1598, 395.32307pt x 263.13692pt>
+ <./Images/refpoints.png (PNG copy)>] <Images/reference1.png, id=1599, 395.3230
+7pt x 263.13692pt>
 File: Images/reference1.png Graphic file (type png)
 
 <use Images/reference1.png>pdfTeX warning (ext4): destination with the same ide
 ntifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.780 ...blue color and hypotheses in green color}
+l.789 ...blue color and hypotheses in green color}
                                                   
-<Images/reference2.png, id=1599, 531.9875pt x 353.32pt>
+<Images/reference2.png, id=1600, 531.9875pt x 353.32pt>
 File: Images/reference2.png Graphic file (type png)
 
 <use Images/reference2.png>pdfTeX warning (ext4): destination with the same ide
 ntifier (name{fig:Construction}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.787 ...blue color and hypotheses in green color}
+l.796 ...blue color and hypotheses in green color}
                                                    [59
 
  <./Images/reference1.png>] [60
@@ -1218,6 +1230,24 @@ l.787 ...blue color and hypotheses in green color}
  <./Images/reference2.png>] (./ppt.bbl) [61
 
  </usr/share/texmf/tex/latex/beamer/base/art/beamericonarticle.pdf>]
+<Images/demo.png, id=1689, 928.46875pt x 77.28876pt>
+File: Images/demo.png Graphic file (type png)
+ <use Images/demo.png>
+[62
+
+ <./Images/demo.png (PNG copy)>]
+<Images/question.png, id=1716, 922.44624pt x 70.2625pt>
+File: Images/question.png Graphic file (type png)
+
+<use Images/question.png> [63
+
+ <./Images/question.png (PNG copy)>]
+<Images/thankyou.png, id=1742, 922.44624pt x 71.26625pt>
+File: Images/thankyou.png Graphic file (type png)
+
+<use Images/thankyou.png> [64
+
+ <./Images/thankyou.png (PNG copy)>]
 \tf@nav=\write5
 \openout5 = `ppt.nav'.
 
@@ -1237,10 +1267,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13629 strings out of 495061
- 240557 string characters out of 1182620
- 327535 words of memory out of 3000000
- 16274 multiletter control sequences out of 15000+50000
+ 13664 strings out of 495061
+ 241125 string characters out of 1182620
+ 328653 words of memory out of 3000000
+ 16299 multiletter control sequences out of 15000+50000
  16721 words of font info for 62 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  45i,15n,51p,323b,539s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1256,9 +1286,9 @@ hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/share/texmf
 nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/p
 ublic/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
 ts/symbols/msam10.pfb>
-Output written on ppt.pdf (61 pages, 712982 bytes).
+Output written on ppt.pdf (64 pages, 743216 bytes).
 PDF statistics:
- 1758 PDF objects out of 2073 (max. 8388607)
- 136 named destinations out of 1000 (max. 500000)
- 153 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1841 PDF objects out of 2073 (max. 8388607)
+ 142 named destinations out of 1000 (max. 500000)
+ 173 words of extra memory for PDF output out of 10000 (max. 10000000)
 
