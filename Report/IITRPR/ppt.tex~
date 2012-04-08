@@ -20,7 +20,7 @@
 \frame
 {
   \frametitle{Acknowledgement}
-We would like to acknowledege Assistant Professor Apurva Mudgal for helping us understand the difficult Robot Localization Algorithm.
+We would like to thank Doctor Apurva Mudgal for helping us understand the difficult Robot Localization Algorithm.
  His supervision made it appear all very easy.
  We are also thankful to the ever enthusiastic CGAL community for helping us with the various CGAL issues.
 
@@ -694,7 +694,7 @@ The robot localizes to its actual position $h \in H$
   \STATE Compute the polygons $G_{ij}$ for each pair of hypotheses, $h_{i}$ and $h_{j}$
   \STATE Compute the majority rule map $K_{i}$ of $G_{ij}$'s
   \STATE {\bf Find the edges on the boundary of $K_{i}$ which are not on the boundary of $P_{maj}$ }
-  \STATE Draw grids and compute the set of coordinates $Q_{H}$ on these edges.
+  \STATE {\bf Draw grids and compute the set of coordinates $Q_{H}$ on these edges. }
   \STATE Make instance $I_{P,H}$  of $\frac{1}{2}$ -Group Steiner Problem
   \STATE Solve $I_{P,H}$ to compute a half computing path $C \subset P_{maj}$
   \STATE Half-Localize by tracing $C $ and making observations at coordinates $Q_{H}$
