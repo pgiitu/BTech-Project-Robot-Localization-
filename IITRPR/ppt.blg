@@ -1,0 +1,76 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: ppt.aux
+The style file: plainnat.bst
+Database file #1: References/references.bib
+Too many commas in name 1 of "Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan" for entry key3
+while executing---line 1347 of file plainnat.bst
+Too many commas in name 1 of "Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan" for entry key3
+while executing---line 1347 of file plainnat.bst
+Too many commas in name 1 of "Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan" for entry key3
+while executing---line 1347 of file plainnat.bst
+Too many commas in name 1 of "Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan" for entry key3
+while executing---line 1347 of file plainnat.bst
+Too many commas in name 1 of "Apurva Mudgal, Sven Koenig, Joseph S. B. Mitchell, Craig Tovey" for entry key1
+while executing---line 1347 of file plainnat.bst
+Too many commas in name 1 of "Apurva Mudgal, Sven Koenig, Joseph S. B. Mitchell, Craig Tovey" for entry key1
+while executing---line 1347 of file plainnat.bst
+Warning--to sort, need author or key in BOOST
+Warning--empty year in BOOST
+Too many commas in name 1 of "Apurva Mudgal, Sven Koenig, Joseph S. B. Mitchell, Craig Tovey" for entry key1
+while executing---line 1429 of file plainnat.bst
+Too many commas in name 1 of "Apurva Mudgal, Sven Koenig, Joseph S. B. Mitchell, Craig Tovey" for entry key1
+while executing---line 1429 of file plainnat.bst
+Warning--empty journal in key5
+Too many commas in name 1 of "Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan" for entry key3
+while executing---line 1429 of file plainnat.bst
+Too many commas in name 1 of "Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan" for entry key3
+while executing---line 1429 of file plainnat.bst
+Too many commas in name 1 of "Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan" for entry key3
+while executing---line 1429 of file plainnat.bst
+Too many commas in name 1 of "Guibas, Hershberger, Daniel Leven, Micha Sharir, Robert E. Tarjan" for entry key3
+while executing---line 1429 of file plainnat.bst
+Warning--empty journal in key3
+Warning--empty year in key3
+Warning--empty year in key3
+You've used 4 entries,
+            2773 wiz_defined-function locations,
+            606 strings with 5266 characters,
+and the built_in function-call counts, 1147 in all, are:
+= -- 93
+> -- 30
+< -- 3
++ -- 13
+- -- 9
+* -- 65
+:= -- 168
+add.period$ -- 9
+call.type$ -- 4
+change.case$ -- 14
+chr.to.int$ -- 4
+cite$ -- 15
+duplicate$ -- 72
+empty$ -- 126
+format.name$ -- 12
+if$ -- 238
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 3
+newline$ -- 25
+num.names$ -- 12
+pop$ -- 53
+preamble$ -- 1
+purify$ -- 11
+quote$ -- 0
+skip$ -- 49
+stack$ -- 0
+substring$ -- 9
+swap$ -- 2
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 44
+warning$ -- 6
+while$ -- 9
+width$ -- 0
+write$ -- 46
+(There were 12 error messages)
